@@ -26,4 +26,5 @@ Collate:
     'calendars.R'
     'differencing.R'
     'distributions.R'
+    'tests.R'
     'zzz.R'

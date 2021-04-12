@@ -2,16 +2,30 @@
 % Please edit documentation in R/differencing.R
 \name{do.stationary}
 \alias{do.stationary}
-\title{Title}
+\title{Automatic stationary transformation}
 \usage{
 do.stationary(data, period)
 }
 \arguments{
-\item{period}{}
+\item{data}{Series being differenced}
+
+\item{period}{Period of the series}
 }
 \value{
-
+Stationary transformation
+\itemize{
+\item ddata: data after differencing
+\item mean: mean correction
+\item differences:
+\itemize{
+\item lag: ddata(t)=data(t)-data(t-lag)
+\item order: order of the differencing
+}
+}
 }
 \description{
-Title
+Stationary transformation of a series by simple differencing of lag 1.
+Automatic processing (identification of the order of the differencing) based on auto-correlations and on mean correction.
+The series should not be seasonal.
+Source: Tramo
 }

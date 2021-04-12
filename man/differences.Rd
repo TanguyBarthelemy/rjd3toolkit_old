@@ -2,16 +2,24 @@
 % Please edit documentation in R/differencing.R
 \name{differences}
 \alias{differences}
-\title{Title}
+\title{Differencing of a series}
 \usage{
 differences(data, lags = 1, mean = T)
 }
 \arguments{
-\item{mean}{}
+\item{data}{The series to be differenced}
+
+\item{lags}{Lags of the differencing}
+
+\item{mean}{Mean correction}
 }
 \value{
-
+The differenced series
 }
 \description{
-Title
+Differencing of a series
+}
+\examples{
+differences(retail$BookStores, c(1,1,12), F)
+
 }

@@ -85,5 +85,23 @@ enum_of<-function(type, code, prefix){
   i<-type$value(name=paste(prefix, code, sep='_'))$number()
 }
 
+jd2r_test<-function(jtest){
+  if (is.jnull(jtest))
+    return (NULL)
+  else{
+    desc<-.jcall(jtest, "S", "getDescription")
+    val<-.jcall(jtest, "D", "getValue")
+    pval<-.jcall(jtest, "D", "getPvalue")
+    return (list(value=val, pvalue=pval, distribution=desc))
+  }
+}
+
+p2r_test<-function(p){
+  if (is.null(p))
+    return (NULL)
+  else{
+    return (p$as.list())
+  }
+}
 
 
