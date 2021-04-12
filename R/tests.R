@@ -76,3 +76,33 @@ autocorrelations.inverse<-function(data, nar=30, n=15){
   return (.jcall("demetra/stats/r/Tests", "[D", "inverseAutocorrelations",
                 as.numeric(data), as.integer(nar), as.integer(n)))
 }
+
+#' Title
+#'
+#' @param data
+#' @param mean
+#' @param n
+#'
+#' @return
+#' @export
+#'
+#' @examples
+autocorrelations.partial<-function(data, mean=T, n=15){
+  return (.jcall("demetra/stats/r/Tests", "[D", "partialAutocorrelations",
+                 as.numeric(data), as.logical(mean), as.integer(n)))
+}
+
+#' Title
+#'
+#' @param data
+#' @param mean
+#' @param n
+#'
+#' @return
+#' @export
+#'
+#' @examples
+autocorrelations<-function(data, mean=T, n=15){
+  return (.jcall("demetra/stats/r/Tests", "[D", "autocorrelations",
+                 as.numeric(data), as.logical(mean), as.integer(n)))
+}

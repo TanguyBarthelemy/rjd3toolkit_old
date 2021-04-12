@@ -205,3 +205,5 @@ densityInverseGaussian<-function(shape, scale, x){
 cdfInverseGaussian<-function(shape, scale, x){
   .jcall("demetra/stats/r/Distributions", "[D", "cdfInverseGaussian", shape, scale, x)
 }
+
+

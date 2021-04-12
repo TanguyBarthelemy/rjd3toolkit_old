@@ -242,3 +242,38 @@ longTermMean<-function(calendar,frequency,groups=c(1,2,3,4,5,6,0)){
   return (matrix_jd2r(jm))
 }
 
+#' Title
+#'
+#' @param year0
+#' @param year1
+#' @param julian
+#'
+#' @return
+#' @export
+#'
+#' @examples
+easter.dates<-function(year0, year1, julian=F){
+  dates<-.jcall("demetra/calendar/r/Calendars", "[S", "easter", as.integer(year0), as.integer(year1), as.logical(julian))
+  return (sapply(dates, as.Date))
+}
+
+#' Title
+#'
+#' @param frequency
+#' @param start
+#' @param length
+#' @param duration
+#' @param endpos
+#' @param correction
+#'
+#' @return
+#' @export
+#'
+#' @examples
+easter.variable<-function(frequency, start, length, duration, endpos=-1, correction=c("Simple", "PreComputed", "Theoretical", "None")){
+  correction<-match.arg(correction)
+  jdom<-tsdomain_r2jd(frequency, start[1], start[2], length)
+  return (.jcall("demetra/calendar/r/Calendars", "[D", "easter", jdom, as.integer(duration), as.integer(endpos), correction))
+}
+
+

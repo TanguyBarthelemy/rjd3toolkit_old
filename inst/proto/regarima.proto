@@ -1,29 +1,11 @@
 syntax = "proto3";
 import public "toolkit.proto";
+import public "modelling.proto";
 
 package regarima;
 
 option java_package = "demetra.regarima.io.protobuf";
 option java_outer_classname = "RegArimaProtos";
-
-enum Transformation {
-    FN_LEVEL = 0;
-	FN_LOG = 1;
-    FN_AUTO = 10;
-}
-
-enum LengthOfPeriod{
-	LP_NONE = 0;
-	LP_LEAPYEAR = 1;
-	LP_LENGTHOFPERIOD = 2;
-}
-
-enum TradingDays{
-	TD_NONE = 0;
-	TD_WEEK = 1;
-	TD_3 = 2;
-	TD_FULL = 3;
-}
 
 message SarimaSpec{
 	int32 period = 1;
@@ -35,60 +17,31 @@ message SarimaSpec{
 	repeated jd3.Parameter btheta = 7;
 }
 
-message TsVariable{
-    string name = 1;
-	string id = 2;
-    int32 first_lag = 3;
-	int32 last_lag = 4;
-	repeated jd3.Parameter coefficient = 5;
-	map<string, string> metadata = 6;
-}
+message RegArimaModel{
 
-message Ramp{
-    string name = 1;
-	jd3.Date start = 2;
-	jd3.Date end = 3;
-	jd3.Parameter coefficient = 5;
-	map<string, string> metadata = 6;
-}
-
-message Outlier{
-    string name = 1;
-	string code = 2;
-	jd3.Date position = 3;
-	jd3.Parameter coefficient = 5;
-	map<string, string> metadata = 6;
-}
-
-message InterventionVariable{
-	message Sequence{
-		jd3.Date start = 1;
-		jd3.Date end = 2;
-	}
-    
-    string name = 1;
-	repeated Sequence sequences = 2;
-	double delta = 3;
-	double seasonal_delta = 4;
-	jd3.Parameter coefficient = 5;
-	map<string, string> metadata = 6;
-}
-
-/*
-This message describes the transformations to get a stationary series
-*/
-message StationaryTransformation{
-	
-	message Differencing{
-		int32 lag = 1;
-		int32 order = 2;
+	message Description{
+		jd3.TsData series = 1;
+		bool log = 2;
+		modelling.LengthOfPeriod preadjustment = 3;
+		bool mean = 4;
+		repeated modelling.RegressionVariable variables = 5;
+		SarimaSpec arima = 6;
 	}
 	
-	bool mean_correction = 1;
-	repeated Differencing differences = 2;
+	message Estimation{
+		/* Model  y = Xb + u */
+		repeated double y =1;
+		jd3.Matrix x = 2;
+		repeated double b = 3;
+		jd3.Matrix bcovariance = 4;
+		jd3.ParametersEstimation parameters = 5;
+		jd3.LikelihoodStatistics likelihood = 6;
+		repeated double residuals = 7;
+		repeated modelling.MissingEstimation missings = 8;
+	}
 	
-	// The length of the stationary series should be identical to the length of the original series, 
-	// with missing values (NaN) at the beginning
-	repeated double stationary_series = 3;
+	Description description = 1;
+	Estimation estimation = 2;
+	modelling.Diagnostics diagnostics = 5;	
 }
 
