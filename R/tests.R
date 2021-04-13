@@ -1,4 +1,4 @@
-#' @include utils.R
+#' @include jd3_r.R
 NULL
 
 #' Title
@@ -59,6 +59,37 @@ doornikhansen<-function(data){
 jarquebera<-function(data, k=0, sample=T){
   jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "jarqueBera",
                 as.numeric(data), as.integer(k), as.logical(sample))
+  return (jd2r_test(jtest))
+}
+
+#' Runs test around the mean or the median
+#'
+#' @param data Data being tested
+#' @param mean If True, runs around the mean. Otherwise, runs around the median
+#' @param number If True, test the number of runs. Otherwise, test the lengths of the runs
+#'
+#' @return
+#' @export
+#'
+#' @examples
+testofruns<-function(data, mean=T, number=T){
+  jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "testOfRuns",
+                as.numeric(data), as.logical(mean), as.logical(number))
+  return (jd2r_test(jtest))
+}
+
+#' Up and down runs test
+#'
+#' @param data
+#' @param number If True, test the number of runs. Otherwise, test the lengths of the runs
+#'
+#' @return
+#' @export
+#'
+#' @examples
+testofupdownruns<-function(data, number=T){
+  jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "testOfUpDownsRuns",
+                as.numeric(data), as.logical(number))
   return (jd2r_test(jtest))
 }
 

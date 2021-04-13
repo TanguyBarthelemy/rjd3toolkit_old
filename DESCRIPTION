@@ -22,9 +22,7 @@ RoxygenNote: 7.1.1
 BugReports: https://github.com/jdemetra/rjdemetra3/issues
 Encoding: UTF-8
 Collate: 
-    'utils.R'
-    'calendars.R'
-    'differencing.R'
     'distributions.R'
+    'jd3_r.R'
     'tests.R'
     'zzz.R'
