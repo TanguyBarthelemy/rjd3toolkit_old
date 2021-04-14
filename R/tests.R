@@ -1,5 +1,17 @@
-#' @include jd3_r.R
+#' @include utils.R
 NULL
+
+jd2r_test<-function(jtest){
+  if (is.jnull(jtest))
+    return (NULL)
+  else{
+    desc<-.jcall(jtest, "S", "getDescription")
+    val<-.jcall(jtest, "D", "getValue")
+    pval<-.jcall(jtest, "D", "getPvalue")
+    return (statisticaltest(val, pval, desc))
+  }
+}
+
 
 #' Title
 #'

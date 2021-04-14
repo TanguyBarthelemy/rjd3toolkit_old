@@ -23,6 +23,8 @@ BugReports: https://github.com/jdemetra/rjdemetra3/issues
 Encoding: UTF-8
 Collate: 
     'distributions.R'
+    'generics.R'
     'jd3_r.R'
+    'utils.R'
     'tests.R'
     'zzz.R'
