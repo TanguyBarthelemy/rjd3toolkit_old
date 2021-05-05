@@ -92,6 +92,14 @@ message MissingEstimation{
 	double stde = 11;
 }
 
+message Component{
+	jd3.TsData data = 1;
+	/* The length of stde should be the same as the length of data */
+	repeated double stde = 2;
+	int32 nbcasts = 3; 
+	int32 nfcasts = 4;
+}
+
 message Diagnostics{
 
 	map<string, jd3.StatisticalTest> residuals_tests = 1;
