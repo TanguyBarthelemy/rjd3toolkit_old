@@ -140,6 +140,24 @@ message LikelihoodStatistics{
 	double ssq = 13;
 }
 
+message DiffuseLikelihoodStatistics{
+	int32 nobs = 1;
+	int32 ndiffuse = 2;
+	int32 nparams = 3;
+	int32 degrees_of_freedom = 4;
+	double log_likelihood = 5;
+	double adjusted_log_likelihood = 6;
+	double aic = 7;
+	double aicc = 8;
+	double bic = 9;
+	double ssq = 13;
+	double ssqerr = 14;
+	double ldet = 15;
+	double dcorrection = 16;
+}
+
+
+
 message NIIDTests{
 	/* Normality */
 	StatisticalTest mean = 1;
