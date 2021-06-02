@@ -1,3 +1,5 @@
+#' @export
+.JD3_ENV<-new.env(emptyenv())
 
 
 .onLoad <- function(libname, pkgname) {
@@ -17,5 +19,14 @@
 
   proto.dir <- system.file("proto", package = pkgname)
   readProtoFiles2(protoPath = proto.dir)
+
+  .JD3_ENV$enum_extract<-enum_extract
+  .JD3_ENV$enum_of<-enum_of
+  .JD3_ENV$jd2r_test<-jd2r_test
+  .JD3_ENV$matrix_jd2r<-matrix_jd2r
+  .JD3_ENV$matrix_r2jd<-matrix_r2jd
+  .JD3_ENV$ts_jd2r<-ts_jd2r
+  .JD3_ENV$ts_r2jd<-ts_r2jd
+  .JD3_ENV$tsdomain_r2jd<-tsdomain_r2jd
 }
 

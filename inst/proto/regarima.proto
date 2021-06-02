@@ -23,9 +23,8 @@ message RegArimaModel{
 		jd3.TsData series = 1;
 		bool log = 2;
 		modelling.LengthOfPeriod preadjustment = 3;
-		bool mean = 4;
-		repeated modelling.RegressionVariable variables = 5;
-		SarimaSpec arima = 6;
+		repeated modelling.RegressionVariable variables = 4;
+		SarimaSpec arima = 5;
 	}
 	
 	message Estimation{
