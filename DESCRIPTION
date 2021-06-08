@@ -1,7 +1,7 @@
 Package: rjd3toolkit
 Type: Package
 Title: Interface to 'JDemetra+ 3.0' Seasonal Adjustment Software
-Version: 0.0.5
+Version: 0.0.6
 Authors@R: c(
   person("Jean", "Palate", role = c("aut", "cre"),
                 email = "jean.palate@nbb.be"))
@@ -27,6 +27,8 @@ Collate:
     'protobuf.R'
     'utils.R'
     'jd2r.R'
+    'jd3rslts.R'
     'likelihood.R'
+    'procresults.R'
     'tests.R'
     'zzz.R'
