@@ -31,4 +31,5 @@ Collate:
     'likelihood.R'
     'procresults.R'
     'tests.R'
+    'timeseries.R'
     'zzz.R'

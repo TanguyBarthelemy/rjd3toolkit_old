@@ -3,6 +3,7 @@
 S3method(diagnostics,JD3)
 S3method(print,JD3TEST)
 export(.JD3_ENV)
+export(aggregate)
 export(autocorrelations)
 export(autocorrelations.inverse)
 export(autocorrelations.partial)
