@@ -4,7 +4,7 @@
 \alias{print.JD3_TEST}
 \title{Title}
 \usage{
-\method{print}{JD3_TEST}(test, details = F)
+\method{print}{JD3_TEST}(x, details = FALSE, ...)
 }
 \arguments{
 \item{details}{}

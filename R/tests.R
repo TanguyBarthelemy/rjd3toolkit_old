@@ -30,11 +30,11 @@ statisticaltest<-function(val, pval, dist=NULL){
 #' @export
 #'
 #' @examples
-print.JD3_TEST<-function(test, details=F){
-  cat('Value: ', test$value, '\n')
-  cat('P-Value: ', sprintf('%.4f', test$pvalue), '\n')
+print.JD3_TEST<-function(x, details=FALSE, ...){
+  cat('Value: ', x$value, '\n')
+  cat('P-Value: ', sprintf('%.4f', x$pvalue), '\n')
   if (details){
-    dist=attr(test, "distribution")
+    dist=attr(x, "distribution")
     if (! is.null(dist)){
       cat('[', dist, ']\n')
     }
