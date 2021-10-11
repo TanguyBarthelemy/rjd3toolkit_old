@@ -1,6 +1,7 @@
+#' @import rJava
+#' @importFrom RProtoBuf readProtoFiles2
 #' @export
 .JD3_ENV<-new.env(emptyenv())
-
 
 .onLoad <- function(libname, pkgname) {
   # For debugging: to see if Jars are effectively loaded
