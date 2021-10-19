@@ -1,4 +1,5 @@
 #' @include utils.R
+#' @importFrom "stats" "frequency" "ts"
 NULL
 
 enum_extract<-function(type, p){
