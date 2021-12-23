@@ -2,6 +2,14 @@
 #' @importFrom "stats" "frequency" "ts"
 NULL
 
+enum_sextract<-function(type, p){
+  return (type$value(number=p)$name())
+}
+
+enum_sof<-function(type, code){
+  return (type$value(name=code)$number())
+}
+
 enum_extract<-function(type, p){
   name<-type$value(number=p)$name()
   return (substring(name, regexpr("_", name)+1))

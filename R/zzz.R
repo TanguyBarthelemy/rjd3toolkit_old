@@ -46,6 +46,8 @@
 
   .JD3_ENV$enum_extract<-enum_extract
   .JD3_ENV$enum_of<-enum_of
+  .JD3_ENV$enum_sextract<-enum_sextract
+  .JD3_ENV$enum_sof<-enum_sof
   .JD3_ENV$p2r_matrix<-p2r_matrix
   .JD3_ENV$p2r_ts<-p2r_ts
   .JD3_ENV$p2r_test<-p2r_test

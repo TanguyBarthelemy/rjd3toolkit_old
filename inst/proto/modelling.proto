@@ -20,9 +20,23 @@ enum LengthOfPeriod{
 
 enum TradingDays{
 	TD_NONE = 0;
-	TD_WEEK = 1;
-	TD_3 = 2;
-	TD_FULL = 3;
+	/*
+	mon-fri + sat-sun
+	*/
+	TD2 = 1;
+	/*
+	mon-fri + sat + sun
+	*/
+	TD3 = 2;
+	/*
+	mon-thu + fri-sat + sun
+	*/
+	TD3C = 3;
+	/*
+	mon-thu + fri + sat + sun
+	*/
+	TD4 = 4;
+	TD7 = 5;
 }
 
 message TsVariable{
