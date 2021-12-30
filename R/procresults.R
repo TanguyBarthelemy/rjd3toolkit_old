@@ -84,7 +84,11 @@ setMethod("dictionary", "JD3_ProcResults", function(object){
   if (is.null(object@internal)){
     NULL
   }else{
-    proc_dictionary(.jclass(object@internal))
+    if (.jinstanceof(object@internal, "demetra/information/Explorable")){
+      proc_dictionary2(object@internal)
+    }else{
+      proc_dictionary(.jclass(object@internal))
+    }
   }
 
 })

@@ -40,6 +40,7 @@
   .JD3_ENV$proc_matrix<-proc_matrix
   .JD3_ENV$proc_data<-proc_data
   .JD3_ENV$proc_dictionary<-proc_dictionary
+  .JD3_ENV$proc_dictionary2<-proc_dictionary2
   .JD3_ENV$proc_likelihood<-proc_likelihood
 
   # perhaps to put in another environment

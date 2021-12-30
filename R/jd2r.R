@@ -32,9 +32,11 @@ ts_jd2r<-function(s){
   if (is.null(s)){
     return (NULL)
   }
-  pstart<-.jcall("demetra/timeseries/r/TsUtility", "[I", "startPeriod", s)
   jx<-.jcall(s, "Ldemetra/data/DoubleSeq;", "getValues")
   x<-.jcall(jx, "[D", "toArray")
+  if (is.null(x)) return (NULL)
+  if (length(x) == 0) return (NULL)
+  pstart<-.jcall("demetra/timeseries/r/TsUtility", "[I", "startPeriod", s)
   ts(x,start=pstart[2:3], frequency=pstart[1])
 }
 
