@@ -262,7 +262,7 @@ enum CalendarEvent{
     /**
      * November, 1
      */
-    HOLIDAY_ALLSAINTDAY = 18;
+    HOLIDAY_ALLSAINTSDAY = 18;
     /**
      * November, 11
      */
