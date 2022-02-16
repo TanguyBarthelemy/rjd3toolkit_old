@@ -21,7 +21,7 @@ randomsT<-function(df, n){
 #'
 #' @examples
 densityT<-function(df, x){
-  .jcall("demetra/stats/r/Distributions", "[D", "densityT", df, x)
+  .jcall("demetra/stats/r/Distributions", "[D", "densityT", df, .jarray(x))
 }
 
 #' Title
@@ -34,7 +34,7 @@ densityT<-function(df, x){
 #'
 #' @examples
 cdfT<-function(df, x){
-  .jcall("demetra/stats/r/Distributions", "[D", "cdfT", df, x)
+  .jcall("demetra/stats/r/Distributions", "[D", "cdfT", df, .jarray(x))
 }
 
 #' Title

@@ -4,6 +4,8 @@
 .JD3_ENV<-new.env(emptyenv())
 
 .onLoad <- function(libname, pkgname) {
+  #suppressMessages(require(rJava, quietly = T))
+  #suppressMessages(require(RProtoBuf, quietly = T))
   # For debugging: to see if Jars are effectively loaded
   # options(java.parameters = "-verbose:class")
 
