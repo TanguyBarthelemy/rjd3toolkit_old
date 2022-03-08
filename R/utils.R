@@ -1,6 +1,3 @@
-#' @include protobuf.R
-NULL
-
 ymd<-function(y, m, d=1){
   return (as.Date(sprintf("%04i-%02i-%02i", y, m, d)))
 }
@@ -32,16 +29,6 @@ parseDate<-function(s){
   d$day<-dayOf(s)
   return (d)
 }
-
-p2r_test<-function(p){
-  if (is.null(p))
-    return (NULL)
-  else{
-    return (p$as.list())
-  }
-}
-
-
 
 
 

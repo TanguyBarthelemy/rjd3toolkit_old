@@ -1,5 +1,6 @@
 #' @include utils.R
-#' @importFrom "stats" "frequency" "ts"
+#' @import RProtoBuf
+#' @importFrom stats frequency ts
 NULL
 
 enum_sextract<-function(type, p){
@@ -91,6 +92,61 @@ p2r_ts<-function(p){
   return (s)
 }
 
+
+p2r_parameters_estimation<-function(p){
+  if (is.null(p))
+    return (NULL)
+  return (list(val=p$value, score=p$score, cov=p2r_matrix(p$covariance), description=p$description))
+}
+
+p2r_likelihood<-function(p){
+  return (likelihood(p$nobs, p$neffectiveobs, p$nparams,
+                         p$log_likelihood, p$adjusted_log_likelihood,
+                         p$aic, p$aicc, p$bic, p$bicc, p$ssq))
+}
+
+
+p2r_date<-function(p){
+  if (p$has('year')){
+    return (ymd(p$year, p$month, p$day))
+  }else{
+    return (NULL)
+  }
+}
+
+r2p_date<-function(s){
+  if (is.null(s)) return(jd3.Date$new())
+  else return (parseDate(s))
+}
+
+
+# Span
+
+p2r_span<-function(span){
+  type<-enum_extract(jd3.SelectionType, span$type)
+  dt0<-p2r_date(span$d0)
+  dt1<-p2r_date(span$d1)
+
+  return (structure(list(type=type, d0=dt0, d1=dt1, n0=span$n0, n1=span$n1), class= "JD3_SPAN"))
+}
+
+r2p_span<-function(rspan){
+  pspan<-jd3.TimeSelector$new()
+  pspan$type<-enum_of(jd3.SelectionType, rspan$type, "SPAN")
+  pspan$n0<-rspan$n0
+  pspan$n1<-rspan$n1
+  pspan$d0<-r2p_date(rspan$d0)
+  pspan$d1<-r2p_date(rspan$d1)
+  return (pspan)
+}
+
+p2r_test<-function(p){
+  if (is.null(p))
+    return (NULL)
+  else{
+    return (p$as.list())
+  }
+}
 
 
 

@@ -1,16 +1,16 @@
 Package: rjd3toolkit
 Type: Package
 Title: Interface to 'JDemetra+ 3.0' Seasonal Adjustment Software
-Version: 0.1.3
+Version: 0.2.0
 Authors@R: c(
   person("Jean", "Palate", role = c("aut", "cre"),
                 email = "jean.palate@nbb.be"))
 Description: Interface around 'JDemetra+ 3.x' toolkit (<https://github.com/jdemetra/jdemetra-core>), STACE project. 
 Depends:
-  R (>= 3.6.0),
-  rJava (>= 0.9-8),
-	RProtoBuf (>= 0.4.17)
+  R (>= 3.6.0)
 Imports:
+	RProtoBuf (>= 0.4.17),
+  rJava (>= 1.0-6),
   methods
 SystemRequirements: Java SE 8 or higher
 License: EUPL
@@ -25,12 +25,12 @@ Encoding: UTF-8
 Collate: 
     'distributions.R'
     'generics.R'
-    'protobuf.R'
     'utils.R'
     'jd2r.R'
     'jd3rslts.R'
     'likelihood.R'
     'procresults.R'
+    'protobuf.R'
     'tests.R'
     'timeseries.R'
     'zzz.R'

@@ -7,6 +7,8 @@
 #' @export
 #'
 #' @examples
+#' # T with 2 degrees of freedom. 100 randoms
+#' z<-randomsT(2, 100)
 randomsT<-function(df, n){
   .jcall("demetra/stats/r/Distributions", "[D", "randomsT", df, as.integer(n))
 }
@@ -20,8 +22,10 @@ randomsT<-function(df, n){
 #' @export
 #'
 #' @examples
+#' # T with 2 degrees of freedom.
+#' z<-densityT(2, .01*seq(-100, 100, 1))
 densityT<-function(df, x){
-  .jcall("demetra/stats/r/Distributions", "[D", "densityT", df, .jarray(x))
+  .jcall("demetra/stats/r/Distributions", "[D", "densityT", df, .jarray(as.numeric(x)))
 }
 
 #' Title
@@ -34,7 +38,7 @@ densityT<-function(df, x){
 #'
 #' @examples
 cdfT<-function(df, x){
-  .jcall("demetra/stats/r/Distributions", "[D", "cdfT", df, .jarray(x))
+  .jcall("demetra/stats/r/Distributions", "[D", "cdfT", df, .jarray(as.numeric(x)))
 }
 
 #' Title
@@ -60,7 +64,7 @@ randomsChi2<-function(df, n){
 #'
 #' @examples
 densityChi2<-function(df, x){
-  .jcall("demetra/stats/r/Distributions", "[D", "densityChi2", df, x)
+  .jcall("demetra/stats/r/Distributions", "[D", "densityChi2", df, .jarray(as.numeric(x)))
 }
 
 #' Title
@@ -73,7 +77,7 @@ densityChi2<-function(df, x){
 #'
 #' @examples
 cdfChi2<-function(df, x){
-  .jcall("demetra/stats/r/Distributions", "[D", "cdfChi2", df, x)
+  .jcall("demetra/stats/r/Distributions", "[D", "cdfChi2", df, .jarray(as.numeric(x)))
 }
 
 #' Title
@@ -101,7 +105,7 @@ randomsGamma<-function(shape, scale, n){
 #'
 #' @examples
 densityGamma<-function(shape, scale, x){
-  .jcall("demetra/stats/r/Distributions", "[D", "densityGamma", shape, scale, x)
+  .jcall("demetra/stats/r/Distributions", "[D", "densityGamma", shape, scale, .jarray(as.numeric(x)))
 }
 
 #' Title
@@ -115,7 +119,7 @@ densityGamma<-function(shape, scale, x){
 #'
 #' @examples
 cdfGamma<-function(shape, scale, x){
-  .jcall("demetra/stats/r/Distributions", "[D", "cdfGamma", shape, scale, x)
+  .jcall("demetra/stats/r/Distributions", "[D", "cdfGamma", shape, scale, .jarray(as.numeric(x)))
 }
 
 #' Title
@@ -143,7 +147,7 @@ randomsInverseGamma<-function(shape, scale, n){
 #'
 #' @examples
 densityInverseGamma<-function(shape, scale, x){
-  .jcall("demetra/stats/r/Distributions", "[D", "densityInverseGamma", shape, scale, x)
+  .jcall("demetra/stats/r/Distributions", "[D", "densityInverseGamma", shape, scale, .jarray(as.numeric(x)))
 }
 
 #' Title
@@ -157,7 +161,7 @@ densityInverseGamma<-function(shape, scale, x){
 #'
 #' @examples
 cdfInverseGamma<-function(shape, scale, x){
-  .jcall("demetra/stats/r/Distributions", "[D", "cdfInverseGamma", shape, scale, x)
+  .jcall("demetra/stats/r/Distributions", "[D", "cdfInverseGamma", shape, scale, .jarray(as.numeric(x)))
 }
 
 #' Title
@@ -185,7 +189,7 @@ randomsInverseGaussian<-function(shape, scale, n){
 #'
 #' @examples
 densityInverseGaussian<-function(shape, scale, x){
-  .jcall("demetra/stats/r/Distributions", "[D", "densityInverseGaussian", shape, scale, x)
+  .jcall("demetra/stats/r/Distributions", "[D", "densityInverseGaussian", shape, scale, .jarray(as.numeric(x)))
 }
 
 #' Title
@@ -199,7 +203,7 @@ densityInverseGaussian<-function(shape, scale, x){
 #'
 #' @examples
 cdfInverseGaussian<-function(shape, scale, x){
-  .jcall("demetra/stats/r/Distributions", "[D", "cdfInverseGaussian", shape, scale, x)
+  .jcall("demetra/stats/r/Distributions", "[D", "cdfInverseGaussian", shape, scale, .jarray(as.numeric(x)))
 }
 
 

@@ -15,3 +15,7 @@ randomsT(df, n)
 \description{
 Title
 }
+\examples{
+# T with 2 degrees of freedom. 100 randoms
+z<-randomsT(2, 100)
+}

@@ -15,3 +15,7 @@ densityT(df, x)
 \description{
 Title
 }
+\examples{
+# T with 2 degrees of freedom.
+z<-densityT(2, .01*seq(-100, 100, 1))
+}

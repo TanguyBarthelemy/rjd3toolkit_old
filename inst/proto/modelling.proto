@@ -170,6 +170,8 @@ message UcarimaModel{
    ArimaModel model = 1;
    // components
    repeated ArimaModel components = 2;
+   // complements of some components (identified by the context or by their names
+   repeated ArimaModel complements = 3;
 }
 
 message WienerKolmogorovFilter{
