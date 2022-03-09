@@ -15,3 +15,6 @@ testofupdownruns(data, number = T)
 \description{
 Up and down runs test
 }
+\examples{
+testofupdownruns(randomsT(5, 1000))
+}

@@ -1,3 +1,8 @@
+#' @importFrom rJava .jpackage .jcall .jnull .jarray .jevalArray .jcast .jcastToArray .jinstanceof is.jnull .jnew .jclass
+#' @importFrom methods is
+NULL
+
+
 ymd<-function(y, m, d=1){
   return (as.Date(sprintf("%04i-%02i-%02i", y, m, d)))
 }

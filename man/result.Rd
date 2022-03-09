@@ -4,10 +4,10 @@
 \alias{result}
 \title{Title}
 \usage{
-result(object, id, ...)
+result(object, id)
 }
 \arguments{
-\item{...}{}
+\item{id}{}
 }
 \value{
 

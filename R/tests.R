@@ -129,8 +129,9 @@ testofruns<-function(data, mean=T, number=T){
 #' @export
 #'
 #' @examples
+#' testofupdownruns(randomsT(5, 1000))
 testofupdownruns<-function(data, number=T){
-  jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "testOfUpDownsRuns",
+  jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "testOfUpDownRuns",
                 as.numeric(data), as.logical(number))
   return (jd2r_test(jtest))
 }

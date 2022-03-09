@@ -4,10 +4,10 @@
 \alias{dictionary}
 \title{Title}
 \usage{
-dictionary(object, ...)
+dictionary(object)
 }
 \arguments{
-\item{...}{}
+\item{object}{}
 }
 \value{
 
