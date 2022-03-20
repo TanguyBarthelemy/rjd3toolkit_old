@@ -12,14 +12,14 @@ jd3Object<-function(jobjRef, subclasses=NULL, result=F){
   return (structure(list(internal=jobjRef), class=classes))
 }
 
-#' Title
+#' Get Dictionary and Result
 #'
-#' @param object
+#' Extract dictionnay of a \code{"JD3_ProcResults"} object (\code{dictionary()}) and extract a specific value (\code{result()})
 #'
-#' @return
+#' @param object the object.
+#' @param id the name of the object to extract.
+#'
 #' @export
-#'
-#' @examples
 dictionary<-function(object){
   if (! is(object, RSLT))
     stop("No dictionary for this type of object")
@@ -34,15 +34,8 @@ dictionary<-function(object){
   }
 }
 
-#' Title
-#'
-#' @param object
-#' @param id
-#'
-#' @return
+#' @rdname dictionary
 #' @export
-#'
-#' @examples
 result<-function(object, id){
   if (! is(object, RSLT))
     stop("No result for this type of object")
