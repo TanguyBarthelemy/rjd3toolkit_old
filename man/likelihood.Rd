@@ -2,7 +2,7 @@
 % Please edit documentation in R/likelihood.R
 \name{likelihood}
 \alias{likelihood}
-\title{Title}
+\title{Generic Likelihood Function for JDemetra+}
 \usage{
 likelihood(
   nobs,
@@ -18,11 +18,11 @@ likelihood(
 )
 }
 \arguments{
-\item{ssq}{}
+\item{nobs, neffectiveobs, nparams, ll, adjustedll, aic, aicc, bic, bicc, ssq}{parameters.}
 }
 \value{
-
+A \code{"JD3_LIKELIHOOD"} object.
 }
 \description{
-Title
+Generic functions to format likelihood JDemetra+
 }

@@ -2,16 +2,36 @@
 % Please edit documentation in R/tests.R
 \name{statisticaltest}
 \alias{statisticaltest}
-\title{Title}
+\alias{print.JD3_TEST}
+\title{Generic Function For JDemetra+ Tests}
 \usage{
 statisticaltest(val, pval, dist = NULL)
+
+\method{print}{JD3_TEST}(x, details = FALSE, ...)
 }
 \arguments{
-\item{dist}{}
+\item{val, pval, dist}{statistical parameters.}
+
+\item{x}{the object to print.}
+
+\item{details}{boolean indicating if the statistical distribution should be printed.}
+
+\item{...}{further arguments (ignored).}
 }
 \value{
-
+\code{c("JD3_TEST", "JD3")} object that is a list of three parameters:
+\itemize{
+\item{\code{value}} the statistical value of the test
+\item{\code{pvalue}} the p-value of the test
+\item{\code{distribution}} the statistical distribution used
+}
 }
 \description{
-Title
+Generic functions to format the results of a test runs with JDemetra+
+}
+\examples{
+udr_test = testofupdownruns(randomsT(5, 1000))
+udr_test # default print
+print(udr_test, details = TRUE) # with the distribution
+
 }
