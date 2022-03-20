@@ -1,20 +1,11 @@
-#' Title
+#' Generic Likelihood Function for JDemetra+
 #'
-#' @param nobs
-#' @param neffectiveobs
-#' @param nparams
-#' @param ll
-#' @param adjustedll
-#' @param aic
-#' @param aicc
-#' @param bic
-#' @param bicc
-#' @param ssq
+#' Generic functions to format likelihood JDemetra+
 #'
-#' @return
+#' @param nobs,neffectiveobs,nparams,ll,adjustedll,aic,aicc,bic,bicc,ssq parameters.
+#'
+#' @return A \code{"JD3_LIKELIHOOD"} object.
 #' @export
-#'
-#' @examples
 likelihood<-function(nobs, neffectiveobs=NA, nparams=0, ll, adjustedll=NA, aic, aicc, bic, bicc, ssq){
 
   if (is.na(neffectiveobs)) neffectiveobs=nobs
