@@ -4,7 +4,7 @@ NULL
 
 #' Generic Function For JDemetra+ Tests
 #'
-#' Generic functions to format the results of a test runs with JDemetra+
+#' Generic function to format the results of a test runs with JDemetra+
 #'
 #' @param val,pval,dist statistical parameters.
 #' @param x the object to print.
