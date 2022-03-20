@@ -1,5 +1,4 @@
 #' @include jd2r.R
-#' @checkmate
 
 proc_numeric<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
