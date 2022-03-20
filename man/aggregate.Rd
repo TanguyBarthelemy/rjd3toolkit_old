@@ -33,6 +33,6 @@ Makes a frequency change of this series.
 s = ABS$X0.2.09.10.M
 # Annual sum
 aggregate(s, nfreq = 1, conversion = "Sum")
-# Quaterly mean
+# Quarterly mean
 aggregate(s, nfreq = 4, conversion = "Average")
 }

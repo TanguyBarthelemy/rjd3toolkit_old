@@ -20,7 +20,7 @@ NULL
 #' s = ABS$X0.2.09.10.M
 #' # Annual sum
 #' aggregate(s, nfreq = 1, conversion = "Sum")
-#' # Quaterly mean
+#' # Quarterly mean
 #' aggregate(s, nfreq = 4, conversion = "Average")
 aggregate<-function(s, nfreq=1,
                     conversion=c("Sum", "Average", "First", "Last", "Min", "Max"),
