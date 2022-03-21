@@ -1,5 +1,7 @@
 #' @include jd2r.R
 
+#' @export
+#' @rdname jd3_utilities
 proc_numeric<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (!is.jnull(s))
@@ -7,28 +9,32 @@ proc_numeric<-function(rslt, name){
   else
     return (NaN)
 }
-
+#' @export
+#' @rdname jd3_utilities
 proc_vector<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return(NULL)
   .jevalArray(s)
 }
-
+#' @export
+#' @rdname jd3_utilities
 proc_int<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return(-1)
   .jcall(s, "I", "intValue")
 }
-
+#' @export
+#' @rdname jd3_utilities
 proc_bool<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return(FALSE)
   .jcall(s, "Z", "booleanValue")
 }
-
+#' @export
+#' @rdname jd3_utilities
 proc_ts<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
@@ -38,21 +44,24 @@ proc_ts<-function(rslt, name){
   else
     return (NULL)
 }
-
+#' @export
+#' @rdname jd3_utilities
 proc_str<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return(NULL)
   .jcall(s, "S", "toString")
 }
-
+#' @export
+#' @rdname jd3_utilities
 proc_desc<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return(NULL)
   .jevalArray(s)
 }
-
+#' @export
+#' @rdname jd3_utilities
 proc_test<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
@@ -64,7 +73,8 @@ proc_test<-function(rslt, name){
   attr(all, "description")<-desc
   all
 }
-
+#' @export
+#' @rdname jd3_utilities
 proc_parameter<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
@@ -72,7 +82,8 @@ proc_parameter<-function(rslt, name){
   val<-.jcall(s, "D", "getValue")
   return (val)
 }
-
+#' @export
+#' @rdname jd3_utilities
 proc_parameters<-function(rslt, name){
   jd_p<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(jd_p))
@@ -85,14 +96,16 @@ proc_parameters<-function(rslt, name){
   }
   all
 }
-
+#' @export
+#' @rdname jd3_utilities
 proc_matrix<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return(NULL)
   return (matrix_jd2r(s))
 }
-
+#' @export
+#' @rdname jd3_utilities
 proc_data<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
@@ -122,6 +135,8 @@ proc_data<-function(rslt, name){
     return (.jcall(s, "S", "toString"))
 }
 
+#' @export
+#' @rdname jd3_utilities
 proc_dictionary<-function(name){
   jmapping<-.jcall(name, "Ldemetra/information/InformationMapping;", "getMapping")
   jmap<-.jnew("java/util/LinkedHashMap")
@@ -136,6 +151,8 @@ proc_dictionary<-function(name){
   return (keys)
 }
 
+#' @export
+#' @rdname jd3_utilities
 proc_dictionary2<-function(jobj){
   jmap<-.jcall(jobj, "Ljava/util/Map;", "getDictionary")
   jkeys<-.jcall(jmap, "Ljava/util/Set;", "keySet")
@@ -148,6 +165,8 @@ proc_dictionary2<-function(jobj){
   return (keys)
 }
 
+#' @export
+#' @rdname jd3_utilities
 proc_likelihood<-function(jrslt, prefix){
   return (list(
     ll=proc_numeric(jrslt, paste(prefix,"ll", sep="")),
