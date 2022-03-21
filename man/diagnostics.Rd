@@ -2,16 +2,18 @@
 % Please edit documentation in R/generics.R
 \name{diagnostics}
 \alias{diagnostics}
-\title{Title}
+\alias{diagnostics.JD3}
+\title{Generic Diagnostics Function}
 \usage{
 diagnostics(x, ...)
+
+\method{diagnostics}{JD3}(x, ...)
 }
 \arguments{
-\item{...}{}
-}
-\value{
+\item{x}{the object to extract diagnostics.}
 
+\item{...}{further arguments.}
 }
 \description{
-Title
+Generic Diagnostics Function
 }
