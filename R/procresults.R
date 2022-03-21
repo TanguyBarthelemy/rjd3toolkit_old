@@ -42,6 +42,7 @@ result<-function(object, id){
   if (is.jnull(object$internal)){
     stop("No java object")
   }else{
-    proc_data(object$internal, id)}
+    proc_data(object$internal, id)
+    }
 }
 
