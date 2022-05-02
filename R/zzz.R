@@ -10,11 +10,11 @@ DATE_MAX<-NULL
   result <- .jpackage(pkgname, lib.loc=libname)
   if (!result) stop("Loading java packages failed")
 
-  # what's your java  version?  Need > 1.5.0.
+  # what's your java  version?  Need > 17.0.0
   jversion <- .jcall('java.lang.System','S','getProperty','java.version')
-  if (jversion < "1.8.0") {
+  if (jversion < "17.0.0") {
     stop(paste("Your java version is ", jversion,
-               ".  Need 1.8.0 or higher.", sep=""))
+               ".  Need 17.0.0 or higher.", sep=""))
   }
 
   proto.dir <- system.file("proto", package = pkgname)
