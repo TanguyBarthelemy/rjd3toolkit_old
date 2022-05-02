@@ -1,27 +1,17 @@
 
-#' Title
+#' Generic Diagnostics Function
 #'
-#' @param x
-#' @param ...
+#' @param x the object to extract diagnostics.
+#' @param ... further arguments.
 #'
-#' @return
 #' @export
-#'
-#' @examples
 diagnostics<-function(x, ...){
   UseMethod("diagnostics")
 }
 
 
-#' Title
-#'
-#' @param x
-#' @param ...
-#'
-#' @return
+#' @rdname diagnostics
 #' @export
-#'
-#' @examples
 diagnostics.JD3<-function(x, ...){
   cat("No diagnostic\n")
 }

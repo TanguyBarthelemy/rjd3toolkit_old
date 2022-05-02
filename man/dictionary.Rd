@@ -2,16 +2,18 @@
 % Please edit documentation in R/procresults.R
 \name{dictionary}
 \alias{dictionary}
-\title{Title}
+\alias{result}
+\title{Get Dictionary and Result}
 \usage{
 dictionary(object)
+
+result(object, id)
 }
 \arguments{
-\item{object}{}
-}
-\value{
+\item{object}{the object.}
 
+\item{id}{the name of the object to extract.}
 }
 \description{
-Title
+Extract dictionnay of a \code{"JD3_ProcResults"} object (\code{dictionary()}) and extract a specific value (\code{result()})
 }

@@ -2,16 +2,31 @@
 % Please edit documentation in R/tests.R
 \name{autocorrelations}
 \alias{autocorrelations}
-\title{Title}
+\alias{autocorrelations.partial}
+\alias{autocorrelations.inverse}
+\title{Autocorrelation Functions}
 \usage{
 autocorrelations(data, mean = T, n = 15)
+
+autocorrelations.partial(data, mean = T, n = 15)
+
+autocorrelations.inverse(data, nar = 30, n = 15)
 }
 \arguments{
-\item{n}{}
-}
-\value{
+\item{data}{Data being tested}
 
+\item{mean}{Mean correction. If \code{TRUE}, the auto-correlations are computed as usual. If false, we consider that the (known) mean is 0 and that the series has been corrected for it.}
+
+\item{n}{maximum lag at which to calculate the stats.}
+
+\item{nar}{number of AR lags used to compute inverse autocorrelations.}
 }
 \description{
-Title
+Autocorrelation Functions
+}
+\examples{
+x = ABS$X0.2.09.10.M
+autocorrelations(x)
+autocorrelations.partial(x)
+autocorrelations.inverse(x)
 }

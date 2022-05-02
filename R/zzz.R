@@ -1,8 +1,12 @@
 #' @include utils.R
 NULL
 
+#' @rdname jd3_utilities
+#' @export
 DATE_MIN<-NULL
 
+#' @export
+#' @rdname jd3_utilities
 DATE_MAX<-NULL
 
 .onLoad <- function(libname, pkgname) {
