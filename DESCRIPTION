@@ -1,7 +1,7 @@
 Package: rjd3toolkit
 Type: Package
 Title: Interface to 'JDemetra+ 3.0' Seasonal Adjustment Software
-Version: 0.2.0
+Version: 0.3.1
 Authors@R: c(
   person("Jean", "Palate", role = c("aut", "cre"),
                 email = "jean.palate@nbb.be"))
@@ -12,7 +12,7 @@ Imports:
 	RProtoBuf (>= 0.4.17),
   rJava (>= 1.0-6),
   methods
-SystemRequirements: Java SE 8 or higher
+SystemRequirements: Java SE 17 or higher
 License: EUPL
 URL: https://github.com/jdemetra/rjd3toolkit
 LazyData: TRUE
@@ -23,6 +23,7 @@ RoxygenNote: 7.1.2
 BugReports: https://github.com/jdemetra/rjdemetra3/issues
 Encoding: UTF-8
 Collate: 
+    'calendarts.R'
     'distributions.R'
     'generics.R'
     'utils.R'
