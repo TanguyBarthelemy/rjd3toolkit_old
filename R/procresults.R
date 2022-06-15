@@ -4,6 +4,8 @@ NULL
 OBJ<-'JD3_Object'
 RSLT<-'JD3_ProcResults'
 
+#' @export
+#' @rdname jd3_utilities
 jd3Object<-function(jobjRef, subclasses=NULL, result=F){
   if (result)
     classes<-c(OBJ, RSLT, subclasses)
