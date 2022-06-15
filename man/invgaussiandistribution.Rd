@@ -14,9 +14,7 @@ cdfInverseGaussian(shape, scale, x)
 randomsInverseGaussian(shape, scale, n)
 }
 \arguments{
-\item{shape}{shape and scale parameters.}
-
-\item{scale}{shape and scale parameters.}
+\item{shape, scale}{shape and scale parameters.}
 
 \item{x}{vector of quantiles.}
 
