@@ -179,7 +179,7 @@ DATE_MIN
 DATE_MAX
 }
 \arguments{
-\item{jtest, s, period, startYear, startPeriod, length, ldt, dt, jparams, start, end, y, m, d, year, month, day, type, p, code, prefix, r, span, rspan, rslt, name, jobj, jrslt}{parameters.}
+\item{jtest, s, period, startYear, startPeriod, length, ldt, dt, jparams, start, end, y, m, d, year, month, day, type, p, code, prefix, r, span, rspan, rslt, name, jobj, jrslt, jobjRef, subclasses, result}{parameters.}
 }
 \description{
 These functions are used in all JDemetra+ 3.0 packages to easily interact between R and Java objects.
