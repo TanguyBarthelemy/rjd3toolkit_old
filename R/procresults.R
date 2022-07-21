@@ -17,11 +17,11 @@ jd3Object<-function(jobjRef, subclasses=NULL, result=F){
 
 #' Get Dictionary and Result
 #'
-#' Extract dictionnay of a \code{"JD3_ProcResults"} object (\code{dictionary()}) and extract a specific value (\code{result()}) or a list of values (\code{user_defined()})
+#' Extract dictionnay of a \code{"JD3_ProcResults"} object (\code{dictionary()}) and extract a specific value (\code{result()}) or a list of values (\code{user_defined()}).
 #'
 #' @param object the java object.
 #' @param id the name of the object to extract.
-#' @param userdefined vector containing the names of the object to extract
+#' @param userdefined vector containing the names of the object to extract.
 #'
 #' @export
 dictionary<-function(object){

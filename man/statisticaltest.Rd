@@ -3,7 +3,7 @@
 \name{statisticaltest}
 \alias{statisticaltest}
 \alias{print.JD3_TEST}
-\title{Generic Function For JDemetra+ Tests}
+\title{Generic Function For 'JDemetra+' Tests}
 \usage{
 statisticaltest(val, pval, dist = NULL)
 
@@ -21,13 +21,13 @@ statisticaltest(val, pval, dist = NULL)
 \value{
 \code{c("JD3_TEST", "JD3")} object that is a list of three parameters:
 \itemize{
-\item{\code{value}} the statistical value of the test
-\item{\code{pvalue}} the p-value of the test
-\item{\code{distribution}} the statistical distribution used
+\item{\code{value}} the statistical value of the test.
+\item{\code{pvalue}} the p-value of the test.
+\item{\code{distribution}} the statistical distribution used.
 }
 }
 \description{
-Generic function to format the results of a test runs with JDemetra+
+Generic function to format the results of a test runs with 'JDemetra+'.
 }
 \examples{
 udr_test = testofupdownruns(randomsT(5, 1000))

@@ -11,7 +11,7 @@ testofruns(data, mean = T, number = T)
 testofupdownruns(data, number = T)
 }
 \arguments{
-\item{data}{Data being tested}
+\item{data}{data being tested.}
 
 \item{mean}{If \code{TRUE}, runs around the mean. Otherwise, runs around the median.}
 

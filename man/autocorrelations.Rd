@@ -13,7 +13,7 @@ autocorrelations.partial(data, mean = T, n = 15)
 autocorrelations.inverse(data, nar = 30, n = 15)
 }
 \arguments{
-\item{data}{Data being tested}
+\item{data}{data being tested.}
 
 \item{mean}{Mean correction. If \code{TRUE}, the auto-correlations are computed as usual. If false, we consider that the (known) mean is 0 and that the series has been corrected for it.}
 

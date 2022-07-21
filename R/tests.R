@@ -2,9 +2,9 @@
 NULL
 
 
-#' Generic Function For JDemetra+ Tests
+#' Generic Function For 'JDemetra+' Tests
 #'
-#' Generic function to format the results of a test runs with JDemetra+
+#' Generic function to format the results of a test runs with 'JDemetra+'.
 #'
 #' @param val,pval,dist statistical parameters.
 #' @param x the object to print.
@@ -13,9 +13,9 @@ NULL
 #'
 #' @return \code{c("JD3_TEST", "JD3")} object that is a list of three parameters:
 #' \itemize{
-#' \item{\code{value}} the statistical value of the test
-#' \item{\code{pvalue}} the p-value of the test
-#' \item{\code{distribution}} the statistical distribution used
+#' \item{\code{value}} the statistical value of the test.
+#' \item{\code{pvalue}} the p-value of the test.
+#' \item{\code{distribution}} the statistical distribution used.
 #' }
 #' @examples
 #' udr_test = testofupdownruns(randomsT(5, 1000))
@@ -49,12 +49,12 @@ print.JD3_TEST<-function(x, details=FALSE, ...){
 
 #' Ljung-Box Test
 #'
-#' Compute Ljung-Box test to check the independence of a data
+#' Compute Ljung-Box test to check the independence of a data.
 #'
-#' @param data Data being tested
+#' @param data data being tested.
 #' @param k,nhp number of degrees of freedom used and number of hyper parameters if the input time series is a series of residuals.
-#' @param lag number of lags used
-#' @param sign If 1, only positive auto-corrrelations are considered in the test. If -1, only negative auto-correlations are considered. If 0, all auto-correlations are integrated in the test.
+#' @param lag number of lags used.
+#' @param sign if 1, only positive auto-corrrelations are considered in the test. If -1, only negative auto-correlations are considered. If 0, all auto-correlations are integrated in the test.
 #' @param mean Mean correction. If \code{TRUE}, the auto-correlations are computed as usual. If false, we consider that the (known) mean is 0 and that the series has been corrected for it.
 #'
 #' @return A \code{c("JD3_TEST", "JD3")} object (see \code{\link{statisticaltest}} for details).
@@ -71,7 +71,7 @@ ljungbox<-function(data, k=1, lag=1, nhp=0, sign=0, mean=T){
 
 #' Normality Tests
 #'
-#' Set of functions to test the normality of a time series
+#' Set of functions to test the normality of a time series.
 #'
 #' @inheritParams ljungbox
 #' @param k number of degrees of freedom to be subtracted if the input time series is a series of residuals.
