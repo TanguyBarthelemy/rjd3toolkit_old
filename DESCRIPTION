@@ -1,6 +1,6 @@
 Package: rjd3toolkit
 Type: Package
-Title: Interface to 'JDemetra+ 3.0' Seasonal Adjustment Software
+Title: Toolkit functions around 'JDemetra+ 3.0'
 Version: 0.3.2
 Authors@R: c(
   person("Jean", "Palate", role = c("aut", "cre"),
@@ -8,7 +8,9 @@ Authors@R: c(
   person("Alain", "Quartier-la-Tente", role = c("aut"),
                  email = "alain.quartier@yahoo.fr",
                  comment = c(ORCID = "0000-0001-7890-3857")))
-Description: Interface around 'JDemetra+ 3.x' toolkit (<https://github.com/jdemetra/jdemetra-core>), STACE project. 
+Description: Interface around 'JDemetra+ 3.x' (<https://github.com/jdemetra/jdemetra-core>) seasonal adjustment software, STACE project.
+ It offers full access to several functions needed in other packages around 'JDemetra+ 3.x' and also some functions
+ to compute general statistics on a time series.
 Depends:
   R (>= 3.6.0)
 Imports:
