@@ -12,7 +12,7 @@ Imports:
 	RProtoBuf (>= 0.4.17),
   rJava (>= 1.0-6),
   methods
-SystemRequirements: Java SE 17 or higher
+SystemRequirements: Java JRE 17 or higher
 License: EUPL
 URL: https://github.com/jdemetra/rjd3toolkit
 LazyData: TRUE
