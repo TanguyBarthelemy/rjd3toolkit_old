@@ -9,7 +9,7 @@ Authors@R: c(
                  email = "alain.quartier@yahoo.fr",
                  comment = c(ORCID = "0000-0001-7890-3857")))
 Description: Interface around 'JDemetra+ 3.x' (<https://github.com/jdemetra/jdemetra-core>) seasonal adjustment software, STACE project.
- It offers full access to several functions needed in other packages around 'JDemetra+ 3.x' and also some functions
+ It offers access to several functions needed in other packages around 'JDemetra+ 3.x' and also some functions
  to compute general statistics on a time series.
 Depends:
   R (>= 3.6.0)
