@@ -119,8 +119,7 @@ proc_data<-function(rslt, name){
   else if (.jinstanceof(s, "demetra/data/Parameter")){
     val<-.jcall(s, "D", "getValue")
      return (c(val))
-  }
-  else if (.jinstanceof(s, "[Ldemetra/data/Parameter;")){
+  }  else if (.jinstanceof(s, "[Ldemetra/data/Parameter;")){
     p<-.jcastToArray(s)
     len<-length(p)
     all<-array(0, dim=c(len))
@@ -128,9 +127,11 @@ proc_data<-function(rslt, name){
       all[i]<-.jcall(p[[i]], "D", "getValue")
     }
     return (all)
-  }
-  else if (.jcall(.jcall(s, "Ljava/lang/Class;", "getClass"), "Z", "isArray"))
+  } else if (.jcall(.jcall(s, "Ljava/lang/Class;", "getClass"), "Z", "isArray"))
     return (.jevalArray(s, silent=TRUE))
+  else if (.jinstanceof(s, "demetra/stats/StatisticalTest")) {
+    return (jd2r_test(s))
+  }
   else
     return (.jcall(s, "S", "toString"))
 }
