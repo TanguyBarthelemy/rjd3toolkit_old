@@ -2,7 +2,7 @@
 % Please edit documentation in R/likelihood.R
 \name{likelihood}
 \alias{likelihood}
-\title{Generic Likelihood Function for JDemetra+}
+\title{Generic Likelihood Function for 'JDemetra+'}
 \usage{
 likelihood(
   nobs,
@@ -24,5 +24,5 @@ likelihood(
 A \code{"JD3_LIKELIHOOD"} object.
 }
 \description{
-Generic functions to format likelihood JDemetra+
+Generic functions to format likelihood 'JDemetra+'.
 }

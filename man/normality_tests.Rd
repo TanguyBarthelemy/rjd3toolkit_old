@@ -14,7 +14,7 @@ doornikhansen(data)
 jarquebera(data, k = 0, sample = T)
 }
 \arguments{
-\item{data}{Data being tested}
+\item{data}{data being tested.}
 
 \item{k}{number of degrees of freedom to be subtracted if the input time series is a series of residuals.}
 
@@ -24,7 +24,7 @@ jarquebera(data, k = 0, sample = T)
 A \code{c("JD3_TEST", "JD3")} object (see \code{\link{statisticaltest}} for details).
 }
 \description{
-Set of functions to test the normality of a time series
+Set of functions to test the normality of a time series.
 }
 \section{Functions}{
 \itemize{

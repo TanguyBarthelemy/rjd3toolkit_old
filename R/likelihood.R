@@ -1,6 +1,6 @@
-#' Generic Likelihood Function for JDemetra+
+#' Generic Likelihood Function for 'JDemetra+'
 #'
-#' Generic functions to format likelihood JDemetra+
+#' Generic functions to format likelihood 'JDemetra+'.
 #'
 #' @param nobs,neffectiveobs,nparams,ll,adjustedll,aic,aicc,bic,bicc,ssq parameters.
 #'
