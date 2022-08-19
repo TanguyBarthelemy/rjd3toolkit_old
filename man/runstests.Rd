@@ -25,11 +25,11 @@ Functions to compute runs test around the mean or the median (\code{testofruns})
 }
 \section{Functions}{
 \itemize{
-\item \code{testofruns}: Runs test around mean or median
+\item \code{testofruns()}: Runs test around mean or median
 
-\item \code{testofupdownruns}: up and down runs test
+\item \code{testofupdownruns()}: up and down runs test
+
 }}
-
 \examples{
 x = randomsT(5, 1000)
 # random values

@@ -28,13 +28,13 @@ Set of functions to test the normality of a time series.
 }
 \section{Functions}{
 \itemize{
-\item \code{bowmanshenton}: Bowman-Shenton test
+\item \code{bowmanshenton()}: Bowman-Shenton test
 
-\item \code{doornikhansen}: Doornik-Hansen test
+\item \code{doornikhansen()}: Doornik-Hansen test
 
-\item \code{jarquebera}: Jarque-Bera test
+\item \code{jarquebera()}: Jarque-Bera test
+
 }}
-
 \examples{
 x <- rnorm(100)  # null
 bowmanshenton(x)
