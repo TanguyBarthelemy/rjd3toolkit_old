@@ -50,7 +50,9 @@
 \alias{p2r_parameters_rsltx}
 \alias{p2r_test}
 \alias{p2r_matrix}
+\alias{r2p_matrix}
 \alias{p2r_ts}
+\alias{r2p_ts}
 \alias{p2r_parameters_estimation}
 \alias{p2r_likelihood}
 \alias{p2r_date}
@@ -158,7 +160,11 @@ p2r_test(p)
 
 p2r_matrix(p)
 
+r2p_matrix(r)
+
 p2r_ts(p)
+
+r2p_ts(r)
 
 p2r_parameters_estimation(p)
 

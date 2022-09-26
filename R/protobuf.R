@@ -92,6 +92,7 @@ p2r_parameters_rsltx<-function(p){
 p2r_test<-function(p){
   return (rjd3toolkit::statisticaltest(p$value, p$pvalue, p$description))
 }
+
 #' @export
 #' @rdname jd3_utilities
 p2r_matrix<-function(p){
@@ -99,6 +100,18 @@ p2r_matrix<-function(p){
   `attr<-`(m, "name", p$name)
   return (m)
 }
+
+#' @export
+#' @rdname jd3_utilities
+r2p_matrix<-function(r){
+  p<-jd3.Matrix$new()
+  p$name<-attr(r, "name")
+  p$nrows<-nrow(r)
+  p$ncols<-ncol(r)
+  p$values<-as.numeric(r)
+  return (p)
+}
+
 #' @export
 #' @rdname jd3_utilities
 p2r_ts<-function(p){
@@ -108,6 +121,20 @@ p2r_ts<-function(p){
   `attr<-`(s, "name", p$name)
   return (s)
 }
+
+#' @export
+#' @rdname jd3_utilities
+r2p_ts<-function(r){
+  p<-jd3.TsData$new()
+  p$name<-attr(r, "name")
+  p$annual_frequency<-frequency(r)
+  s=start(r)
+  p$start_year=s[1]
+  p$start_period=s[2]
+  p$values<-as.numeric(r)
+  return (p)
+}
+
 #' @export
 #' @rdname jd3_utilities
 p2r_parameters_estimation<-function(p){

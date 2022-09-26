@@ -42,6 +42,14 @@ parseDate<-function(s){
   return (d)
 }
 
+#' Title
+#'
+#' @export
+reload_dictionaries<-function(){
+  .jcall("demetra/information/InformationExtractors", "V", "reloadExtractors")
+}
+
+
 
 
 

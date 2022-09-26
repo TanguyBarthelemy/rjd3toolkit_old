@@ -330,22 +330,40 @@ message Calendar{
 }
 
 message WeightedCalendar{
+	/* Weighted calendars are only defined inside a modelling context */
 	message Item{
-		CalendarDefinition calendar = 1;
+		string calendar = 1;
 		double weight = 2;
 	}
 	repeated Item items = 1;
 }
 
 message ChainedCalendar{
-	CalendarDefinition calendar1 = 1;
-	CalendarDefinition calendar2 = 2;
-	Date break = 3;
+	/* Chained calendars are only defined inside a modelling context */
+	string calendar1 = 1;
+	string calendar2 = 2;
+	Date break_date = 3;
+}
+
+message TsMoniker{
+	string source = 1;
+	string id = 2;
+}
+
+message TsDataSuppliers{
+	message Item{
+		string name=1;
+		oneof supplier{
+			TsData data = 2;
+			TsMoniker moniker = 3;
+		}
+	}
+	repeated Item items = 1;
 }
 
 message ModellingContext{
 	map<string, CalendarDefinition> calendars = 1;
-	map<string, TsData> variables = 2; 
+	map<string, TsDataSuppliers> variables = 2; 
 }
 
 enum InformationType {
