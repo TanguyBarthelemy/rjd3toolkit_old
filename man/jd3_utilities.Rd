@@ -45,6 +45,8 @@
 \alias{r2p_parameter}
 \alias{p2r_parameter}
 \alias{r2p_parameters}
+\alias{r2p_lparameters}
+\alias{r2p_tparameters}
 \alias{p2r_parameters}
 \alias{p2r_parameters_rslt}
 \alias{p2r_parameters_rsltx}
@@ -149,6 +151,10 @@ r2p_parameter(r)
 p2r_parameter(p)
 
 r2p_parameters(r)
+
+r2p_lparameters(r)
+
+r2p_tparameters(data, type)
 
 p2r_parameters(p)
 

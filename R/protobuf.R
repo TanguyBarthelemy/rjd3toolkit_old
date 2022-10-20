@@ -1,6 +1,6 @@
 #' @include utils.R
 #' @import RProtoBuf
-#' @importFrom stats frequency ts
+#' @importFrom stats frequency ts start
 NULL
 
 #' @export
@@ -31,18 +31,30 @@ enum_of<-function(type, code, prefix){
 #' @rdname jd3_utilities
 r2p_parameter<-function(r){
   p<-jd3.Parameter$new()
-  if (is.null(r)) return (p)
-
-  p$value<-r$value
-  p$type<-enum_of(jd3.ParameterType, r$type, "PARAMETER")
+  if (is.null(r)) {
+    p$value<-0
+    p$type<-enum_of(jd3.ParameterType, "UNUSED", "PARAMETER")
+  }else{
+    p$value<-r$value
+    p$type<-enum_of(jd3.ParameterType, r$type, "PARAMETER")
+  }
   return (p)
 }
+
+r2p_tparameter<-function(val, pt){
+  p<-jd3.Parameter$new()
+  p$value<-val
+  p$type<-pt
+  return (p)
+}
+
 #' @export
 #' @rdname jd3_utilities
 p2r_parameter<-function(p){
   if (! p$has("type")) return (NULL)
   return (list(value = p$value, type=enum_extract(jd3.ParameterType, p$type)))
 }
+
 #' @export
 #' @rdname jd3_utilities
 r2p_parameters<-function(r){
@@ -52,6 +64,29 @@ r2p_parameters<-function(r){
   p<-apply(r, 2, function(z){r2p_parameter(z)})
   return (p)
 }
+
+#' @export
+#' @rdname jd3_utilities
+r2p_lparameters<-function(r){
+  # r is a list of lists with value/type entries
+  n<-length(r)
+  if (n == 0) return (NULL)
+  p<-lapply(r, function(z){r2p_parameter(z)})
+  return (p)
+}
+
+#' @export
+#' @rdname jd3_utilities
+r2p_tparameters<-function(data, type){
+  # r is a numeric vector, type identifies the type of the parameter ('FIXED'...)
+  n<-length(data)
+  if (n == 0) return (NULL)
+  ptype<-enum_of(jd3.ParameterType, type, "PARAMETER")
+
+  p<-lapply(data, function(z){r2p_tparameter(z, ptype)})
+  return (p)
+}
+
 #' @export
 #' @rdname jd3_utilities
 p2r_parameters<-function(p){
