@@ -25,27 +25,30 @@ enum TradingDays{
 	*/
 	TD2 = 1;
 	/*
+	mon-sat + sun
+	*/
+	TD2C = 2;
+	/*
 	mon-fri + sat + sun
 	*/
-	TD3 = 2;
+	TD3 = 3;
 	/*
 	mon-thu + fri-sat + sun
 	*/
-	TD3C = 3;
+	TD3C = 4;
 	/*
 	mon-thu + fri + sat + sun
 	*/
-	TD4 = 4;
-	TD7 = 5;
+	TD4 = 5;
+	TD7 = 6;
 }
 
 message TsVariable{
     string name = 1;
-	string id = 2;
-    int32 first_lag = 3;
-	int32 last_lag = 4;
-	repeated jd3.Parameter coefficient = 5;
-	map<string, string> metadata = 6;
+    string id = 2;
+    int32 lag = 3;
+    jd3.Parameter coefficient = 4;
+    map<string, string> metadata = 5;
 }
 
 message Ramp{

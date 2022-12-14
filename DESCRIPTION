@@ -1,7 +1,7 @@
 Package: rjd3toolkit
 Type: Package
 Title: Toolkit Functions Around 'JDemetra+ 3.0'
-Version: 0.5.2
+Version: 0.6.0
 Authors@R: c(
   person("Jean", "Palate", role = c("aut", "cre"),
                 email = "jean.palate@nbb.be"),
@@ -24,7 +24,7 @@ LazyData: TRUE
 Suggests:
     knitr,
     rmarkdown
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 BugReports: https://github.com/palatej/rjd3toolkit/issues
 Encoding: UTF-8
 Collate: 
