@@ -3,18 +3,6 @@ NULL
 #> NULL
 
 
-#' Java Utility Functions
-#'
-#' These functions are used in all JDemetra+ 3.0 packages to easily interact between R and Java objects.
-#'
-#' @param jtest,s,period,startYear,startPeriod,length,ldt,dt,jparams,start,end,y,m,d,year,month,day,type,p,code,prefix,r,span,rspan,rslt,name,jobj,jrslt,jobjRef,subclasses,result parameters.
-#'
-#' @name jd3_utilities
-NULL
-#> NULL
-
-#' @export
-#' @rdname jd3_utilities
 jd2r_test<-function(jtest){
   if (is.jnull(jtest))
     return (NULL)
@@ -83,18 +71,6 @@ matrix_r2jd<-function(s){
   return (.jcall("demetra/math/matrices/Matrix","Ldemetra/math/matrices/Matrix;", "of", as.double(s), as.integer(sdim[1]), as.integer(sdim[2])))
 }
 
-# Delete this duplicated function?
-# jd2r_test<-function(jtest){
-#   if (is.jnull(jtest))
-#     return (NULL)
-#   else{
-#     desc<-.jcall(jtest, "S", "getDescription")
-#     val<-.jcall(jtest, "D", "getValue")
-#     pval<-.jcall(jtest, "D", "getPvalue")
-#     return (list(value=val, pvalue=pval, distribution=desc))
-#   }
-# }
-
 #' @export
 #' @rdname jd3_utilities
 j2r_ldt<-function(ldt){
@@ -154,3 +130,31 @@ jdomain<-function(period, start, end){
                , as.integer(period), as.integer(start[1]), as.integer(start[2]), as.integer(n))
   return (jdom)
 }
+
+
+#' @importFrom rJava .jpackage .jcall .jnull .jarray .jevalArray .jcast .jcastToArray .jinstanceof .jnew is.jnull .jclass
+NULL
+
+j2r_ldt<-function(ldt){
+  if (is.jnull(ldt))
+    return (NULL)
+  dt<-.jcall(ldt, "Ljava/time/LocalDate;", "toLocalDate")
+  return (as.Date(.jcall(dt, "S", "toString")))
+}
+
+j2r_dt<-function(dt){
+  if (is.jnull(dt))
+    return (NULL)
+  return (as.Date(.jcall(dt, "S", "toString")))
+}
+
+r2j_dt<-function(dt){
+  jdt<-.jnew("java/lang/String", as.character(dt))
+  return (.jcall("java/time/LocalDate", "Ljava/time/LocalDate;", "parse", .jcast(jdt, "java/lang/CharSequence")))
+}
+
+r2j_ldt<-function(dt){
+  jdt<-r2j_dt(dt)
+  return (.jcall(jdt, "Ljava/time/LocalDateTime;", "atStartOfDay"))
+}
+
