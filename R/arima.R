@@ -5,15 +5,15 @@ NULL
 #' Seasonal ARIMA model (Box-Jenkins)
 #'
 #' @param period period of the model.
-#' @param phi coefficients of the regular auto-regressive polynomial (1 + phi(1)B + phi(2)B + ...). True signs.
+#' @param phi coefficients of the regular auto-regressive polynomial (\eqn{1 + \phi_1B + \phi_2B + ...}). True signs.
 #' @param d regular differencing order.
-#' @param theta coefficients of the regular moving average polynomial (1 + theta(1)B + theta(2)B + ...). True signs.
+#' @param theta coefficients of the regular moving average polynomial (\eqn{1 + \theta_1B + \theta_2B + ...}). True signs.
 #' @param bphi coefficients of the seasonal auto-regressive polynomial. True signs.
 #' @param bd seasonal differencing order.
 #' @param btheta coefficients of the seasonal moving average polynomial. True signs.
 #' @param name name of the model.
 #'
-#' @return a `"JD3_SARIMA"` model.
+#' @return A `"JD3_SARIMA"` model.
 #' @export
 sarima_model<-function(name="sarima", period, phi=NULL, d=0, theta=NULL, bphi=NULL, bd=0, btheta=NULL){
   return (structure(
@@ -28,7 +28,7 @@ sarima_model<-function(name="sarima", period, phi=NULL, d=0, theta=NULL, bphi=NU
 #' @param nacf maximum lag at which to calculate the acf.
 #'
 #' @examples
-#' mod1 <- sarima_model(period = 12, d =1, bd = 1, theta = 0.2, btheta = 0.2)
+#' mod1 <- sarima_model(period = 12, d = 1, bd = 1, theta = 0.2, btheta = 0.2)
 #' sarima_properties(mod1)
 #' @export
 sarima_properties<-function(model, nspectrum=601, nacf=36){
@@ -43,8 +43,10 @@ sarima_properties<-function(model, nspectrum=601, nacf=36){
 #'
 #' @param model a `"JD3_SARIMA"` model (see [sarima_model()] function).
 #' @param length length of the output series.
-#' @param stde the standard deviation of the normal distribution of the innovations of the simulated series. Unused if tdegree is larger than 0.
-#' @param tdegree Degrees of freedom of the T distribution of the innovations. O if normal distribution is used.
+#' @param stde deviation of the normal distribution of the innovations of the simulated series.
+#'  Unused if `tdegree` is larger than 0.
+#' @param tdegree degrees of freedom of the T distribution of the innovations.
+#' `tdegree = 0` if normal distribution is used.
 #'
 #' @examples
 #' # Airline model
@@ -68,11 +70,11 @@ sarima_random<-function(model, length, stde=1, tdegree=0){
          as.integer(tdegree)))
 }
 
-#' Title
+#' Decompose SARIMA Model
 #'
-#' @param model Sarima model to decompose
-#' @param rmod Trend threshold
-#' @param epsphi Seasonal tolerance (in degrees)
+#' @param model SARIMA model to decompose.
+#' @param rmod trend threshold.
+#' @param epsphi seasonal tolerance (in degrees).
 #'
 #' @return
 #' @export
@@ -95,10 +97,10 @@ sarima_decompose<-function(model, rmod=0, epsphi=0){
 #' ARIMA Model
 #'
 #' @param name Name of the model.
-#' @param ar Coefficients of the regular auto-regressive polynomial (1 + ar(1)B + ar(2)B + ...). True signs.
-#' @param delta The non stationary auto-regressive polynomial.
-#' @param ma Coefficients of the regular moving average polynomial (1 + ma(1)B + ma(2)B + ...). True signs.
-#' @param variance the innovation variance.
+#' @param ar coefficients of the regular auto-regressive polynomial (1 + ar(1)B + ar(2)B + ...). True signs.
+#' @param delta non stationary auto-regressive polynomial.
+#' @param ma coefficients of the regular moving average polynomial (1 + ma(1)B + ma(2)B + ...). True signs.
+#' @param variance variance.
 #'
 #' @return a `"JD3_ARIMA"` model.
 #' @export
@@ -235,9 +237,9 @@ ucarima_model<-function(model=NULL, components, complements=NULL, checkmodel=F){
 }
 
 
-#' Title
+#' Wiener Kolmogorov Estimators
 #'
-#' @param ucm
+#' @param ucm UCARIMA model returned by [ucarima_model()].
 #' @param cmp
 #' @param signal
 #' @param nspectrum
@@ -247,7 +249,7 @@ ucarima_model<-function(model=NULL, components, complements=NULL, checkmodel=F){
 #' @export
 #'
 #' @examples
-ucarima_wk<-function(ucm, cmp, signal=T, nspectrum=601, nwk=300){
+ucarima_wk<-function(ucm, cmp, signal=TRUE, nspectrum=601, nwk=300){
   jucm<-.r2jd_ucarima(ucm)
   jwks<-.jcall("demetra/arima/r/UcarimaModels", "Ljdplus/ucarima/WienerKolmogorovEstimators;", "wienerKolmogorovEstimators", jucm)
   jwk<-.jcall("demetra/arima/r/UcarimaModels", "Ljdplus/ucarima/WienerKolmogorovEstimator;", "finalEstimator", jwks, as.integer(cmp-1), signal)
@@ -261,52 +263,58 @@ ucarima_wk<-function(ucm, cmp, signal=T, nspectrum=601, nwk=300){
 
 #' Title
 #'
-#' @param ucm
-#' @param cmp
+#' @inheritParams ucarima_wk
 #' @param adjust
 #'
 #' @return
 #' @export
 #'
 #' @examples
-ucarima_canonical<-function(ucm, cmp=0, adjust=T){
+ucarima_canonical<-function(ucm, cmp=0, adjust=TRUE){
   jucm<-.r2jd_ucarima(ucm)
   jnucm<-.jcall("demetra/arima/r/UcarimaModels", "Ljdplus/ucarima/UcarimaModel;", "doCanonical",
                jucm, as.integer(cmp-1), as.logical(adjust))
   return (.jd2r_ucarima(jnucm))
 }
 
-#' Title
+#' Estimate UCARIMA Model
 #'
-#' @param ucm
-#' @param data
+#' @inheritParams ucarima_wk
+#' @param x univariate time series
 #' @param stdev
 #'
-#' @return
+#' @return matrix containing the different components.
 #' @export
 #'
 #' @examples
-ucarima_estimate<-function(ucm, data, stdev=T){
+ucarima_estimate<-function(x, ucm, stdev=TRUE){
   jucm<-.r2jd_ucarima(ucm)
   jcmps<-.jcall("demetra/arima/r/UcarimaModels", "Ldemetra/math/matrices/Matrix;", "estimate",
-                as.numeric(data), jucm, as.logical(stdev))
+                as.numeric(x), jucm, as.logical(stdev))
   return (.jd2r_matrix(jcmps))
 }
 
-#' Title
+#' Estimate SARIMA Model
 #'
-#' @param x
-#' @param order
-#' @param seasonal
-#' @param mean
-#' @param xreg
-#' @param eps
+#' @param x a univariate time series.
+#' @param order vector specifying of the non-seasonal part of the ARIMA model: the AR order, the degree of differencing, and the MA order.
+#' @param seasonal specification of the seasonal part of the ARIMA model and the seasonal frequency (by default equals to `frequency(x)`).
+#' Either  a list with components `order` and `period` or a numeric vector specifying the seasonal order (the default period is then used).
+#' @param mean should the SARIMA model include an intercept term.
+#' @param xreg vector or matrix of external regressors.
+#' @param eps precision.
 #'
 #' @return
 #' @export
 #'
 #' @examples
-sarima_estimate<-function(x, order=c(0,0,0), seasonal = list(order=c(0,0,0), period=1), mean=FALSE, xreg=NULL, eps = 1e-9){
+sarima_estimate<-function(x, order=c(0,0,0), seasonal = list(order=c(0,0,0), period=NA), mean=FALSE, xreg=NULL, eps = 1e-9){
+  if (!is.list(seasonal) && is.numeric(seasonal) && length(seasonal) == 3) {
+    seasonal <- list(order = seasonal,
+                     period = NA)
+  }
+  if (is.na(seasonal$period))
+    seasonal$period <- frequency(x)
   jxreg<-.r2jd_matrix(xreg)
   jestim<-.jcall("demetra/arima/r/SarimaModels", "Ljdplus/regarima/RegArimaEstimation;", "estimate",
                  as.numeric(x), as.integer(order), as.integer(seasonal$period), as.integer(seasonal$order), as.logical(mean), jxreg, .jnull("[D"), as.numeric(eps))
