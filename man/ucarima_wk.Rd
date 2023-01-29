@@ -2,13 +2,15 @@
 % Please edit documentation in R/arima.R
 \name{ucarima_wk}
 \alias{ucarima_wk}
-\title{Title}
+\title{Wiener Kolmogorov Estimators}
 \usage{
-ucarima_wk(ucm, cmp, signal = T, nspectrum = 601, nwk = 300)
+ucarima_wk(ucm, cmp, signal = TRUE, nspectrum = 601, nwk = 300)
 }
 \arguments{
+\item{ucm}{UCARIMA model returned by \code{\link[=ucarima_model]{ucarima_model()}}.}
+
 \item{nwk}{}
 }
 \description{
-Title
+Wiener Kolmogorov Estimators
 }

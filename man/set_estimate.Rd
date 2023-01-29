@@ -34,8 +34,8 @@ If \code{FASLE}, the Unconditional Least Squares method is used.}
 
 \item{unit.root.limit}{(TRAMO specific) \code{numeric}, the final unit root limit. The threshold value for the final unit root test
 for identification of differencing orders. If the magnitude of an AR root for the final model is smaller than this number,
- then a unit root is assumed, the order of the AR polynomial is reduced by one and the appropriate order of the differencing
- (non-seasonal, seasonal) is increased.}
+then a unit root is assumed, the order of the AR polynomial is reduced by one and the appropriate order of the differencing
+(non-seasonal, seasonal) is increased.}
 }
 \description{
 Set Estimate Specification

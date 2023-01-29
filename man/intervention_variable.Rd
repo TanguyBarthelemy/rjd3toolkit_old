@@ -19,10 +19,10 @@ intervention_variable(
 \item{frequency}{Annual frequency (divisor of 12).}
 
 \item{start, length}{First date (array with the first year and the first period)
-(for instance `c(1980, 1)`) and number of periods of the output variables. Can also be provided with the `s` argument}
+(for instance \code{c(1980, 1)}) and number of periods of the output variables. Can also be provided with the \code{s} argument}
 
 \item{s}{time series used to get the dates for the trading days variables. If supplied the
-parameters `frequency`, `start` and `length` are ignored.}
+parameters \code{frequency}, \code{start} and \code{length} are ignored.}
 
 \item{starts, ends}{characters specifying sequences of starts/ends dates for the intervention variable.
 Can be characters or integers.}
@@ -36,13 +36,13 @@ Intervention variable
 }
 \details{
 Intervention variables are combinations of any possible sequence of ones and zeros
-(the sequence of ones being defined by  by the parameters `starts` and `ends`)
+(the sequence of ones being defined by  by the parameters \code{starts} and \code{ends})
 and of \eqn{\frac{1}{(1-B)^d}} and \eqn{\frac{1}{(1-B^s)^D}} where \eqn{B} is the
 backwar operation, \eqn{s} is the frequency of the time series,
-\eqn{d} and \eqn{D} are the parameters `delta` and `seasonaldelta`.
+\eqn{d} and \eqn{D} are the parameters \code{delta} and \code{seasonaldelta}.
 
-For example, with `delta = 0` and `seasonaldelta = 0` we get temporary level shifts defined
-by the parameters `starts` and `ends`. With `delta = 1` and `seasonaldelta = 0` we get
+For example, with \code{delta = 0} and \code{seasonaldelta = 0} we get temporary level shifts defined
+by the parameters \code{starts} and \code{ends}. With \code{delta = 1} and \code{seasonaldelta = 0} we get
 the cumulative sum of temporary level shifts.
 }
 \examples{

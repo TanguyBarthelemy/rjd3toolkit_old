@@ -7,10 +7,10 @@
 arima_sum(...)
 }
 \arguments{
-\item{...}{list of ARIMA models (created with [arima_model()]).}
+\item{...}{list of ARIMA models (created with \code{\link[=arima_model]{arima_model()}}).}
 }
 \value{
-a `"JD3_ARIMA"` model.
+a \code{"JD3_ARIMA"} model.
 }
 \description{
 Sum ARIMA Models

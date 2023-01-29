@@ -9,16 +9,16 @@ arima_model(name = "arima", ar = 1, delta = 1, ma = 1, variance = 1)
 \arguments{
 \item{name}{Name of the model.}
 
-\item{ar}{Coefficients of the regular auto-regressive polynomial (1 + ar(1)B + ar(2)B + ...). True signs.}
+\item{ar}{coefficients of the regular auto-regressive polynomial (1 + ar(1)B + ar(2)B + ...). True signs.}
 
-\item{delta}{The non stationary auto-regressive polynomial.}
+\item{delta}{non stationary auto-regressive polynomial.}
 
-\item{ma}{Coefficients of the regular moving average polynomial (1 + ma(1)B + ma(2)B + ...). True signs.}
+\item{ma}{coefficients of the regular moving average polynomial (1 + ma(1)B + ma(2)B + ...). True signs.}
 
-\item{variance}{the innovation variance.}
+\item{variance}{variance.}
 }
 \value{
-a `"JD3_ARIMA"` model.
+a \code{"JD3_ARIMA"} model.
 }
 \description{
 ARIMA Model

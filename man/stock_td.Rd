@@ -10,10 +10,10 @@ stock_td(frequency, start, length, s, w = 31)
 \item{frequency}{Annual frequency (divisor of 12).}
 
 \item{start, length}{First date (array with the first year and the first period)
-(for instance `c(1980, 1)`) and number of periods of the output variables. Can also be provided with the `s` argument}
+(for instance \code{c(1980, 1)}) and number of periods of the output variables. Can also be provided with the \code{s} argument}
 
 \item{s}{time series used to get the dates for the trading days variables. If supplied the
-parameters `frequency`, `start` and `length` are ignored.}
+parameters \code{frequency}, \code{start} and \code{length} are ignored.}
 
 \item{w}{indicates day of the month when inventories and other stock are reported (to denote the last day of the month enter 31).}
 }

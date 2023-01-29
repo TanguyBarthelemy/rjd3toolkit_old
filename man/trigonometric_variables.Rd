@@ -10,10 +10,10 @@ trigonometric_variables(frequency, start, length, s, seasonal_frequency = NULL)
 \item{frequency}{Annual frequency (divisor of 12).}
 
 \item{start, length}{First date (array with the first year and the first period)
-(for instance `c(1980, 1)`) and number of periods of the output variables. Can also be provided with the `s` argument}
+(for instance \code{c(1980, 1)}) and number of periods of the output variables. Can also be provided with the \code{s} argument}
 
 \item{s}{time series used to get the dates for the trading days variables. If supplied the
-parameters `frequency`, `start` and `length` are ignored.}
+parameters \code{frequency}, \code{start} and \code{length} are ignored.}
 
 \item{seasonal_frequency}{the seasonal frequencies.
 By default the fundamental seasonal frequency and all the harmonics are used.}
@@ -22,7 +22,7 @@ By default the fundamental seasonal frequency and all the harmonics are used.}
 Computes trigonometric variables at different frequencies.
 }
 \details{
-Denote by \eqn{P} the value of `frequency` (= the period) and
+Denote by \eqn{P} the value of \code{frequency} (= the period) and
 \eqn{f_1}, ..., \eqn{f_n} the frequencies provides by \code{seasonal_frequency}
 (if \code{seasonal_frequency = NULL} then \eqn{n=\lfloor P/2\rfloor} and \eqn{f_i}=i).
 

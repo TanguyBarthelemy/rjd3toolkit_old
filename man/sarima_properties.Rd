@@ -7,9 +7,9 @@
 sarima_properties(model, nspectrum = 601, nacf = 36)
 }
 \arguments{
-\item{model}{a `"JD3_SARIMA"` model (created with [sarima_model()]).}
+\item{model}{a \code{"JD3_SARIMA"} model (created with \code{\link[=sarima_model]{sarima_model()}}).}
 
-\item{nspectrum}{number of points in \[0, pi\] to calculate the spectrum.}
+\item{nspectrum}{number of points in [0, pi] to calculate the spectrum.}
 
 \item{nacf}{maximum lag at which to calculate the acf.}
 }
@@ -17,6 +17,6 @@ sarima_properties(model, nspectrum = 601, nacf = 36)
 SARIMA Properties
 }
 \examples{
-mod1 <- sarima_model(period = 12, d =1, bd = 1, theta = 0.2, btheta = 0.2)
+mod1 <- sarima_model(period = 12, d = 1, bd = 1, theta = 0.2, btheta = 0.2)
 sarima_properties(mod1)
 }

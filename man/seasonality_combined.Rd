@@ -13,7 +13,7 @@ seasonality_combined(data, period, firstperiod = 1, mul = TRUE)
 
 \item{firstperiod}{First period of the series (1-based)}
 
-\item{mul}{boolean indicating if the seasonal decomposition is multiplicative (`mul = TRUE`) or additive (`mul = FALSE`).}
+\item{mul}{boolean indicating if the seasonal decomposition is multiplicative (\code{mul = TRUE}) or additive (\code{mul = FALSE}).}
 }
 \description{
 "X12" Test On Seasonality

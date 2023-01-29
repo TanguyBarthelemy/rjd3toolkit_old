@@ -19,11 +19,15 @@ differencing_fast(data, period, mad = TRUE, centile = 90, k = 1.2)
 }
 \value{
 Stationary transformation
-* ddata: data after differencing
-* mean: mean correction
-* differences:
-   * lag: ddata(t)=data(t)-data(t-lag)
-   * order: order of the differencing
+\itemize{
+\item ddata: data after differencing
+\item mean: mean correction
+\item differences:
+\itemize{
+\item lag: ddata(t)=data(t)-data(t-lag)
+\item order: order of the differencing
+}
+}
 }
 \description{
 The series is differentiated till its variance is decreasing.

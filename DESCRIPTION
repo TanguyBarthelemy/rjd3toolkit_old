@@ -27,6 +27,7 @@ Suggests:
     knitr,
     rmarkdown
 RoxygenNote: 7.2.3
+Roxygen: list(markdown = TRUE)
 BugReports: https://github.com/palatej/rjd3toolkit/issues
 Encoding: UTF-8
 Collate: 

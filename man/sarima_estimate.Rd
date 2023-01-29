@@ -2,20 +2,31 @@
 % Please edit documentation in R/arima.R
 \name{sarima_estimate}
 \alias{sarima_estimate}
-\title{Title}
+\title{Estimate SARIMA Model}
 \usage{
 sarima_estimate(
   x,
   order = c(0, 0, 0),
-  seasonal = list(order = c(0, 0, 0), period = 1),
+  seasonal = list(order = c(0, 0, 0), period = NA),
   mean = FALSE,
   xreg = NULL,
   eps = 1e-09
 )
 }
 \arguments{
-\item{eps}{}
+\item{x}{a univariate time series.}
+
+\item{order}{vector specifying of the non-seasonal part of the ARIMA model: the AR order, the degree of differencing, and the MA order.}
+
+\item{seasonal}{specification of the seasonal part of the ARIMA model and the seasonal frequency (by default equals to \code{frequency(x)}).
+Either  a list with components \code{order} and \code{period} or a numeric vector specifying the seasonal order (the default period is then used).}
+
+\item{mean}{should the SARIMA model include an intercept term.}
+
+\item{xreg}{vector or matrix of external regressors.}
+
+\item{eps}{precision.}
 }
 \description{
-Title
+Estimate SARIMA Model
 }

@@ -12,15 +12,17 @@ rangemean_tstat(data, period = 0, groupsize = 0, trim = 0)
 \item{period}{periodicity of the data.}
 
 \item{groupsize}{number of observations per group (before being trimmed).
-The default group size (`groupsize = 0`) is computed as followed:
-- if `period = 12` or `period = 6`, it is equal to `12`;
-- if `period = 4` it is equal to `12` if the data has at least 166 observations,
-`8` otherwise;
-- if `period = 3` or `period = 2` it is equal to `12` if the data has at least 166 observations,
-`6` otherwise;
-- if `period = 1` it is equal to `9` if the data has at least 166 observations,
-`5` otherwise;
-- it is equal to `period` otherwise.}
+The default group size (\code{groupsize = 0}) is computed as followed:
+\itemize{
+\item if \code{period = 12} or \code{period = 6}, it is equal to \code{12};
+\item if \code{period = 4} it is equal to \code{12} if the data has at least 166 observations,
+\code{8} otherwise;
+\item if \code{period = 3} or \code{period = 2} it is equal to \code{12} if the data has at least 166 observations,
+\code{6} otherwise;
+\item if \code{period = 1} it is equal to \code{9} if the data has at least 166 observations,
+\code{5} otherwise;
+\item it is equal to \code{period} otherwise.
+}}
 
 \item{trim}{number of trimmed observations.}
 }
@@ -32,10 +34,10 @@ Function to perform a range-mean regression, trimmed to avoid outlier distortion
 The slope is used in TRAMO to select whether the original series will be transformed into log or maintain in level.
 }
 \details{
-First, the data is divided into \eqn{n} groups of successive observations of length \eqn{l} (`groupsize`).
+First, the data is divided into \eqn{n} groups of successive observations of length \eqn{l} (\code{groupsize}).
 That is, the first group is formed with the first \eqn{l} observations,
 the second group is formed with observations \eqn{1+l} to \eqn{2l}, etc.
-Then, for each group \eqn{i}, the observations are sorted and the `trim` smallest and largest
+Then, for each group \eqn{i}, the observations are sorted and the \code{trim} smallest and largest
 observations are rejected (to avoid outlier distortion).
 With the other observations, the range (noted \eqn{y_i}) and mean (noted \eqn{m_i}) are computed.
 
@@ -43,7 +45,7 @@ Finally, the following regression is performed :
 \deqn{
 y_t = \alpha + \beta m_t + u_t.
 }
-The function `rangemean_tstat` returns the T-statistic associated to \eqn{\beta}.
+The function \code{rangemean_tstat} returns the T-statistic associated to \eqn{\beta}.
 If it is significantly higher than 0, log transformation is recommended.
 }
 \examples{

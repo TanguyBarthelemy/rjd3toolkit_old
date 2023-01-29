@@ -34,8 +34,8 @@ sa.decomposition(x, ...)
 
 \item{first_date, last_date}{first and last date to plot (by default all the data is used).}
 
-\item{type_chart}{the chart to plot: `"sa-trend"` (by default) plots the input time series,
-the seasonally adjusted and the trend; `"seas-irr"` plots the seasonal and the irregular components.}
+\item{type_chart}{the chart to plot: \code{"sa-trend"} (by default) plots the input time series,
+the seasonally adjusted and the trend; \code{"seas-irr"} plots the seasonal and the irregular components.}
 
 \item{caption}{the caption of the plot.}
 

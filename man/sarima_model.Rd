@@ -20,11 +20,11 @@ sarima_model(
 
 \item{period}{period of the model.}
 
-\item{phi}{coefficients of the regular auto-regressive polynomial (1 + phi(1)B + phi(2)B + ...). True signs.}
+\item{phi}{coefficients of the regular auto-regressive polynomial (\eqn{1 + \phi_1B + \phi_2B + ...}). True signs.}
 
 \item{d}{regular differencing order.}
 
-\item{theta}{coefficients of the regular moving average polynomial (1 + theta(1)B + theta(2)B + ...). True signs.}
+\item{theta}{coefficients of the regular moving average polynomial (\eqn{1 + \theta_1B + \theta_2B + ...}). True signs.}
 
 \item{bphi}{coefficients of the seasonal auto-regressive polynomial. True signs.}
 
@@ -33,7 +33,7 @@ sarima_model(
 \item{btheta}{coefficients of the seasonal moving average polynomial. True signs.}
 }
 \value{
-a `"JD3_SARIMA"` model.
+A \code{"JD3_SARIMA"} model.
 }
 \description{
 Seasonal ARIMA model (Box-Jenkins)

@@ -16,7 +16,7 @@ in periods (positive value) or years (negative values).
 By default (\code{nyears = 0}), the entire sample is used.}
 }
 \value{
-A `c("JD3_TEST", "JD3")` object (see [statisticaltest()] for details).
+A \code{c("JD3_TEST", "JD3")} object (see \code{\link[=statisticaltest]{statisticaltest()}} for details).
 }
 \description{
 Periodogram Seasonality Test

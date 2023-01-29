@@ -16,10 +16,10 @@ lp_variable(
 \item{frequency}{Annual frequency (divisor of 12).}
 
 \item{start, length}{First date (array with the first year and the first period)
-(for instance `c(1980, 1)`) and number of periods of the output variables. Can also be provided with the `s` argument}
+(for instance \code{c(1980, 1)}) and number of periods of the output variables. Can also be provided with the \code{s} argument}
 
 \item{s}{time series used to get the dates for the trading days variables. If supplied the
-parameters `frequency`, `start` and `length` are ignored.}
+parameters \code{frequency}, \code{start} and \code{length} are ignored.}
 
 \item{type}{the modelisation of the leap year effect: as a contrast variable (\code{type = "LeapYear"}, default)
 or by a length-of-month (or length-of-quarter; \code{type = "LengthOfPeriod"}).}

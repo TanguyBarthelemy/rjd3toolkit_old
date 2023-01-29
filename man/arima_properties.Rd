@@ -7,9 +7,9 @@
 arima_properties(model, nspectrum = 601, nacf = 36)
 }
 \arguments{
-\item{model}{a `"JD3_ARIMA"` model (created with [arima_model()]).}
+\item{model}{a \code{"JD3_ARIMA"} model (created with \code{\link[=arima_model]{arima_model()}}).}
 
-\item{nspectrum}{number of points in \[0, pi\] to calculate the spectrum.}
+\item{nspectrum}{number of points in [0, pi] to calculate the spectrum.}
 
 \item{nacf}{maximum lag at which to calculate the acf.}
 }

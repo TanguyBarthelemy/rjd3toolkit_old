@@ -17,18 +17,18 @@ add_usrdefvar(
 \arguments{
 \item{x}{the specification.}
 
-\item{id}{the id of the variable in the format `"group_name.name"`.}
+\item{id}{the id of the variable in the format \code{"group_name.name"}.}
 
-\item{name}{name the name of the variable (to format print). By default equals to `id`.}
+\item{name}{name the name of the variable (to format print). By default equals to \code{id}.}
 
 \item{lag}{integer defining if the user-defined variable should be lagged.
-By default (`lag = 0`), the regressor \eqn{x_t} is not lagged. If `lag = 1`, then \eqn{x_{t-1}} is used.}
+By default (\code{lag = 0}), the regressor \eqn{x_t} is not lagged. If \code{lag = 1}, then \eqn{x_{t-1}} is used.}
 
 \item{coef}{the coefficient.}
 
 \item{regeffect}{assigned component of the user-defined variable.
-By default (`"Undefined"`), the variable is assigned to an additional component: the variable is used to improve the modelling, but it is not removed from the series for the decomposition.}
+By default (\code{"Undefined"}), the variable is assigned to an additional component: the variable is used to improve the modelling, but it is not removed from the series for the decomposition.}
 }
 \description{
-Add user-defined variable to a specification. To add user-defined calendar regressors, see [set_tradingdays()].
+Add user-defined variable to a specification. To add user-defined calendar regressors, see \code{\link[=set_tradingdays]{set_tradingdays()}}.
 }

@@ -2,13 +2,20 @@
 % Please edit documentation in R/arima.R
 \name{ucarima_estimate}
 \alias{ucarima_estimate}
-\title{Title}
+\title{Estimate UCARIMA Model}
 \usage{
-ucarima_estimate(ucm, data, stdev = T)
+ucarima_estimate(x, ucm, stdev = TRUE)
 }
 \arguments{
+\item{x}{univariate time series}
+
+\item{ucm}{UCARIMA model returned by \code{\link[=ucarima_model]{ucarima_model()}}.}
+
 \item{stdev}{}
 }
+\value{
+matrix containing the different components.
+}
 \description{
-Title
+Estimate UCARIMA Model
 }

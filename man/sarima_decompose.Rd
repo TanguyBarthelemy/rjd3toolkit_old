@@ -2,19 +2,19 @@
 % Please edit documentation in R/arima.R
 \name{sarima_decompose}
 \alias{sarima_decompose}
-\title{Title}
+\title{Decompose SARIMA Model}
 \usage{
 sarima_decompose(model, rmod = 0, epsphi = 0)
 }
 \arguments{
-\item{model}{Sarima model to decompose}
+\item{model}{SARIMA model to decompose.}
 
-\item{rmod}{Trend threshold}
+\item{rmod}{trend threshold.}
 
-\item{epsphi}{Seasonal tolerance (in degrees)}
+\item{epsphi}{seasonal tolerance (in degrees).}
 }
 \description{
-Title
+Decompose SARIMA Model
 }
 \examples{
 model <- sarima_model(period = 12, d =1, bd = 1, theta = -0.6, btheta = -0.5)

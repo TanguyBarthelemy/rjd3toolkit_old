@@ -7,16 +7,16 @@
 fixed_week_day(month, week, dayofweek, weight = 1, validity = NULL)
 }
 \arguments{
-\item{month}{month of the holiday: from `1` (January) to `12` (December).}
+\item{month}{month of the holiday: from \code{1} (January) to \code{12} (December).}
 
-\item{week}{position of the specified week day in the month: from `1` (first week of the month) to `5`. Should be always lower than 5.
-`-1` for the last `dayofweek` of the month.}
+\item{week}{position of the specified week day in the month: from \code{1} (first week of the month) to \code{5}. Should be always lower than 5.
+\code{-1} for the last \code{dayofweek} of the month.}
 
-\item{dayofweek}{day of the week: from `1` (Monday) to `7` (Sunday).}
+\item{dayofweek}{day of the week: from \code{1} (Monday) to \code{7} (Sunday).}
 
 \item{weight}{weight associated to the holiday.}
 
-\item{validity}{validity period: either `NULL` (full sample) or a named list with `"start"` and/or "end" dates in the format `"YYYY-MM-DD"`.}
+\item{validity}{validity period: either \code{NULL} (full sample) or a named list with \code{"start"} and/or "end" dates in the format \code{"YYYY-MM-DD"}.}
 }
 \description{
 Fixed Week Day

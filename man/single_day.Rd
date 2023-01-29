@@ -7,7 +7,7 @@
 single_day(date, weight = 1)
 }
 \arguments{
-\item{date}{the date of the holiday in the format `"YYYY-MM-DD"`.}
+\item{date}{the date of the holiday in the format \code{"YYYY-MM-DD"}.}
 
 \item{weight}{weight associated to the holiday.}
 }

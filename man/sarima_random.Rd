@@ -7,13 +7,15 @@
 sarima_random(model, length, stde = 1, tdegree = 0)
 }
 \arguments{
-\item{model}{a `"JD3_SARIMA"` model (see [sarima_model()] function).}
+\item{model}{a \code{"JD3_SARIMA"} model (see \code{\link[=sarima_model]{sarima_model()}} function).}
 
 \item{length}{length of the output series.}
 
-\item{stde}{the standard deviation of the normal distribution of the innovations of the simulated series. Unused if tdegree is larger than 0.}
+\item{stde}{deviation of the normal distribution of the innovations of the simulated series.
+Unused if \code{tdegree} is larger than 0.}
 
-\item{tdegree}{Degrees of freedom of the T distribution of the innovations. O if normal distribution is used.}
+\item{tdegree}{degrees of freedom of the T distribution of the innovations.
+\code{tdegree = 0} if normal distribution is used.}
 }
 \description{
 Simulate Seasonal ARIMA

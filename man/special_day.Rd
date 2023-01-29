@@ -10,11 +10,11 @@ special_day(event, offset = 0, weight = 1, validity = NULL)
 \item{event}{the event to add (see details).}
 
 \item{offset}{The position of the holiday in relation to the selected pre-specified holiday measured in days (can be positive or negative).
-By default `offset = 0`.}
+By default \code{offset = 0}.}
 
 \item{weight}{weight associated to the holiday.}
 
-\item{validity}{validity period: either `NULL` (full sample) or a named list with `"start"` and/or "end" dates in the format `"YYYY-MM-DD"`.}
+\item{validity}{validity period: either \code{NULL} (full sample) or a named list with \code{"start"} and/or "end" dates in the format \code{"YYYY-MM-DD"}.}
 }
 \description{
 Pre-Defined Holiday

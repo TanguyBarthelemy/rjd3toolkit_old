@@ -9,7 +9,7 @@ chained_calendar(calendar1, calendar2, break_date)
 \arguments{
 \item{calendar1, calendar2}{calendars to chain.}
 
-\item{break_date}{the break date in the format `"YYYY-MM-DD"`.}
+\item{break_date}{the break date in the format \code{"YYYY-MM-DD"}.}
 }
 \value{
 The chained calendar.
