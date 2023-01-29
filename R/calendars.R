@@ -47,7 +47,7 @@ SINGLEDAY='JD3_SINGLEDAY'
     return (list(start=start, end=end))
 }
 
-length_ts <- function(s){
+.length_ts <- function(s){
   if(is.mts(s)){
     nrow(s)
   }else{
@@ -174,7 +174,7 @@ single_day<-function(date, weight=1){
 }
 
 .p2r_singleday<-function(p){
-  return (single_day(p2r_date(p$date), p$weight))
+  return (single_day(.p2r_date(p$date), p$weight))
 }
 
 .r2p_singleday<-function(r){
@@ -226,12 +226,12 @@ special_day<-function(event, offset=0, weight=1, validity=NULL){
 }
 
 .p2r_specialday<-function(p){
-  return (special_day(enum_extract(jd3.CalendarEvent, p$event), p$offset, p$weight, .p2r_validityPeriod(p$validity)))
+  return (special_day(.enum_extract(jd3.CalendarEvent, p$event), p$offset, p$weight, .p2r_validityPeriod(p$validity)))
 }
 
 .r2p_specialday<-function(r){
   pd<-jd3.PrespecifiedHoliday$new()
-  pd$event<-enum_of(jd3.CalendarEvent, r$event, "HOLIDAY")
+  pd$event<-.enum_of(jd3.CalendarEvent, r$event, "HOLIDAY")
   pd$offset<-r$offset
   pd$weight<-r$weight
   if (is.null(r$validity))
@@ -248,7 +248,7 @@ special_day<-function(event, offset=0, weight=1, validity=NULL){
   return (jcal)
 }
 
-group_names <- function(x, contrasts = TRUE){
+.group_names <- function(x, contrasts = TRUE){
   if(!is.matrix(x))
     return(x)
   col_names <- seq_len(ncol(x)) - !contrasts #if !constrast then it starts from 0
@@ -278,14 +278,14 @@ td<-function(frequency, start, length, s, groups=c(1,2,3,4,5,6,0), contrasts=TRU
   if (!missing(s) && is.ts(s)) {
     frequency = stats::frequency(s)
     start = stats::start(s)
-    length = length_ts(s)
+    length = .length_ts(s)
   }
-  jdom<-tsdomain_r2jd(frequency, start[1], start[2], length)
+  jdom<-.r2jd_tsdomain(frequency, start[1], start[2], length)
   igroups<-as.integer(groups)
   jm<-.jcall("demetra/modelling/r/Variables", "Ldemetra/math/matrices/Matrix;",
              "td", jdom, igroups, contrasts)
-  data <- matrix_jd2r(jm)
-  data <- group_names(data, contrasts = contrasts)
+  data <- .jd2r_matrix(jm)
+  data <- .group_names(data, contrasts = contrasts)
   return (ts(data, start = start, frequency = frequency))
 }
 
@@ -326,7 +326,7 @@ holidays<-function(calendar, start, length, nonworking=c(6,7), type=c("Skip", "A
   jcal<-.p2jd_calendar(pcal)
   jm<-.jcall("demetra/calendar/r/Calendars", "Ldemetra/math/matrices/Matrix;",
              "holidays", jcal, as.character(start), as.integer(length), .jarray(as.integer(nonworking)), type,  as.logical(single))
-  res <- matrix_jd2r(jm)
+  res <- .jd2r_matrix(jm)
   rownames(res) <- as.character(seq(as.Date(start), length.out = nrow(res), by="days"))
   return (res)
 
@@ -345,8 +345,8 @@ long_term_mean <-function(calendar,frequency,groups=c(1,2,3,4,5,6,0), holiday=7)
   jcal<-.p2jd_calendar(pcal)
   jm<-.jcall("demetra/calendar/r/Calendars", "Ldemetra/math/matrices/Matrix;",
              "longTermMean", jcal, as.integer(frequency), as.integer(groups), as.integer(holiday))
-  res <- matrix_jd2r(jm)
-  return (group_names(res, contrasts = FALSE))
+  res <- .jd2r_matrix(jm)
+  return (.group_names(res, contrasts = FALSE))
 }
 
 #' Compute Easter days between two years
@@ -372,11 +372,11 @@ stock_td<-function(frequency, start, length, s, w = 31){
   if (!missing(s) && is.ts(s)) {
     frequency = stats::frequency(s)
     start = stats::start(s)
-    length = length_ts(s)
+    length = .length_ts(s)
   }
-  jdom <- tsdomain_r2jd(frequency, start[1], start[2], length)
+  jdom <- .r2jd_tsdomain(frequency, start[1], start[2], length)
   jm<-.jcall("demetra/modelling/r/Variables", "Ldemetra/math/matrices/Matrix;", "stockTradingDays", jdom, as.integer(w))
-  data <- matrix_jd2r(jm)
+  data <- .jd2r_matrix(jm)
   colnames(data) <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
   return (ts(data, frequency = frequency, start= start))
 }
@@ -442,7 +442,7 @@ chained_calendar<-function(calendar1, calendar2, break_date){
 }
 
 .p2r_chainedcalendar<-function(p){
-  return (chained_calendar(p$calendar1, p$calendar2, p2r_date(p$break_date)))
+  return (chained_calendar(p$calendar1, p$calendar2, .p2r_date(p$break_date)))
 }
 
 .r2p_chainedcalendar<-function(r){
@@ -561,15 +561,15 @@ calendar_td<-function(calendar,frequency, start, length, s, groups=c(1,2,3,4,5,6
   if (!missing(s) && is.ts(s)) {
     frequency = stats::frequency(s)
     start = stats::start(s)
-    length = length_ts(s)
+    length = .length_ts(s)
   }
-  jdom<-tsdomain_r2jd(frequency, start[1], start[2], length)
+  jdom<-.r2jd_tsdomain(frequency, start[1], start[2], length)
   pcal<-.r2p_calendar(calendar)
   jcal<-.p2jd_calendar(pcal)
   jm<-.jcall("demetra/modelling/r/Variables", "Ldemetra/math/matrices/Matrix;",
              "htd", jcal, jdom, as.integer(groups), as.integer(holiday), contrasts, meanCorrection)
-  return <- matrix_jd2r(jm)
-  return <- group_names(return, contrasts = contrasts)
+  return <- .jd2r_matrix(jm)
+  return <- .group_names(return, contrasts = contrasts)
   return (ts(return, start = start, frequency = frequency))
 }
 
@@ -587,14 +587,14 @@ NULL
 #' @rdname print.calendars
 print.JD3_FIXEDDAY<-function(x, ...){
   cat('Fixed day: month=', x$month, ', day=', x$day,  sep='')
-  print_weight(x)
-  print_validityperiod(x)
+  .print_weight(x)
+  .print_validityperiod(x)
 }
-print_weight <- function(x, ...) {
+.print_weight <- function(x, ...) {
   if (x$weight != 1)
     cat(' , weight=', x$weight, sep='')
 }
-print_validityperiod <- function(x, ...) {
+.print_validityperiod <- function(x, ...) {
   if (!is.null(x$validity$start))
     cat(sprintf(' , from=%s', x$validity$start))
   if (!is.null(x$validity$end))
@@ -606,16 +606,16 @@ DAYS=c('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sund
 #' @rdname print.calendars
 print.JD3_FIXEDWEEKDAY<-function(x, ...){
   cat('Fixed week day: month=', x$month, ', day of the week=', DAYS[x$dayofweek], ', position=', x$position,  sep='')
-  print_weight(x)
-  print_validityperiod(x)
+  .print_weight(x)
+  .print_validityperiod(x)
 }
 
 #' @export
 #' @rdname print.calendars
 print.JD3_EASTERDAY<-function(x, ...){
   cat('Easter related day: offset=', x$offset, sep='')
-  print_weight(x)
-  print_validityperiod(x)
+  .print_weight(x)
+  .print_validityperiod(x)
 }
 
 #' @export
@@ -623,15 +623,15 @@ print.JD3_EASTERDAY<-function(x, ...){
 print.JD3_SPECIALDAY<-function(x, ...){
   cat('Prespecified holiday: event=', x$event,  sep='')
   if (x$offset != 0)cat(' , offset=', x$offset, sep='')
-  print_weight(x)
-  print_validityperiod(x)
+  .print_weight(x)
+  .print_validityperiod(x)
 }
 
 #' @export
 #' @rdname print.calendars
 print.JD3_SINGLEDDAY<-function(x, ...){
   cat('Single date: ', x$date,  sep='')
-  print_weight(x)
+  .print_weight(x)
 }
 
 #' @export

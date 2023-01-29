@@ -42,7 +42,7 @@ reload_dictionaries<-function(){
 NULL
 
 
-p2r_anova<-function(p){
+.p2r_anova<-function(p){
   return (list(SSM=p$SSM, dfM=p$dfm, SSR=p$SSR, dfR=p$dfr, test=test_anova(p$SSM, p$dfm, p$SSR, p$dfr)))
 }
 

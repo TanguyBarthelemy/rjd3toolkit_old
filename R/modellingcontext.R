@@ -38,26 +38,26 @@ tsmoniker<-function(source, id){
 .r2p_datasupplier<-function(name, r){
   p<-jd3.TsDataSuppliers$Item$new()
   p$name<-name
-  if (is.ts(r)) p$data<-r2p_ts(r)
+  if (is.ts(r)) p$data<-.r2p_ts(r)
   else if (is(r, JD3_DYNAMICTS)) p$dynamic_data<-.r2p_dynamic_ts(r)
   else return (NULL)
   return (p)
 }
 
-dynamicTs<-function(moniker, data){
+dynamic_ts<-function(moniker, data){
   return (structure(list(moniker=moniker, data=data), class=c(JD3_DYNAMICTS)))
 }
 
 .p2r_dynamic_ts<-function(p){
   if (is.null(p)) return (NULL)
-  s<-p2r_ts(p$current)
+  s<-.p2r_ts(p$current)
   m<-.p2r_moniker(p$moniker)
-  return (dynamicTs(m, s))
+  return (dynamic_ts(m, s))
 }
 
 .r2p_dynamic_ts<-function(r){
   p<-jd3.DynamicTsData$new()
-  p$current<- r2p_ts(r$data)
+  p$current<- .r2p_ts(r$data)
   p$moniker<-.r2p_moniker(r$moniker)
   return (p)
 }
@@ -66,7 +66,7 @@ dynamicTs<-function(moniker, data){
 #' @rdname jd3_utilities
 .p2r_datasupplier<-function(p){
   if (p$has('dynamic_data')) return (.p2r_dynamic_ts(p$dynamic_data))
-  if (p$has('data')) return (p2r_ts(p$data))
+  if (p$has('data')) return (.p2r_ts(p$data))
   return (NULL)
 }
 
@@ -222,15 +222,6 @@ modelling_context<-function(calendars=NULL, variables=NULL){
   return (p)
 }
 
-
-#' @export
-#' @rdname jd3_utilities
-context2dict <- function(x) {
-  .jcall("demetra/util/r/Dictionary",
-        "Ldemetra/util/r/Dictionary;",
-        "fromContext",
-        x)
-}
 
 #' @export
 #' @rdname jd3_utilities

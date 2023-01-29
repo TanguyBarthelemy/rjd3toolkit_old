@@ -30,7 +30,7 @@ add_outlier.default <- function(x,
   # data.frame to recycle arguments
   new_out <- data.frame(type, date, name, coef)
   new_out <- as.list(new_out)
-  new_out <- mapply(createOutlier,
+  new_out <- mapply(.create_outlier,
                     as.list(new_out)[[1]],
                     as.list(new_out)[[2]],
                     as.list(new_out)[[3]],
@@ -47,6 +47,25 @@ add_outlier.default <- function(x,
   }
   x
 }
+
+.create_outlier<-function(code, pos, name = NULL, coef=NULL){
+  res = list(name=name, pos=pos, code=code, coef = .fixed_parameter(coef))
+  return (res)
+}
+.fixed_parameters<-function(coef){
+  ncoef<-length(coef)
+  if (ncoef == 0)return (NULL)
+  l<-lapply(coef, function(v){list(value=v, type='FIXED')})
+  return (l)
+}
+.fixed_parameter<-function(coef){
+  if (is.null(coef)) return (NULL)
+  if (coef == 0) return (NULL)
+  return (list(value=coef, type='FIXED'))
+}
+
+
+
 #' @rdname add_outlier
 #' @export
 remove_outlier <- function(x,
@@ -107,7 +126,7 @@ add_ramp.default <- function(x,
   # data.frame to recycle arguments
   new_ramp <- data.frame(start, end, name, coef)
   new_ramp <- as.list(new_ramp)
-  new_ramp <- mapply(createRamp,
+  new_ramp <- mapply(.create_ramp,
                      as.list(new_ramp)[[1]],
                      as.list(new_ramp)[[2]],
                      as.list(new_ramp)[[3]],
@@ -125,6 +144,10 @@ add_ramp.default <- function(x,
   x
 }
 
+.create_ramp<-function(start, end, name = NULL, coef=NULL){
+  res = list(name=name, start=start, end=end, coef = .fixed_parameter(coef))
+  return (res)
+}
 #' @rdname add_outlier
 #' @export
 remove_ramp <- function(x,
@@ -1131,10 +1154,18 @@ add_usrdefvar.default <- function(x,
                                   coef = NULL,
                                   regeffect=c("Undefined", "Trend", "Seasonal", "Irregular", "Series", "SeasonallyAdjusted")) {
   x$regression$users[[length(x$regression$users) + 1]] <-
-    createVariable(id = id, name = name, lag = lag, coef = coef, regeffect = regeffect)
+    .create_variable(id = id, name = name, lag = lag, coef = coef, regeffect = regeffect)
   x
 }
 
+.create_variable<-function(id, name = NULL, lag = 0, coef = NULL, regeffect=c("Undefined", "Trend", "Seasonal", "Irregular", "Series", "SeasonallyAdjusted")){
+  regeffect=match.arg(regeffect)
+  if (is.null(name)) {
+    name<-id
+  }
+  res = list(id=id, name=name, lag=lag, coef = .fixed_parameter(coef), regeffect=regeffect)
+  return (res)
+}
 
 
 set_span <- function(x,

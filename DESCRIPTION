@@ -52,7 +52,6 @@ Collate:
     'tests_seasonality.R'
     'tests_td.R'
     'timeseries.R'
-    'utility_spec.R'
     'variables.R'
     'zzz.R'
 VignetteBuilder: knitr

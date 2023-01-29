@@ -30,7 +30,7 @@ statisticaltest(val, pval, dist = NULL)
 Generic function to format the results of a test runs with 'JDemetra+'.
 }
 \examples{
-udr_test = testofupdownruns(randomsT(5, 1000))
+udr_test = testofupdownruns(randoms_t(5, 1000))
 udr_test # default print
 print(udr_test, details = TRUE) # with the distribution
 

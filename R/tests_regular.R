@@ -18,7 +18,7 @@ NULL
 #' \item{\code{distribution}} the statistical distribution used.
 #' }
 #' @examples
-#' udr_test = testofupdownruns(randomsT(5, 1000))
+#' udr_test = testofupdownruns(randoms_t(5, 1000))
 #' udr_test # default print
 #' print(udr_test, details = TRUE) # with the distribution
 #'
@@ -60,13 +60,13 @@ print.JD3_TEST<-function(x, details=FALSE, ...){
 #' @return A \code{c("JD3_TEST", "JD3")} object (see \code{\link{statisticaltest}} for details).
 #'
 #' @examples
-#' ljungbox(randomsT(2, 100), lag = 24, k =1)
+#' ljungbox(randoms_t(2, 100), lag = 24, k =1)
 #' ljungbox(ABS$X0.2.09.10.M, lag = 24, k =1)
 #' @export
 ljungbox<-function(data, k=1, lag=1, nhp=0, sign=0, mean=T){
   jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "ljungBox",
                 as.numeric(data), as.integer(k), as.integer(lag), as.integer(nhp), as.integer(sign), as.logical(mean))
-  return (jd2r_test(jtest))
+  return (.jd2r_test(jtest))
 }
 
 #' Normality Tests
@@ -85,7 +85,7 @@ ljungbox<-function(data, k=1, lag=1, nhp=0, sign=0, mean=T){
 #' doornikhansen(x)
 #' jarquebera(x)
 #'
-#' x <- randomsT(2, 100) # alternative
+#' x <- randoms_t(2, 100) # alternative
 #' bowmanshenton(x)
 #' doornikhansen(x)
 #' jarquebera(x)
@@ -96,14 +96,14 @@ NULL
 #' @describeIn normality_tests Bowman-Shenton test
 bowmanshenton<-function(data){
   jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "bowmanShenton",as.numeric(data))
-  return (jd2r_test(jtest))
+  return (.jd2r_test(jtest))
 }
 
 #' @export
 #' @describeIn normality_tests Doornik-Hansen test
 doornikhansen<-function(data){
   jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "doornikHansen",as.numeric(data))
-  return (jd2r_test(jtest))
+  return (.jd2r_test(jtest))
 }
 
 #' @export
@@ -111,7 +111,7 @@ doornikhansen<-function(data){
 jarquebera<-function(data, k=0, sample=T){
   jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "jarqueBera",
                 as.numeric(data), as.integer(k), as.logical(sample))
-  return (jd2r_test(jtest))
+  return (.jd2r_test(jtest))
 }
 
 #' Runs Tests around the mean or the median
@@ -126,7 +126,7 @@ jarquebera<-function(data, k=0, sample=T){
 #' @name runstests
 #'
 #' @examples
-#' x = randomsT(5, 1000)
+#' x <- randoms_t(5, 1000)
 #'# random values
 #' testofruns(x)
 #' testofupdownruns(x)
@@ -140,7 +140,7 @@ NULL
 testofruns<-function(data, mean=T, number=T){
   jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "testOfRuns",
                 as.numeric(data), as.logical(mean), as.logical(number))
-  return (jd2r_test(jtest))
+  return (.jd2r_test(jtest))
 }
 
 #' @describeIn runstests up and down runs test
@@ -148,7 +148,7 @@ testofruns<-function(data, mean=T, number=T){
 testofupdownruns<-function(data, number=T){
   jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "testOfUpDownRuns",
                 as.numeric(data), as.logical(number))
-  return (jd2r_test(jtest))
+  return (.jd2r_test(jtest))
 }
 
 #' Autocorrelation Functions
@@ -160,8 +160,8 @@ testofupdownruns<-function(data, number=T){
 #' @examples
 #' x = ABS$X0.2.09.10.M
 #' autocorrelations(x)
-#' autocorrelations.partial(x)
-#' autocorrelations.inverse(x)
+#' autocorrelations_partial(x)
+#' autocorrelations_inverse(x)
 #' @export
 autocorrelations<-function(data, mean=T, n=15){
   res = .jcall("demetra/stats/r/Tests", "[D", "autocorrelations",
@@ -171,7 +171,7 @@ autocorrelations<-function(data, mean=T, n=15){
 }
 #' @export
 #' @rdname autocorrelations
-autocorrelations.partial<-function(data, mean=T, n=15){
+autocorrelations_partial<-function(data, mean=T, n=15){
   res <- .jcall("demetra/stats/r/Tests", "[D", "partialAutocorrelations",
                 as.numeric(data), as.logical(mean), as.integer(n))
   names(res) <- seq_len(n)
@@ -179,7 +179,7 @@ autocorrelations.partial<-function(data, mean=T, n=15){
 }
 #' @export
 #' @rdname autocorrelations
-autocorrelations.inverse<-function(data, nar=30, n=15){
+autocorrelations_inverse<-function(data, nar=30, n=15){
   res <- .jcall("demetra/stats/r/Tests", "[D", "inverseAutocorrelations",
                 as.numeric(data), as.integer(nar), as.integer(n))
   names(res) <- seq_len(n)

@@ -2,75 +2,64 @@
 % Please edit documentation in R/jd2r.R, R/protobuf.R, R/arima.R, R/jd3rslts.R,
 %   R/modellingcontext.R, R/procresults.R, R/regarima_rslts.R, R/zzz.R
 \docType{data}
-\name{ts_r2jd}
-\alias{ts_r2jd}
-\alias{tsdomain_r2jd}
-\alias{ts_jd2r}
-\alias{matrix_jd2r}
-\alias{matrix_r2jd}
-\alias{j2r_ldt}
-\alias{j2r_dt}
-\alias{r2j_dt}
-\alias{r2j_ldt}
-\alias{jd2r_parameters}
-\alias{jdomain}
+\name{.r2jd_ts}
+\alias{.r2jd_ts}
+\alias{.r2jd_tsdomain}
+\alias{.jd2r_ts}
+\alias{.jd2r_matrix}
+\alias{.r2jd_matrix}
+\alias{.jdomain}
 \alias{jd3_utilities}
-\alias{enum_sextract}
-\alias{enum_sof}
-\alias{enum_extract}
-\alias{enum_of}
-\alias{r2p_parameter}
-\alias{p2r_parameter}
-\alias{r2p_parameters}
-\alias{r2p_lparameters}
-\alias{r2p_tparameters}
-\alias{p2r_parameters}
-\alias{p2r_parameters_rslt}
-\alias{p2r_parameters_rsltx}
-\alias{p2r_test}
-\alias{p2r_matrix}
-\alias{r2p_matrix}
-\alias{p2r_ts}
-\alias{r2p_ts}
-\alias{p2r_parameters_estimation}
-\alias{p2r_likelihood}
-\alias{p2r_date}
-\alias{r2p_date}
-\alias{p2r_span}
-\alias{r2p_span}
-\alias{p2r_arima}
-\alias{p2r_ucarima}
-\alias{p2r_spec_sarima}
-\alias{r2p_spec_sarima}
-\alias{p2r_outliers}
-\alias{r2p_outliers}
-\alias{p2r_ramps}
-\alias{r2p_ramps}
-\alias{p2r_uservars}
-\alias{r2p_uservars}
-\alias{p2r_variables}
-\alias{p2r_sa_component}
-\alias{p2r_sa_decomposition}
-\alias{p2r_sa_diagnostics}
-\alias{p2r_spec_benchmarking}
-\alias{r2p_spec_benchmarking}
-\alias{r2jd_sarima}
-\alias{jd2r_ucarima}
-\alias{proc_numeric}
-\alias{proc_vector}
-\alias{proc_int}
-\alias{proc_bool}
-\alias{proc_ts}
-\alias{proc_str}
-\alias{proc_desc}
-\alias{proc_test}
-\alias{proc_parameter}
-\alias{proc_parameters}
-\alias{proc_matrix}
-\alias{proc_data}
-\alias{proc_dictionary}
-\alias{proc_dictionary2}
-\alias{proc_likelihood}
+\alias{.enum_sextract}
+\alias{.enum_sof}
+\alias{.enum_extract}
+\alias{.enum_of}
+\alias{.r2p_parameter}
+\alias{.p2r_parameter}
+\alias{.r2p_parameters}
+\alias{.r2p_lparameters}
+\alias{.p2r_parameters}
+\alias{.p2r_parameters_rslt}
+\alias{.p2r_parameters_rsltx}
+\alias{.p2r_test}
+\alias{.p2r_matrix}
+\alias{.p2r_ts}
+\alias{.r2p_ts}
+\alias{.p2r_parameters_estimation}
+\alias{.p2r_span}
+\alias{.r2p_span}
+\alias{.p2r_arima}
+\alias{.p2r_ucarima}
+\alias{.p2r_spec_sarima}
+\alias{.r2p_spec_sarima}
+\alias{.p2r_outliers}
+\alias{.r2p_outliers}
+\alias{.p2r_ramps}
+\alias{.r2p_ramps}
+\alias{.p2r_uservars}
+\alias{.r2p_uservars}
+\alias{.p2r_variables}
+\alias{.p2r_sa_decomposition}
+\alias{.p2r_sa_diagnostics}
+\alias{.p2r_spec_benchmarking}
+\alias{.r2p_spec_benchmarking}
+\alias{.r2jd_sarima}
+\alias{.jd2r_ucarima}
+\alias{.proc_numeric}
+\alias{.proc_vector}
+\alias{.proc_int}
+\alias{.proc_bool}
+\alias{.proc_ts}
+\alias{.proc_str}
+\alias{.proc_desc}
+\alias{.proc_test}
+\alias{.proc_parameter}
+\alias{.proc_parameters}
+\alias{.proc_matrix}
+\alias{.proc_data}
+\alias{.proc_dictionary}
+\alias{.proc_dictionary2}
+\alias{.proc_likelihood}
 \alias{.r2p_moniker}
 \alias{.p2r_moniker}
 \alias{.r2p_datasupplier}
@@ -81,11 +70,10 @@
 \alias{.r2p_context}
 \alias{.p2jd_context}
 \alias{.jd2p_context}
-\alias{context2dict}
 \alias{.jd2r_modellingcontext}
 \alias{.r2jd_modellingcontext}
-\alias{jd3Object}
-\alias{p2r_regarima_rslts}
+\alias{.jd3_object}
+\alias{.p2r_regarima_rslts}
 \alias{DATE_MIN}
 \alias{DATE_MAX}
 \title{Java Utility Functions}
@@ -95,141 +83,117 @@ An object of class \code{Message} of length 3.
 An object of class \code{Message} of length 3.
 }
 \usage{
-ts_r2jd(s)
+.r2jd_ts(s)
 
-tsdomain_r2jd(period, startYear, startPeriod, length)
+.r2jd_tsdomain(period, startYear, startPeriod, length)
 
-ts_jd2r(s)
+.jd2r_ts(s)
 
-matrix_jd2r(s)
+.jd2r_matrix(s)
 
-matrix_r2jd(s)
+.r2jd_matrix(s)
 
-j2r_ldt(ldt)
+.jdomain(period, start, end)
 
-j2r_dt(dt)
+.enum_sextract(type, p)
 
-r2j_dt(dt)
+.enum_sof(type, code)
 
-r2j_ldt(dt)
+.enum_extract(type, p)
 
-jd2r_parameters(jparams)
+.enum_of(type, code, prefix)
 
-jdomain(period, start, end)
+.r2p_parameter(r)
 
-enum_sextract(type, p)
+.p2r_parameter(p)
 
-enum_sof(type, code)
+.r2p_parameters(r)
 
-enum_extract(type, p)
+.r2p_lparameters(r)
 
-enum_of(type, code, prefix)
+.p2r_parameters(p)
 
-r2p_parameter(r)
+.p2r_parameters_rslt(p)
 
-p2r_parameter(p)
+.p2r_parameters_rsltx(p)
 
-r2p_parameters(r)
+.p2r_test(p)
 
-r2p_lparameters(r)
+.p2r_matrix(p)
 
-r2p_tparameters(data, type)
+.p2r_ts(p)
 
-p2r_parameters(p)
+.r2p_ts(r)
 
-p2r_parameters_rslt(p)
+.p2r_parameters_estimation(p)
 
-p2r_parameters_rsltx(p)
+.p2r_span(span)
 
-p2r_test(p)
+.r2p_span(rspan)
 
-p2r_matrix(p)
+.p2r_arima(p)
 
-r2p_matrix(r)
+.p2r_ucarima(p)
 
-p2r_ts(p)
+.p2r_spec_sarima(spec)
 
-r2p_ts(r)
+.r2p_spec_sarima(r)
 
-p2r_parameters_estimation(p)
+.p2r_outliers(p)
 
-p2r_likelihood(p)
+.r2p_outliers(r)
 
-p2r_date(p)
+.p2r_ramps(p)
 
-r2p_date(s)
+.r2p_ramps(r)
 
-p2r_span(span)
+.p2r_uservars(p)
 
-r2p_span(rspan)
+.r2p_uservars(r)
 
-p2r_test(p)
+.p2r_variables(p)
 
-p2r_arima(p)
+.p2r_sa_decomposition(p, full = F)
 
-p2r_ucarima(p)
+.p2r_sa_diagnostics(p)
 
-p2r_spec_sarima(spec)
+.p2r_spec_benchmarking(p)
 
-r2p_spec_sarima(r)
+.r2p_spec_benchmarking(r)
 
-p2r_outliers(p)
+.r2jd_sarima(model)
 
-r2p_outliers(r)
+.jd2r_ucarima(jucm)
 
-p2r_ramps(p)
+.proc_numeric(rslt, name)
 
-r2p_ramps(r)
+.proc_vector(rslt, name)
 
-p2r_uservars(p)
+.proc_int(rslt, name)
 
-r2p_uservars(r)
+.proc_bool(rslt, name)
 
-p2r_variables(p)
+.proc_ts(rslt, name)
 
-p2r_sa_component(p)
+.proc_str(rslt, name)
 
-p2r_sa_decomposition(p, full = F)
+.proc_desc(rslt, name)
 
-p2r_sa_diagnostics(p)
+.proc_test(rslt, name)
 
-p2r_spec_benchmarking(p)
+.proc_parameter(rslt, name)
 
-r2p_spec_benchmarking(r)
+.proc_parameters(rslt, name)
 
-r2jd_sarima(model)
+.proc_matrix(rslt, name)
 
-jd2r_ucarima(jucm)
+.proc_data(rslt, name)
 
-proc_numeric(rslt, name)
+.proc_dictionary(name)
 
-proc_vector(rslt, name)
+.proc_dictionary2(jobj)
 
-proc_int(rslt, name)
-
-proc_bool(rslt, name)
-
-proc_ts(rslt, name)
-
-proc_str(rslt, name)
-
-proc_desc(rslt, name)
-
-proc_test(rslt, name)
-
-proc_parameter(rslt, name)
-
-proc_parameters(rslt, name)
-
-proc_matrix(rslt, name)
-
-proc_data(rslt, name)
-
-proc_dictionary(name)
-
-proc_dictionary2(jobj)
-
-proc_likelihood(jrslt, prefix)
+.proc_likelihood(jrslt, prefix)
 
 .r2p_moniker(r)
 
@@ -251,22 +215,20 @@ proc_likelihood(jrslt, prefix)
 
 .jd2p_context(jd)
 
-context2dict(x)
-
 .jd2r_modellingcontext(jcontext)
 
 .r2jd_modellingcontext(r)
 
-jd3Object(jobjRef, subclasses = NULL, result = F)
+.jd3_object(jobjRef, subclasses = NULL, result = F)
 
-p2r_regarima_rslts(p)
+.p2r_regarima_rslts(p)
 
 DATE_MIN
 
 DATE_MAX
 }
 \arguments{
-\item{p, r, spec, model, jucm, vp, start, end, name, x}{parameters.}
+\item{p, r, spec, model, jucm, start, end, name, s, period, startYear, startPeriod, length, type, code, prefix, span, rspan, full, rslt, jobj, jrslt, jd, jcontext, jobjRef, subclasses, result}{parameters.}
 }
 \description{
 These functions are used in all JDemetra+ 3.0 packages to easily interact between R and Java objects.

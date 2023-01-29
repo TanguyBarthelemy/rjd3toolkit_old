@@ -34,7 +34,7 @@ NULL
 #' @export
 #'
 #' @examples
-do.stationary<-function(data, period){
+do_stationary<-function(data, period){
   if (is.ts(data) & missing(period))
     period <- frequency(data)
   jst<-.jcall("demetra/modelling/r/Differencing", "Ljdplus/modelling/StationaryTransformation;", "doStationary",
@@ -67,9 +67,9 @@ do.stationary<-function(data, period){
 #' @export
 #'
 #' @examples
-#' z<-differencing.fast(log(ABS$X0.2.09.10.M),12)
+#' z <- differencing_fast(log(ABS$X0.2.09.10.M),12)
 #'
-differencing.fast<-function(data, period, mad=TRUE, centile=90, k=1.2){
+differencing_fast<-function(data, period, mad=TRUE, centile=90, k=1.2){
   if (is.ts(data) & missing(period))
     period <- frequency(data)
   jst<-.jcall("demetra/modelling/r/Differencing", "Ljdplus/modelling/StationaryTransformation;", "fastDifferencing",
@@ -133,7 +133,7 @@ differences<-function(data, lags=1, mean=TRUE){
 #' \deqn{
 #' y_t = \alpha + \beta m_t + u_t.
 #' }
-#' The function `rangemean.tstat` returns the T-statistic associated to \eqn{\beta}.
+#' The function `rangemean_tstat` returns the T-statistic associated to \eqn{\beta}.
 #' If it is significantly higher than 0, log transformation is recommended.
 #'
 #' @return T-Stat of the slope of the range-mean regression.
@@ -143,19 +143,19 @@ differences<-function(data, lags=1, mean=TRUE){
 #' # Multiplicative pattern
 #' plot(y)
 #' period = 12
-#' rm_t = rangemean.tstat(y, period = period, groupsize = period)
+#' rm_t = rangemean_tstat(y, period = period, groupsize = period)
 #' rm_t # higher than 0
 #' # Can be tested:
 #' pt(rm_t, period - 2, lower.tail = FALSE)
 #' # Or :
-#' 1-cdfT(period-2, rm_t)
+#' 1-cdf_t(period-2, rm_t)
 #'
 #' # Close to 0
-#' rm_t_log = rangemean.tstat(log(y), period = period, groupsize = period)
+#' rm_t_log = rangemean_tstat(log(y), period = period, groupsize = period)
 #' rm_t_log
 #' pt(rm_t_log, period - 2, lower.tail = FALSE)
 #' @export
-rangemean.tstat<-function(data, period=0, groupsize = 0, trim = 0){
+rangemean_tstat<-function(data, period=0, groupsize = 0, trim = 0){
   return (.jcall("demetra/modelling/r/AutoModelling", "D", "rangeMean",
                  as.numeric(data), as.integer(period), as.integer(groupsize), as.integer(trim)))
 

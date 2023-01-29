@@ -32,7 +32,7 @@ print.JD3_UCARIMA<-function(x,...){
   invisible(x)
 }
 
-arima_node<-function(p,d,q){
+.arima_node<-function(p,d,q){
   s<-paste(p,d,q,sep=',')
   return (paste0('(', s, ')'))
 }
@@ -41,7 +41,7 @@ arima_node<-function(p,d,q){
 #' @export
 print.JD3_SARIMA<-function(x, ...){
   m <- x
-  cat("SARIMA model: ", arima_node(length(m$phi), m$d, length(m$theta)), arima_node(length(m$bphi), m$bd, length(m$btheta)), m$period, "\n")
+  cat("SARIMA model: ", .arima_node(length(m$phi), m$d, length(m$theta)), .arima_node(length(m$bphi), m$bd, length(m$btheta)), m$period, "\n")
   if (length(m$phi)>0) cat("phi: ", m$phi, "\n")
   if (length(m$theta)>0)cat("theta: ", m$theta, "\n")
   if (length(m$bphi)>0) cat("bphi: ", m$bphi, "\n")
@@ -50,12 +50,12 @@ print.JD3_SARIMA<-function(x, ...){
 #' @rdname jd3_print
 #' @export
 print.JD3_SARIMA_ESTIMATION<-function(x, digits = max(3L, getOption("digits") - 3L), ...){
-  tables = sarima_coef_table(x, ...)
+  tables = .sarima_coef_table(x, ...)
   orders = tables$sarima_orders
 
   cat("SARIMA model: ",
-      arima_node(orders$p, orders$d, orders$q),
-      arima_node(orders$bp, orders$bd, orders$bq),
+      .arima_node(orders$p, orders$d, orders$q),
+      .arima_node(orders$bp, orders$bd, orders$bq),
       "\n")
 
   cat("\nCoefficients\n")
@@ -73,7 +73,7 @@ print.JD3_SARIMA_ESTIMATION<-function(x, digits = max(3L, getOption("digits") - 
 
 #' @export
 summary.JD3_SARIMA_ESTIMATION<-function(object, ...){
-  tables = sarima_coef_table(object, ...)
+  tables = .sarima_coef_table(object, ...)
   class(tables) <- "summary.JD3_SARIMA_ESTIMATION"
   tables
 }
@@ -85,8 +85,8 @@ print.summary.JD3_SARIMA_ESTIMATION<-function(x, digits = max(3L, getOption("dig
   orders = x$sarima_orders
 
   cat("SARIMA model: ",
-      arima_node(orders$p, orders$d, orders$q),
-      arima_node(orders$bp, orders$bd, orders$bq),
+      .arima_node(orders$p, orders$d, orders$q),
+      .arima_node(orders$bp, orders$bd, orders$bq),
       "\n")
 
   cat("\nCoefficients\n")
@@ -100,7 +100,7 @@ print.summary.JD3_SARIMA_ESTIMATION<-function(x, digits = max(3L, getOption("dig
   }
   invisible(x)
 }
-sarima_coef_table <- function(x, cov = NULL, ndf = NULL,...){
+.sarima_coef_table <- function(x, cov = NULL, ndf = NULL,...){
   m <- x
   if (! is.null(m$phi)) p<-dim(m$phi)[2]else p<-0
   if (! is.null(m$theta)) q<-dim(m$theta)[2]else q<-0
@@ -218,7 +218,7 @@ print.JD3_REGARIMA_RSLTS<-function(x, digits = max(3L, getOption("digits") - 3L)
         ndf = ndf,
         digits = digits,
         ...)
-  xregs = regarima_coef_table(x, ...)
+  xregs = .regarima_coef_table(x, ...)
   cat("\n")
   if (!is.null(xregs)){
     cat("Regression model:\n")
@@ -229,7 +229,7 @@ print.JD3_REGARIMA_RSLTS<-function(x, digits = max(3L, getOption("digits") - 3L)
   print(x$estimation$likelihood, ...)
   invisible(x)
 }
-regarima_coef_table <- function(x,...){
+.regarima_coef_table <- function(x,...){
   q <- x
   if (length(q$description$variables)>0){
     regs<-do.call("rbind", lapply(q$description$variables, function(z){z$coef}))
@@ -255,7 +255,7 @@ summary.JD3_REGARIMA_RSLTS<-function(object, ...){
   ndf<-object$estimation$likelihood$neffectiveobs-object$estimation$likelihood$nparams+1
   sarima_sum <- summary(object$description$arima, cov = object$estimation$parameters$cov,
                 ndf = ndf, ...)
-  xregs = regarima_coef_table(object, ...)
+  xregs = .regarima_coef_table(object, ...)
   likelihood = summary(object$estimation$likelihood)
   res = list(log = log,
              sarima = sarima_sum,
@@ -287,6 +287,6 @@ diagnostics.JD3_REGARIMA_RSLTS<-function(x, ...){
   residuals_test = x$diagnostics
   residuals_test = data.frame(Statistic = sapply(residuals_test, function(test) test[["value"]]),
                               P.value = sapply(residuals_test, function(test) test[["pvalue"]]),
-                              Description = sapply(residuals_test, function(test) test[["description"]]))
+                              Description = sapply(residuals_test, function(test) attr(test, "distribution")))
   residuals_test
 }

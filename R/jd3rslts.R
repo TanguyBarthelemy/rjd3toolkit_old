@@ -2,7 +2,7 @@
 
 #' @export
 #' @rdname jd3_utilities
-proc_numeric<-function(rslt, name){
+.proc_numeric<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (!is.jnull(s))
     .jcall(s, "D", "doubleValue")
@@ -11,7 +11,7 @@ proc_numeric<-function(rslt, name){
 }
 #' @export
 #' @rdname jd3_utilities
-proc_vector<-function(rslt, name){
+.proc_vector<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return(NULL)
@@ -19,7 +19,7 @@ proc_vector<-function(rslt, name){
 }
 #' @export
 #' @rdname jd3_utilities
-proc_int<-function(rslt, name){
+.proc_int<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return(-1)
@@ -27,7 +27,7 @@ proc_int<-function(rslt, name){
 }
 #' @export
 #' @rdname jd3_utilities
-proc_bool<-function(rslt, name){
+.proc_bool<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return(FALSE)
@@ -35,18 +35,18 @@ proc_bool<-function(rslt, name){
 }
 #' @export
 #' @rdname jd3_utilities
-proc_ts<-function(rslt, name){
+.proc_ts<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return (NULL)
   if (.jinstanceof(s, "demetra/timeseries/TsData"))
-    return(ts_jd2r(.jcast(s,"demetra/timeseries/TsData")))
+    return(.jd2r_ts(.jcast(s,"demetra/timeseries/TsData")))
   else
     return (NULL)
 }
 #' @export
 #' @rdname jd3_utilities
-proc_str<-function(rslt, name){
+.proc_str<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return(NULL)
@@ -54,7 +54,7 @@ proc_str<-function(rslt, name){
 }
 #' @export
 #' @rdname jd3_utilities
-proc_desc<-function(rslt, name){
+.proc_desc<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return(NULL)
@@ -62,7 +62,7 @@ proc_desc<-function(rslt, name){
 }
 #' @export
 #' @rdname jd3_utilities
-proc_test<-function(rslt, name){
+.proc_test<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return(NULL)
@@ -75,7 +75,7 @@ proc_test<-function(rslt, name){
 }
 #' @export
 #' @rdname jd3_utilities
-proc_parameter<-function(rslt, name){
+.proc_parameter<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return(NULL)
@@ -84,7 +84,7 @@ proc_parameter<-function(rslt, name){
 }
 #' @export
 #' @rdname jd3_utilities
-proc_parameters<-function(rslt, name){
+.proc_parameters<-function(rslt, name){
   jd_p<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(jd_p))
     return(NULL)
@@ -98,24 +98,24 @@ proc_parameters<-function(rslt, name){
 }
 #' @export
 #' @rdname jd3_utilities
-proc_matrix<-function(rslt, name){
+.proc_matrix<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return(NULL)
-  return (matrix_jd2r(s))
+  return (.jd2r_matrix(s))
 }
 #' @export
 #' @rdname jd3_utilities
-proc_data<-function(rslt, name){
+.proc_data<-function(rslt, name){
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return (NULL)
   if (.jinstanceof(s, "demetra/timeseries/TsData"))
-    return(ts_jd2r(.jcast(s,"demetra/timeseries/TsData")))
+    return(.jd2r_ts(.jcast(s,"demetra/timeseries/TsData")))
   else if (.jinstanceof(s, "java/lang/Number"))
     return (.jcall(s, "D", "doubleValue"))
   else if (.jinstanceof(s, "demetra/math/matrices/Matrix"))
-    return(matrix_jd2r(.jcast(s,"demetra/math/matrices/Matrix")))
+    return(.jd2r_matrix(.jcast(s,"demetra/math/matrices/Matrix")))
   else if (.jinstanceof(s, "demetra/data/Parameter")){
     val<-.jcall(s, "D", "getValue")
      return (c(val))
@@ -130,7 +130,7 @@ proc_data<-function(rslt, name){
   } else if (.jcall(.jcall(s, "Ljava/lang/Class;", "getClass"), "Z", "isArray"))
     return (.jevalArray(s, silent=TRUE))
   else if (.jinstanceof(s, "demetra/stats/StatisticalTest")) {
-    return (jd2r_test(s))
+    return (.jd2r_test(s))
   }
   else
     return (.jcall(s, "S", "toString"))
@@ -138,7 +138,7 @@ proc_data<-function(rslt, name){
 
 #' @export
 #' @rdname jd3_utilities
-proc_dictionary<-function(name){
+.proc_dictionary<-function(name){
   jmapping<-.jcall(name, "Ldemetra/information/InformationMapping;", "getMapping")
   jmap<-.jnew("java/util/LinkedHashMap")
   .jcall(jmapping, "V", "fillDictionary", .jnull("java/lang/String"), .jcast(jmap, "java/util/Map"), TRUE )
@@ -156,7 +156,7 @@ proc_dictionary<-function(name){
 
 #' @export
 #' @rdname jd3_utilities
-proc_dictionary2<-function(jobj){
+.proc_dictionary2<-function(jobj){
   jmap<-.jcall(jobj, "Ljava/util/Map;", "getDictionary")
   jkeys<-.jcall(jmap, "Ljava/util/Set;", "keySet")
   size<-.jcall(jkeys, "I", "size")
@@ -172,19 +172,19 @@ proc_dictionary2<-function(jobj){
 
 #' @export
 #' @rdname jd3_utilities
-proc_likelihood<-function(jrslt, prefix){
+.proc_likelihood<-function(jrslt, prefix){
   return (list(
-    ll=proc_numeric(jrslt, paste(prefix,"ll", sep="")),
-    ssq=proc_numeric(jrslt, paste(prefix,"ssqerr", sep="")),
-    nobs=proc_int(jrslt, paste(prefix,"nobs", sep="")),
-    neffective=proc_int(jrslt, paste(prefix,"neffective", sep="")),
-    nparams=proc_int(jrslt, paste(prefix,"nparams", sep="")),
-    df=proc_int(jrslt, paste(prefix,"df", sep="")),
-    aic=proc_numeric(jrslt, paste(prefix,"aic", sep="")),
-    aicc=proc_numeric(jrslt, paste(prefix,"aicc", sep="")),
-    bic=proc_numeric(jrslt, paste(prefix,"bic", sep="")),
-    bic2=proc_numeric(jrslt, paste(prefix,"bic2", sep="")),
-    bicc=proc_numeric(jrslt, paste(prefix,"bicc", sep="")),
-    hannanquinn=proc_numeric(jrslt, paste(prefix,"hannanquinn", sep="")))
+    ll=.proc_numeric(jrslt, paste(prefix,"ll", sep="")),
+    ssq=.proc_numeric(jrslt, paste(prefix,"ssqerr", sep="")),
+    nobs=.proc_int(jrslt, paste(prefix,"nobs", sep="")),
+    neffective=.proc_int(jrslt, paste(prefix,"neffective", sep="")),
+    nparams=.proc_int(jrslt, paste(prefix,"nparams", sep="")),
+    df=.proc_int(jrslt, paste(prefix,"df", sep="")),
+    aic=.proc_numeric(jrslt, paste(prefix,"aic", sep="")),
+    aicc=.proc_numeric(jrslt, paste(prefix,"aicc", sep="")),
+    bic=.proc_numeric(jrslt, paste(prefix,"bic", sep="")),
+    bic2=.proc_numeric(jrslt, paste(prefix,"bic2", sep="")),
+    bicc=.proc_numeric(jrslt, paste(prefix,"bicc", sep="")),
+    hannanquinn=.proc_numeric(jrslt, paste(prefix,"hannanquinn", sep="")))
   )
 }

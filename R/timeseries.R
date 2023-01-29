@@ -29,13 +29,13 @@ aggregate<-function(s, nfreq=1,
   if (is.null(s)){
     return (NULL)
   }
-  jd_s<-ts_r2jd(s)
+  jd_s<-.r2jd_ts(s)
   jd_agg<-.jcall("demetra/timeseries/r/TsUtility", "Ldemetra/timeseries/TsData;", "aggregate", jd_s, as.integer(nfreq), conversion, complete)
   if (is.null(jd_agg)){
     return (NULL);
   }
   else{
-    return (ts_jd2r(jd_agg))
+    return (.jd2r_ts(jd_agg))
   }
 }
 
