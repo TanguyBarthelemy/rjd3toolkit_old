@@ -755,7 +755,7 @@ set_arima.default <- function(x,
 #' @param coef vector of coefficients for the tranding-days regressors.
 #'
 #' @param automatic defines whether the calendar effects should be added to the model manually (\code{"Unused"}) or automatically.
-#' During the automatic selection, the choice of the number of calendar variables can be based on the F-Test (\code{"FTest"}, TRAMO specific), the Wald Test (\code{"WaldTest"}), or by minimising AIC or BIC (REGARIMA specific);
+#' During the automatic selection, the choice of the number of calendar variables can be based on the F-Test (\code{"FTest"}, TRAMO specific), the Wald Test (\code{"WaldTest"}), or by minimising AIC or BIC;
 #' the model with higher F value is chosen, provided that it is higher than \code{pftd}).
 #' @param pftd (TRAMO SPECIFIC) \code{numeric}. The p-value used in the test specified by the automatic parameter (\code{tradingdays.mauto})
 #' to assess the significance of the pre-tested calendar effects variables and whether they should be included in the RegArima model.
@@ -859,10 +859,12 @@ set_tradingdays.default <- function(x,
   if(!missing(automatic) & !any(is.na(automatic))){
     if (is_tramo) {
       automatic <- match.arg(toupper(automatic)[1],
-                             choices = c("UNUSED", "FTEST", "WALDTEST"))
+                             choices = c("UNUSED", "FTEST", "WALDTEST", "AIC", "BIC"))
       td$auto <- switch(automatic,
                         UNUSED = "AUTO_NO",
                         FTEST = "AUTO_FTEST",
+                        AIC = "AUTO_AIC",
+                        BIC = "AUTO_BIC",
                         WALDTEST = "AUTO_WALDTEST")
     } else {
       automatic <- match.arg(toupper(automatic)[1],

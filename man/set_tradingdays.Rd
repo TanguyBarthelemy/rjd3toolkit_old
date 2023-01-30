@@ -61,7 +61,7 @@ if at least one t-statistic is greater than 2.6 or if two t-statistics are great
 \item{coef.type, leapyear.coef.type}{vector defining if the coefficients are fixed or estimated.}
 
 \item{automatic}{defines whether the calendar effects should be added to the model manually (\code{"Unused"}) or automatically.
-During the automatic selection, the choice of the number of calendar variables can be based on the F-Test (\code{"FTest"}, TRAMO specific), the Wald Test (\code{"WaldTest"}), or by minimising AIC or BIC (REGARIMA specific);
+During the automatic selection, the choice of the number of calendar variables can be based on the F-Test (\code{"FTest"}, TRAMO specific), the Wald Test (\code{"WaldTest"}), or by minimising AIC or BIC;
 the model with higher F value is chosen, provided that it is higher than \code{pftd}).}
 
 \item{pftd}{(TRAMO SPECIFIC) \code{numeric}. The p-value used in the test specified by the automatic parameter (\code{tradingdays.mauto})
