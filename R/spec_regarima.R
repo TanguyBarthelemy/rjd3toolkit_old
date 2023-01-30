@@ -1064,13 +1064,12 @@ set_easter.default <- function(x, enabled = NA,
 #' @inheritParams set_basic
 #' @param fun the transformation of the input series: \code{"None"} = no transformation of the series;
 #' \code{"Log"} = takes the log of the series; \code{"Auto"} = the program tests for the log-level specification.
-#' @param adjust (REGARIMA/X-13 specific) pre-adjustment of the input series for the length of period or leap year effects:
+#' @param adjust pre-adjustment of the input series for the length of period or leap year effects:
 #' \code{"None"} = no adjustment; \code{"LeapYear"} = leap year effect; \code{"LengthOfPeriod"} = length of period.
 #' Modifications of this variable are taken into account only when \code{function = "Log"}.
 #'
 #' @param aicdiff (REGARIMA/X-13 specific)  a numeric defining the difference in AICC needed to accept no transformation when the automatic
 #' transformation selection is chosen (considered only when \code{transform.function} is set to \code{"Auto"}).
-
 #' @param fct (TRAMO specific) \code{numeric} controlling the bias in the log/level pre-test:
 #' \code{ transform.fct }> 1 favours levels, \code{transform.fct}< 1 favours logs.
 #' Considered only when \code{transform.function} is set to \code{"Auto"}.
@@ -1078,8 +1077,8 @@ set_easter.default <- function(x, enabled = NA,
 #' @export
 set_transform<- function(x,
                          fun = c(NA, "Auto", "Log", "None"),
-                         # REGARIMA SPECIFIC
                          adjust = c(NA, "None", "LeapYear", "LengthOfPeriod"),
+                         # REGARIMA SPECIFIC
                          aicdiff = NA,
                          # TRAMO SPECIFIC
                          fct = NA){
@@ -1088,8 +1087,8 @@ set_transform<- function(x,
 #' @export
 set_transform.default <- function(x,
                                   fun = c(NA, "Auto", "Log", "None"),
-                                  # REGARIMA SPECIFIC
                                   adjust = c(NA, "None", "LeapYear", "LengthOfPeriod"),
+                                  # REGARIMA SPECIFIC
                                   aicdiff = NA,
                                   # TRAMO SPECIFIC
                                   fct = NA){
@@ -1105,18 +1104,17 @@ set_transform.default <- function(x,
                            "NONE" = "LEVEL",
                            fun)
   }
+  adjust = match.arg(toupper(adjust[1]),
+                     c(NA, "NONE", "LEAPYEAR", "LENGTHOFPERIOD"))
+  if(!is.na(adjust)){
+    transform$adjust = adjust
+  }
   if (is_tramo) {
     # TRAMO SPECIFIC PARAMETER
     if(!is.na(fct)){
       transform$fct <- fct
     }
   } else {
-    # REGARIMA SPECIFIC PARAMETER
-    adjust = match.arg(toupper(adjust[1]),
-                       c(NA, "NONE", "LEAPYEAR", "LENGTHOFPERIOD"))
-    if(!is.na(adjust)){
-      transform$adjust = adjust
-    }
     if(!is.na(aicdiff)){
       transform$aicdiff = aicdiff
     }

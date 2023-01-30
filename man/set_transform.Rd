@@ -18,7 +18,7 @@ set_transform(
 \item{fun}{the transformation of the input series: \code{"None"} = no transformation of the series;
 \code{"Log"} = takes the log of the series; \code{"Auto"} = the program tests for the log-level specification.}
 
-\item{adjust}{(REGARIMA/X-13 specific) pre-adjustment of the input series for the length of period or leap year effects:
+\item{adjust}{pre-adjustment of the input series for the length of period or leap year effects:
 \code{"None"} = no adjustment; \code{"LeapYear"} = leap year effect; \code{"LengthOfPeriod"} = length of period.
 Modifications of this variable are taken into account only when \code{function = "Log"}.}
 
