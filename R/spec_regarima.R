@@ -318,11 +318,11 @@ set_estimate.default <- function(x,
 #' by the number of observations in the outlier detection time span.
 #'
 #'
-#' @param tc.rate the rate of decay for the transitory change outlier.
+#' @param tc.rate the rate of decay for the transitory change outlier (by default to `0.7`).
 #' @param method (REGARIMA/X13 Specific) determines how the program successively adds detected outliers to the model.
 #' At present, only the \code{"AddOne"} method is supported.
-#' @param maxiter (REGARIMA/X13 Specific) TODO
-#' @param lsrun (REGARIMA/X13 Specific) TODO
+#' @param maxiter (REGARIMA/X13 Specific) maximum number of iterations (by default to `30`).
+#' @param lsrun (REGARIMA/X13 Specific) number of successive level shifts to test for cancellation (by default to `0`).
 #' @param eml.est (TRAMO Specific) \code{logical} for the exact likelihood estimation method. It controls the method applied for a parameter estimation
 #' in the intermediate steps of the automatic detection and correction of outliers. If \code{TRUE}, an exact likelihood estimation method is used.
 #' When \code{FALSE}, the fast Hannan-Rissanen method is used.
@@ -461,7 +461,7 @@ set_outlier.default <- function(x,
 #' If the magnitude of an AR root for the final model is smaller than the final unit root limit, then a unit root is assumed,
 #' the order of the AR polynomial is reduced by one and the appropriate order of the differencing (non-seasonal, seasonal)
 #' is increased. The parameter value should be greater than one.
-#' @param checkmu (REGARIMA/X13 Specific) \code{logical}. TODO.
+#' @param checkmu (REGARIMA/X13 Specific) \code{logical} indicating if the automatic model selection checks the significance of the constant term.
 #' @param mixed (REGARIMA/X13 Specific) \code{logical}. This variable controls whether ARIMA models with non-seasonal AR and MA terms
 #' or seasonal AR and MA terms will be considered in the automatic model identification procedure.
 #' If \code{FALSE}, a model with AR and MA terms in both the seasonal and non-seasonal parts of the model can be acceptable,
@@ -470,7 +470,7 @@ set_outlier.default <- function(x,
 #' @param balanced (REGARIMA/X13 Specific) \code{logical} If \code{TRUE}, the automatic model identification procedure will have a preference
 #' for balanced models (i.e. models for which the order of the combined AR and differencing operator is equal to the order
 #' of the combined MA operator).
-#' @param amicompare (TRAMO Specific) \code{logical}. If {TRUE}, the program compares the model identified by the automatic procedure to the default model (ARIMA(0,1,1)(0,1,1))
+#' @param amicompare (TRAMO Specific) \code{logical}. If `TRUE`, the program compares the model identified by the automatic procedure to the default model (\eqn{ARIMA(0,1,1)(0,1,1)})
 #' and the model with the best fit is selected. Criteria considered are residual diagnostics, the model structure and the number of outliers.
 #' @export
 set_automodel <- function(x,
@@ -757,11 +757,9 @@ set_arima.default <- function(x,
 #' @param automatic defines whether the calendar effects should be added to the model manually (\code{"Unused"}) or automatically.
 #' During the automatic selection, the choice of the number of calendar variables can be based on the F-Test (\code{"FTest"}, TRAMO specific), the Wald Test (\code{"WaldTest"}), or by minimising AIC or BIC;
 #' the model with higher F value is chosen, provided that it is higher than \code{pftd}).
-#' @param pftd (TRAMO SPECIFIC) \code{numeric}. The p-value used in the test specified by the automatic parameter (\code{tradingdays.mauto})
-#' to assess the significance of the pre-tested calendar effects variables and whether they should be included in the RegArima model.
+#' @param pftd (TRAMO SPECIFIC) \code{numeric}. The p-value used to assess the significance of the pre-tested calendar effects.
 #'
-#' @param autoadjust a logical indicating if the program corrects automatically for the leap year effect.
-#' It is available when the transformation function is set to Auto.
+#' @param autoadjust a logical indicating if the program corrects automatically for the leap year effect if the leap year regressors is significant. Only used when the data is log transformed.
 #'
 #' @param leapyear a \code{character} to specify whether or not to include the leap-year effect in the model:
 #' \code{"LeapYear"} = leap year effect; \code{"LengthOfPeriod"} = length of period (REGARIMA/X-13 specific), \code{"None"} = no effect included.
@@ -1067,17 +1065,18 @@ set_easter.default <- function(x, enabled = NA,
 #' @param adjust pre-adjustment of the input series for the length of period or leap year effects:
 #' \code{"None"} = no adjustment; \code{"LeapYear"} = leap year effect; \code{"LengthOfPeriod"} = length of period.
 #' Modifications of this variable are taken into account only when \code{function = "Log"}.
-#'
+#' @param outliers boolean indicating if a pre-correction for large outliers (AO and LS only) should be done to test the log-level specification (`fun = "Auto"`). By default to `FALSE`.
 #' @param aicdiff (REGARIMA/X-13 specific)  a numeric defining the difference in AICC needed to accept no transformation when the automatic
-#' transformation selection is chosen (considered only when \code{transform.function} is set to \code{"Auto"}).
+#' transformation selection is chosen (considered only when \code{fun = "Auto"}).
 #' @param fct (TRAMO specific) \code{numeric} controlling the bias in the log/level pre-test:
-#' \code{ transform.fct }> 1 favours levels, \code{transform.fct}< 1 favours logs.
-#' Considered only when \code{transform.function} is set to \code{"Auto"}.
+#' \code{transform.fct}> 1 favours levels, \code{transform.fct}< 1 favours logs.
+#' Considered only when \code{fun = "Auto"}.
 #'
 #' @export
 set_transform<- function(x,
                          fun = c(NA, "Auto", "Log", "None"),
                          adjust = c(NA, "None", "LeapYear", "LengthOfPeriod"),
+                         outliers = NA,
                          # REGARIMA SPECIFIC
                          aicdiff = NA,
                          # TRAMO SPECIFIC
@@ -1088,6 +1087,7 @@ set_transform<- function(x,
 set_transform.default <- function(x,
                                   fun = c(NA, "Auto", "Log", "None"),
                                   adjust = c(NA, "None", "LeapYear", "LengthOfPeriod"),
+                                  outliers = NA,
                                   # REGARIMA SPECIFIC
                                   aicdiff = NA,
                                   # TRAMO SPECIFIC
@@ -1108,6 +1108,10 @@ set_transform.default <- function(x,
                      c(NA, "NONE", "LEAPYEAR", "LENGTHOFPERIOD"))
   if(!is.na(adjust)){
     transform$adjust = adjust
+  }
+
+  if (!is.na(outliers)) {
+    transform$outliers <- outliers
   }
   if (is_tramo) {
     # TRAMO SPECIFIC PARAMETER

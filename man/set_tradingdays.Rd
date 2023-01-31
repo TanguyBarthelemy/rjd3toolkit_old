@@ -64,11 +64,9 @@ if at least one t-statistic is greater than 2.6 or if two t-statistics are great
 During the automatic selection, the choice of the number of calendar variables can be based on the F-Test (\code{"FTest"}, TRAMO specific), the Wald Test (\code{"WaldTest"}), or by minimising AIC or BIC;
 the model with higher F value is chosen, provided that it is higher than \code{pftd}).}
 
-\item{pftd}{(TRAMO SPECIFIC) \code{numeric}. The p-value used in the test specified by the automatic parameter (\code{tradingdays.mauto})
-to assess the significance of the pre-tested calendar effects variables and whether they should be included in the RegArima model.}
+\item{pftd}{(TRAMO SPECIFIC) \code{numeric}. The p-value used to assess the significance of the pre-tested calendar effects.}
 
-\item{autoadjust}{a logical indicating if the program corrects automatically for the leap year effect.
-It is available when the transformation function is set to Auto.}
+\item{autoadjust}{a logical indicating if the program corrects automatically for the leap year effect if the leap year regressors is significant. Only used when the data is log transformed.}
 
 \item{leapyear}{a \code{character} to specify whether or not to include the leap-year effect in the model:
 \code{"LeapYear"} = leap year effect; \code{"LengthOfPeriod"} = length of period (REGARIMA/X-13 specific), \code{"None"} = no effect included.}

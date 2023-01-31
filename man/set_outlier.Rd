@@ -39,14 +39,14 @@ If \code{outliers.type = NULL} or \code{outliers.type = character()}, automatic 
 If equal to 0 the critical value for the outliers' detection procedure is automatically determined
 by the number of observations in the outlier detection time span.}
 
-\item{tc.rate}{the rate of decay for the transitory change outlier.}
+\item{tc.rate}{the rate of decay for the transitory change outlier (by default to \code{0.7}).}
 
 \item{method}{(REGARIMA/X13 Specific) determines how the program successively adds detected outliers to the model.
 At present, only the \code{"AddOne"} method is supported.}
 
-\item{maxiter}{(REGARIMA/X13 Specific) TODO}
+\item{maxiter}{(REGARIMA/X13 Specific) maximum number of iterations (by default to \code{30}).}
 
-\item{lsrun}{(REGARIMA/X13 Specific) TODO}
+\item{lsrun}{(REGARIMA/X13 Specific) number of successive level shifts to test for cancellation (by default to \code{0}).}
 
 \item{eml.est}{(TRAMO Specific) \code{logical} for the exact likelihood estimation method. It controls the method applied for a parameter estimation
 in the intermediate steps of the automatic detection and correction of outliers. If \code{TRUE}, an exact likelihood estimation method is used.

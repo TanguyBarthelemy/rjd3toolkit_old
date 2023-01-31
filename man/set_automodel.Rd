@@ -62,7 +62,7 @@ If the magnitude of an AR root for the final model is smaller than the final uni
 the order of the AR polynomial is reduced by one and the appropriate order of the differencing (non-seasonal, seasonal)
 is increased. The parameter value should be greater than one.}
 
-\item{checkmu}{(REGARIMA/X13 Specific) \code{logical}. TODO.}
+\item{checkmu}{(REGARIMA/X13 Specific) \code{logical} indicating if the automatic model selection checks the significance of the constant term.}
 
 \item{mixed}{(REGARIMA/X13 Specific) \code{logical}. This variable controls whether ARIMA models with non-seasonal AR and MA terms
 or seasonal AR and MA terms will be considered in the automatic model identification procedure.
@@ -75,7 +75,7 @@ provided there are no AR or MA terms in either the seasonal or non-seasonal term
 for balanced models (i.e. models for which the order of the combined AR and differencing operator is equal to the order
 of the combined MA operator).}
 
-\item{amicompare}{(TRAMO Specific) \code{logical}. If {TRUE}, the program compares the model identified by the automatic procedure to the default model (ARIMA(0,1,1)(0,1,1))
+\item{amicompare}{(TRAMO Specific) \code{logical}. If \code{TRUE}, the program compares the model identified by the automatic procedure to the default model (\eqn{ARIMA(0,1,1)(0,1,1)})
 and the model with the best fit is selected. Criteria considered are residual diagnostics, the model structure and the number of outliers.}
 }
 \description{

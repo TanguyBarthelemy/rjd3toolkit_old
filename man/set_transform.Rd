@@ -8,6 +8,7 @@ set_transform(
   x,
   fun = c(NA, "Auto", "Log", "None"),
   adjust = c(NA, "None", "LeapYear", "LengthOfPeriod"),
+  outliers = NA,
   aicdiff = NA,
   fct = NA
 )
@@ -22,12 +23,14 @@ set_transform(
 \code{"None"} = no adjustment; \code{"LeapYear"} = leap year effect; \code{"LengthOfPeriod"} = length of period.
 Modifications of this variable are taken into account only when \code{function = "Log"}.}
 
+\item{outliers}{boolean indicating if a pre-correction for large outliers (AO and LS only) should be done to test the log-level specification (\code{fun = "Auto"}). By default to \code{FALSE}.}
+
 \item{aicdiff}{(REGARIMA/X-13 specific)  a numeric defining the difference in AICC needed to accept no transformation when the automatic
-transformation selection is chosen (considered only when \code{transform.function} is set to \code{"Auto"}).}
+transformation selection is chosen (considered only when \code{fun = "Auto"}).}
 
 \item{fct}{(TRAMO specific) \code{numeric} controlling the bias in the log/level pre-test:
-\code{ transform.fct }> 1 favours levels, \code{transform.fct}< 1 favours logs.
-Considered only when \code{transform.function} is set to \code{"Auto"}.}
+\code{transform.fct}> 1 favours levels, \code{transform.fct}< 1 favours logs.
+Considered only when \code{fun = "Auto"}.}
 }
 \description{
 Set Transform Specification
