@@ -6,7 +6,7 @@ RSLT<-'JD3_ProcResults'
 
 #' @export
 #' @rdname jd3_utilities
-jd3Object<-function(jobjRef, subclasses=NULL, result=F){
+.jd3_object<-function(jobjRef, subclasses=NULL, result=F){
   if (result)
     classes<-c(OBJ, RSLT, subclasses)
   else
@@ -31,9 +31,9 @@ dictionary<-function(object){
     stop("No java object")
   }else{
     if (.jinstanceof(object$internal, "demetra/information/Explorable")){
-      proc_dictionary2(object$internal)
+      .proc_dictionary2(object$internal)
     }else{
-      proc_dictionary(.jclass(object$internal))
+      .proc_dictionary(.jclass(object$internal))
     }
   }
 }
@@ -46,7 +46,7 @@ result<-function(object, id){
   if (is.jnull(object$internal)){
     stop("No java object")
   }else{
-    proc_data(object$internal, id)
+    .proc_data(object$internal, id)
     }
 }
 

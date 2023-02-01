@@ -9,6 +9,12 @@ DATE_MIN<-NULL
 #' @rdname jd3_utilities
 DATE_MAX<-NULL
 
+#' @importFrom RProtoBuf read readProtoFiles2
+#' @importFrom rJava .jpackage .jcall .jnull .jarray .jevalArray .jcast .jcastToArray .jinstanceof is.jnull .jnew .jclass
+#' @importFrom stats frequency is.ts pf ts ts.union
+NULL
+
+
 .onLoad <- function(libname, pkgname) {
 
   result <- .jpackage(pkgname, lib.loc=libname)
