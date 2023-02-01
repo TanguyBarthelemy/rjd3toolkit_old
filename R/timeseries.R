@@ -31,11 +31,88 @@ aggregate<-function(s, nfreq=1,
   }
   jd_s<-.r2jd_ts(s)
   jd_agg<-.jcall("demetra/timeseries/r/TsUtility", "Ldemetra/timeseries/TsData;", "aggregate", jd_s, as.integer(nfreq), conversion, complete)
-  if (is.null(jd_agg)){
+  if (is.jnull(jd_agg)){
     return (NULL);
   }
   else{
     return (.jd2r_ts(jd_agg))
   }
 }
+
+#' Removal of missing values at the beginning/end
+#'
+#' @param s Original series
+#'
+#' @return Cleaned series
+#' @export
+#'
+#' @examples
+clean_extremities<-function(s){
+  if (is.null(s)){
+    return (NULL)
+  }
+  jd_s<-.r2jd_ts(s)
+  jd_scleaned<-.jcall("demetra/timeseries/r/TsUtility", "Ldemetra/timeseries/TsData;", "aggregate", jd_s, as.integer(nfreq), conversion, complete)
+  if (is.jnull(jd_scleaned)){
+    return (NULL);
+  }
+  else{
+    return (.jd2r_ts(jd_scleaned))
+  }
+
+}
+
+
+#' Interpolation of a time series with missing values
+#'
+#' @param s The original time series
+#' @param method
+#'    airline: interpolation through an estimated airline model
+#'    average: interpolation using the average of the previous and next non missing values
+#' @return The interpolated series
+#' @export
+#'
+#' @examples
+ts_interpolate<-function(s, method=c("airline", "average")){
+  method<-match.arg(method)
+  if (is.null(s)){
+    return (NULL)
+  }
+  jd_s<-.r2jd_ts(s)
+  if (method == "airline"){
+    jd_si<-.jcall("demetra/modelling/r/Interpolation", "Ldemetra/timeseries/TsData;", "airlineInterpolation", jd_s)
+    return (.jd2r_ts(jd_si))
+  }else if (method == "average"){
+    jd_si<-.jcall("demetra/modelling/r/Interpolation", "Ldemetra/timeseries/TsData;", "averageInterpolation", jd_s)
+    return (.jd2r_ts(jd_si))
+  }else
+    return (NULL)
+}
+
+#' Multiplicative adjustment of a time series for leap year / length of periods
+#'
+#' @param s The original time series
+#' @param method
+#'    LeapYear: correction for leap year
+#'    LengthOfPeriod: correction for the length of periods
+#' @param reverse Adjustment or reverse operation
+#' @return The interpolated series
+#' @export
+#'
+#' @examples
+ts_adjust<-function(s, method=c("LeapYear", "LengthOfPeriod"), reverse = FALSE){
+  method<-match.arg(method)
+  if (is.null(s)){
+    return (NULL)
+  }
+  jd_s<-.r2jd_ts(s)
+  jd_st<-.jcall("demetra/modelling/r/Transformation", "Ldemetra/timeseries/TsData;", "adjust", jd_s, method, as.logical(reverse))
+  if (is.jnull(jd_st)){
+    return (NULL);
+  }
+  else{
+    return (.jd2r_ts(jd_st))
+  }
+}
+
 
