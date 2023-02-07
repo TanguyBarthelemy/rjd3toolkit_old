@@ -52,7 +52,8 @@ clean_extremities<-function(s){
     return (NULL)
   }
   jd_s<-.r2jd_ts(s)
-  jd_scleaned<-.jcall("demetra/timeseries/r/TsUtility", "Ldemetra/timeseries/TsData;", "aggregate", jd_s, as.integer(nfreq), conversion, complete)
+  jd_scleaned<-.jcall("demetra/modelling/r/Interpolation", "Ldemetra/timeseries/TsData;", "cleanExtremities", jd_s)
+
   if (is.jnull(jd_scleaned)){
     return (NULL);
   }
