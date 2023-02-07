@@ -20,8 +20,8 @@ aggregate(
 average (\code{"Average"}), first observation (\code{"First"}), last observation
 (\code{"Last"}), minimum (\code{"Min"}), maximum (\code{"Max"}).}
 
-\item{complete}{boolean indicatif if the observation for a given period in the
-new series is set not computed missing if some data in the original series are missing.}
+\item{complete}{boolean indicating if the observation for a given period in the
+new series is set missing if some data in the original series are missing.}
 }
 \value{
 A new time series of frequency \code{nfreq}.
@@ -32,7 +32,8 @@ Makes a frequency change of this series.
 \examples{
 s = ABS$X0.2.09.10.M
 # Annual sum
-aggregate(s, nfreq = 1, conversion = "Sum")
+aggregate(s, nfreq = 1, conversion = "Sum") # first and last years removed
+aggregate(s, nfreq = 1, conversion = "Sum", complete = FALSE)
 # Quarterly mean
 aggregate(s, nfreq = 4, conversion = "Average")
 }

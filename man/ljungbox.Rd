@@ -13,12 +13,15 @@ ljungbox(data, k = 1, lag = 1, nhp = 0, sign = 0, mean = T)
 
 \item{lag}{number of lags used.}
 
-\item{sign}{if 1, only positive auto-corrrelations are considered in the test. If -1, only negative auto-correlations are considered. If 0, all auto-correlations are integrated in the test.}
+\item{sign}{if \code{sign = 1}, only positive auto-corrrelations are considered in the test.
+If \code{sign = -1}, only negative auto-correlations are considered.
+If \code{sign = 0}, all auto-correlations are integrated in the test.}
 
-\item{mean}{Mean correction. If \code{TRUE}, the auto-correlations are computed as usual. If false, we consider that the (known) mean is 0 and that the series has been corrected for it.}
+\item{mean}{Mean correction. If \code{TRUE}, the auto-correlations are computed as usual.
+If \code{FALSE}, we consider that the (known) mean is 0 and that the series has been corrected for it.}
 }
 \value{
-A \code{c("JD3_TEST", "JD3")} object (see \code{\link{statisticaltest}} for details).
+A \code{c("JD3_TEST", "JD3")} object (see \code{\link[=statisticaltest]{statisticaltest()}}} for details).
 }
 \description{
 Compute Ljung-Box test to check the independence of a data.

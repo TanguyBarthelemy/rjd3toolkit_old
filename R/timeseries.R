@@ -10,8 +10,8 @@ NULL
 #' @param conversion Aggregation mode: sum (\code{"Sum"}),
 #' average (\code{"Average"}), first observation (\code{"First"}), last observation
 #' (\code{"Last"}), minimum (\code{"Min"}), maximum (\code{"Max"}).
-#' @param complete  boolean indicatif if the observation for a given period in the
-#' new series is set not computed missing if some data in the original series are missing.
+#' @param complete  boolean indicating if the observation for a given period in the
+#' new series is set missing if some data in the original series are missing.
 #'
 #' @return A new time series of frequency \code{nfreq}.
 #' @export
@@ -19,7 +19,8 @@ NULL
 #' @examples
 #' s = ABS$X0.2.09.10.M
 #' # Annual sum
-#' aggregate(s, nfreq = 1, conversion = "Sum")
+#' aggregate(s, nfreq = 1, conversion = "Sum") # first and last years removed
+#' aggregate(s, nfreq = 1, conversion = "Sum", complete = FALSE)
 #' # Quarterly mean
 #' aggregate(s, nfreq = 4, conversion = "Average")
 aggregate<-function(s, nfreq=1,
@@ -47,6 +48,9 @@ aggregate<-function(s, nfreq=1,
 #' @export
 #'
 #' @examples
+#' y <- window(ABS$X0.2.09.10.M, start = 1982, end = 2018, extend = TRUE)
+#' y
+#' clean_extremities(y)
 clean_extremities<-function(s){
   if (is.null(s)){
     return (NULL)
@@ -98,6 +102,7 @@ ts_interpolate<-function(s, method=c("airline", "average")){
 #'    LengthOfPeriod: correction for the length of periods
 #' @param reverse Adjustment or reverse operation
 #' @return The interpolated series
+#'
 #' @export
 #'
 #' @examples

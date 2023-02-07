@@ -15,3 +15,8 @@ Cleaned series
 \description{
 Removal of missing values at the beginning/end
 }
+\examples{
+y <- window(ABS$X0.2.09.10.M, start = 1982, end = 2018, extend = TRUE)
+y
+clean_extremities(y)
+}

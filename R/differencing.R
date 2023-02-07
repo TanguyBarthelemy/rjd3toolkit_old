@@ -156,6 +156,8 @@ differences<-function(data, lags=1, mean=TRUE){
 #' pt(rm_t_log, period - 2, lower.tail = FALSE)
 #' @export
 rangemean_tstat<-function(data, period=0, groupsize = 0, trim = 0){
+  if (is.ts(data) & missing(period))
+    period <- frequency(data)
   return (.jcall("demetra/modelling/r/AutoModelling", "D", "rangeMean",
                  as.numeric(data), as.integer(period), as.integer(groupsize), as.integer(trim)))
 
