@@ -1,7 +1,7 @@
 # Method "JD3_REGARIMA_RSLTS" for the function coef
 #' @importFrom stats coef df.residual logLik residuals vcov nobs
 #' @export
-coef.JD3_REGARIMA_RSLTS <- function(object, component = c("both", "regression", "arima"), ...){
+coef.JD3_REGARIMA_RSLTS <- function(object, component = c("regression", "arima", "both"), ...){
   if (is.null(object))
     return(NULL)
 
