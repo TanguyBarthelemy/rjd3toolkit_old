@@ -60,7 +60,7 @@ print.JD3_TEST<-function(x, details=FALSE, ...){
 #' @param mean Mean correction. If \code{TRUE}, the auto-correlations are computed as usual.
 #' If `FALSE`, we consider that the (known) mean is 0 and that the series has been corrected for it.
 #'
-#' @return A \code{c("JD3_TEST", "JD3")} object (see [statisticaltest()]} for details).
+#' @return A \code{c("JD3_TEST", "JD3")} object (see [statisticaltest()] for details).
 #'
 #' @examples
 #' ljungbox(randoms_t(2, 100), lag = 24, k =1)
@@ -125,7 +125,7 @@ jarquebera<-function(data, k=0, sample=T){
 #' @param mean If \code{TRUE}, runs around the mean. Otherwise, runs around the median.
 #' @param number If \code{TRUE}, test the number of runs. Otherwise, test the lengths of the runs.
 #'
-#' @return A \code{c("JD3_TEST", "JD3")} object (see [statisticaltest()]} for details).
+#' @return A \code{c("JD3_TEST", "JD3")} object (see [statisticaltest()] for details).
 #' @name runstests
 #'
 #' @examples

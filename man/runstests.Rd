@@ -18,7 +18,7 @@ testofupdownruns(data, number = T)
 \item{number}{If \code{TRUE}, test the number of runs. Otherwise, test the lengths of the runs.}
 }
 \value{
-A \code{c("JD3_TEST", "JD3")} object (see \code{\link[=statisticaltest]{statisticaltest()}}} for details).
+A \code{c("JD3_TEST", "JD3")} object (see \code{\link[=statisticaltest]{statisticaltest()}} for details).
 }
 \description{
 Functions to compute runs test around the mean or the median (\code{testofruns}) or up and down runs test (\code{testofupdownruns}) to check randomness of a data.
