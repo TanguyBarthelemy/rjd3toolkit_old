@@ -308,6 +308,8 @@ ucarima_estimate<-function(x, ucm, stdev=TRUE){
 #' @export
 #'
 #' @examples
+#' y <- ABS$X0.2.09.10.M
+#' sarima_estimate(y, order = c(0,1,1), seasonal = c(0,1,1))
 sarima_estimate<-function(x, order=c(0,0,0), seasonal = list(order=c(0,0,0), period=NA), mean=FALSE, xreg=NULL, eps = 1e-9){
   if (!is.list(seasonal) && is.numeric(seasonal) && length(seasonal) == 3) {
     seasonal <- list(order = seasonal,
