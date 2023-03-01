@@ -15,7 +15,8 @@ autocorrelations_inverse(data, nar = 30, n = 15)
 \arguments{
 \item{data}{data being tested.}
 
-\item{mean}{Mean correction. If \code{TRUE}, the auto-correlations are computed as usual. If false, we consider that the (known) mean is 0 and that the series has been corrected for it.}
+\item{mean}{Mean correction. If \code{TRUE}, the auto-correlations are computed as usual.
+If \code{FALSE}, we consider that the (known) mean is 0 and that the series has been corrected for it.}
 
 \item{n}{maximum lag at which to calculate the stats.}
 

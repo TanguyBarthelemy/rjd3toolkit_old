@@ -308,6 +308,8 @@ ucarima_estimate<-function(x, ucm, stdev=TRUE){
 #' @export
 #'
 #' @examples
+#' y <- ABS$X0.2.09.10.M
+#' sarima_estimate(y, order = c(0,1,1), seasonal = c(0,1,1))
 sarima_estimate<-function(x, order=c(0,0,0), seasonal = list(order=c(0,0,0), period=NA), mean=FALSE, xreg=NULL, eps = 1e-9){
   if (!is.list(seasonal) && is.numeric(seasonal) && length(seasonal) == 3) {
     seasonal <- list(order = seasonal,
@@ -320,5 +322,13 @@ sarima_estimate<-function(x, order=c(0,0,0), seasonal = list(order=c(0,0,0), per
                  as.numeric(x), as.integer(order), as.integer(seasonal$period), as.integer(seasonal$order), as.logical(mean), jxreg, .jnull("[D"), as.numeric(eps))
   bytes<-.jcall("demetra/arima/r/SarimaModels", "[B", "toBuffer", jestim)
   p<-RProtoBuf::read(regarima.RegArimaModel$Estimation, bytes)
-  return (.p2r_regarima_estimation(p))
+  res <- .p2r_regarima_estimation(p)
+  names(res$b) <- colnames(xreg)
+  names(res$parameters$val) <- c(sprintf("phi(%i)", seq_len(order[1])),
+                                 sprintf("bphi(%i)", seq_len(seasonal$order[1])),
+                                 sprintf("theta(%i)", seq_len(order[3])),
+                                 sprintf("btheta(%i)", seq_len(seasonal$order[3])))
+  res$orders <- list(order = order, seasonal = seasonal)
+  class(res) <- c("JD3_SARIMA_ESTIMATE", "JD3_REGARIMA_RSLTS")
+  return (res)
 }

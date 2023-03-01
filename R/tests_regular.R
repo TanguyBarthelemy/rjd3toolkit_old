@@ -4,7 +4,7 @@ NULL
 
 #' Generic Function For 'JDemetra+' Tests
 #'
-#' Generic function to format the results of a test runs with 'JDemetra+'.
+#' Generic function to format the results of 'JDemetra+' tests.
 #'
 #' @param val,pval,dist statistical parameters.
 #' @param x the object to print.
@@ -54,10 +54,13 @@ print.JD3_TEST<-function(x, details=FALSE, ...){
 #' @param data data being tested.
 #' @param k,nhp number of degrees of freedom used and number of hyper parameters if the input time series is a series of residuals.
 #' @param lag number of lags used.
-#' @param sign if 1, only positive auto-corrrelations are considered in the test. If -1, only negative auto-correlations are considered. If 0, all auto-correlations are integrated in the test.
-#' @param mean Mean correction. If \code{TRUE}, the auto-correlations are computed as usual. If false, we consider that the (known) mean is 0 and that the series has been corrected for it.
+#' @param sign if `sign = 1`, only positive auto-corrrelations are considered in the test.
+#' If `sign = -1`, only negative auto-correlations are considered.
+#' If `sign = 0`, all auto-correlations are integrated in the test.
+#' @param mean Mean correction. If \code{TRUE}, the auto-correlations are computed as usual.
+#' If `FALSE`, we consider that the (known) mean is 0 and that the series has been corrected for it.
 #'
-#' @return A \code{c("JD3_TEST", "JD3")} object (see \code{\link{statisticaltest}} for details).
+#' @return A \code{c("JD3_TEST", "JD3")} object (see [statisticaltest()] for details).
 #'
 #' @examples
 #' ljungbox(randoms_t(2, 100), lag = 24, k =1)
@@ -122,7 +125,7 @@ jarquebera<-function(data, k=0, sample=T){
 #' @param mean If \code{TRUE}, runs around the mean. Otherwise, runs around the median.
 #' @param number If \code{TRUE}, test the number of runs. Otherwise, test the lengths of the runs.
 #'
-#' @return A \code{c("JD3_TEST", "JD3")} object (see \code{\link{statisticaltest}} for details).
+#' @return A \code{c("JD3_TEST", "JD3")} object (see [statisticaltest()] for details).
 #' @name runstests
 #'
 #' @examples

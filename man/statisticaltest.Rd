@@ -27,7 +27,7 @@ statisticaltest(val, pval, dist = NULL)
 }
 }
 \description{
-Generic function to format the results of a test runs with 'JDemetra+'.
+Generic function to format the results of 'JDemetra+' tests.
 }
 \examples{
 udr_test = testofupdownruns(randoms_t(5, 1000))
