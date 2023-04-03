@@ -1,7 +1,7 @@
 Package: rjd3toolkit
 Type: Package
 Title: Toolkit Functions Around 'JDemetra+ 3.0'
-Version: 0.8.1
+Version: 2.9.0
 Authors@R: c(
   person("Jean", "Palate", role = c("aut", "cre"),
                 email = "jean.palate@nbb.be"),
@@ -49,6 +49,7 @@ Collate:
     'regarima_rslts.R'
     'spec_benchmarking.R'
     'spec_regarima.R'
+    'splines.R'
     'tests_regular.R'
     'tests_seasonality.R'
     'tests_td.R'

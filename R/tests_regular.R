@@ -67,7 +67,7 @@ print.JD3_TEST<-function(x, details=FALSE, ...){
 #' ljungbox(ABS$X0.2.09.10.M, lag = 24, k =1)
 #' @export
 ljungbox<-function(data, k=1, lag=1, nhp=0, sign=0, mean=T){
-  jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "ljungBox",
+  jtest<-.jcall("jdplus/toolkit/base/r/stats/Tests", "Ljdplus/toolkit/base/api/stats/StatisticalTest;", "ljungBox",
                 as.numeric(data), as.integer(k), as.integer(lag), as.integer(nhp), as.integer(sign), as.logical(mean))
   return (.jd2r_test(jtest))
 }
@@ -98,21 +98,21 @@ NULL
 #' @export
 #' @describeIn normality_tests Bowman-Shenton test
 bowmanshenton<-function(data){
-  jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "bowmanShenton",as.numeric(data))
+  jtest<-.jcall("jdplus/toolkit/base/r/stats/Tests", "Ljdplus/toolkit/base/api/stats/StatisticalTest;", "bowmanShenton",as.numeric(data))
   return (.jd2r_test(jtest))
 }
 
 #' @export
 #' @describeIn normality_tests Doornik-Hansen test
 doornikhansen<-function(data){
-  jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "doornikHansen",as.numeric(data))
+  jtest<-.jcall("jdplus/toolkit/base/r/stats/Tests", "Ljdplus/toolkit/base/api/stats/StatisticalTest;", "doornikHansen",as.numeric(data))
   return (.jd2r_test(jtest))
 }
 
 #' @export
 #' @describeIn normality_tests Jarque-Bera test
 jarquebera<-function(data, k=0, sample=T){
-  jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "jarqueBera",
+  jtest<-.jcall("jdplus/toolkit/base/r/stats/Tests", "Ljdplus/toolkit/base/api/stats/StatisticalTest;", "jarqueBera",
                 as.numeric(data), as.integer(k), as.logical(sample))
   return (.jd2r_test(jtest))
 }
@@ -141,7 +141,7 @@ NULL
 #' @describeIn runstests Runs test around mean or median
 #' @export
 testofruns<-function(data, mean=T, number=T){
-  jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "testOfRuns",
+  jtest<-.jcall("jdplus/toolkit/base/r/stats/Tests", "Ljdplus/toolkit/base/api/stats/StatisticalTest;", "testOfRuns",
                 as.numeric(data), as.logical(mean), as.logical(number))
   return (.jd2r_test(jtest))
 }
@@ -149,7 +149,7 @@ testofruns<-function(data, mean=T, number=T){
 #' @describeIn runstests up and down runs test
 #' @export
 testofupdownruns<-function(data, number=T){
-  jtest<-.jcall("demetra/stats/r/Tests", "Ldemetra/stats/StatisticalTest;", "testOfUpDownRuns",
+  jtest<-.jcall("jdplus/toolkit/base/r/stats/Tests", "Ljdplus/toolkit/base/api/stats/StatisticalTest;", "testOfUpDownRuns",
                 as.numeric(data), as.logical(number))
   return (.jd2r_test(jtest))
 }
@@ -167,7 +167,7 @@ testofupdownruns<-function(data, number=T){
 #' autocorrelations_inverse(x)
 #' @export
 autocorrelations<-function(data, mean=T, n=15){
-  res = .jcall("demetra/stats/r/Tests", "[D", "autocorrelations",
+  res = .jcall("jdplus/toolkit/base/r/stats/Tests", "[D", "autocorrelations",
                as.numeric(data), as.logical(mean), as.integer(n))
   names(res) <- seq_len(n)
   return (res)
@@ -175,7 +175,7 @@ autocorrelations<-function(data, mean=T, n=15){
 #' @export
 #' @rdname autocorrelations
 autocorrelations_partial<-function(data, mean=T, n=15){
-  res <- .jcall("demetra/stats/r/Tests", "[D", "partialAutocorrelations",
+  res <- .jcall("jdplus/toolkit/base/r/stats/Tests", "[D", "partialAutocorrelations",
                 as.numeric(data), as.logical(mean), as.integer(n))
   names(res) <- seq_len(n)
   return (res)
@@ -183,7 +183,7 @@ autocorrelations_partial<-function(data, mean=T, n=15){
 #' @export
 #' @rdname autocorrelations
 autocorrelations_inverse<-function(data, nar=30, n=15){
-  res <- .jcall("demetra/stats/r/Tests", "[D", "inverseAutocorrelations",
+  res <- .jcall("jdplus/toolkit/base/r/stats/Tests", "[D", "inverseAutocorrelations",
                 as.numeric(data), as.integer(nar), as.integer(n))
   names(res) <- seq_len(n)
   return (res)

@@ -31,7 +31,7 @@ aggregate<-function(s, nfreq=1,
     return (NULL)
   }
   jd_s<-.r2jd_ts(s)
-  jd_agg<-.jcall("demetra/timeseries/r/TsUtility", "Ldemetra/timeseries/TsData;", "aggregate", jd_s, as.integer(nfreq), conversion, complete)
+  jd_agg<-.jcall("jdplus/toolkit/base/r/timeseries/TsUtility", "Ljdplus/toolkit/base/api/timeseries/TsData;", "aggregate", jd_s, as.integer(nfreq), conversion, complete)
   if (is.jnull(jd_agg)){
     return (NULL);
   }
@@ -56,7 +56,7 @@ clean_extremities<-function(s){
     return (NULL)
   }
   jd_s<-.r2jd_ts(s)
-  jd_scleaned<-.jcall("demetra/timeseries/r/TsUtility", "Ldemetra/timeseries/TsData;", "cleanExtremities", jd_s)
+  jd_scleaned<-.jcall("jdplus/toolkit/base/r/timeseries/TsUtility", "Ljdplus/toolkit/base/api/timeseries/TsData;", "cleanExtremities", jd_s)
 
   if (is.jnull(jd_scleaned)){
     return (NULL);
@@ -85,10 +85,10 @@ ts_interpolate<-function(s, method=c("airline", "average")){
   }
   jd_s<-.r2jd_ts(s)
   if (method == "airline"){
-    jd_si<-.jcall("demetra/modelling/r/Interpolation", "Ldemetra/timeseries/TsData;", "airlineInterpolation", jd_s)
+    jd_si<-.jcall("jdplus/toolkit/base/r/modelling/Interpolation", "Ljdplus/toolkit/base/api/timeseries/TsData;", "airlineInterpolation", jd_s)
     return (.jd2r_ts(jd_si))
   }else if (method == "average"){
-    jd_si<-.jcall("demetra/modelling/r/Interpolation", "Ldemetra/timeseries/TsData;", "averageInterpolation", jd_s)
+    jd_si<-.jcall("jdplus/toolkit/base/r/modelling/Interpolation", "Ljdplus/toolkit/base/api/timeseries/TsData;", "averageInterpolation", jd_s)
     return (.jd2r_ts(jd_si))
   }else
     return (NULL)
@@ -112,7 +112,7 @@ ts_adjust<-function(s, method=c("LeapYear", "LengthOfPeriod"), reverse = FALSE){
     return (NULL)
   }
   jd_s<-.r2jd_ts(s)
-  jd_st<-.jcall("demetra/modelling/r/Transformation", "Ldemetra/timeseries/TsData;", "adjust", jd_s, method, as.logical(reverse))
+  jd_st<-.jcall("jdplus/toolkit/base/r/modelling/Transformation", "Ljdplus/toolkit/base/api/timeseries/TsData;", "adjust", jd_s, method, as.logical(reverse))
   if (is.jnull(jd_st)){
     return (NULL);
   }

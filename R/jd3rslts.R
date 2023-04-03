@@ -39,8 +39,8 @@
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return (NULL)
-  if (.jinstanceof(s, "demetra/timeseries/TsData"))
-    return(.jd2r_ts(.jcast(s,"demetra/timeseries/TsData")))
+  if (.jinstanceof(s, "jdplus/toolkit/base/api/timeseries/TsData"))
+    return(.jd2r_ts(.jcast(s,"jdplus/toolkit/base/api/timeseries/TsData")))
   else
     return (NULL)
 }
@@ -110,16 +110,16 @@
   s<-.jcall(rslt, "Ljava/lang/Object;", "getData", name)
   if (is.jnull(s))
     return (NULL)
-  if (.jinstanceof(s, "demetra/timeseries/TsData"))
-    return(.jd2r_ts(.jcast(s,"demetra/timeseries/TsData")))
+  if (.jinstanceof(s, "jdplus/toolkit/base/api/timeseries/TsData"))
+    return(.jd2r_ts(.jcast(s,"jdplus/toolkit/base/api/timeseries/TsData")))
   else if (.jinstanceof(s, "java/lang/Number"))
     return (.jcall(s, "D", "doubleValue"))
-  else if (.jinstanceof(s, "demetra/math/matrices/Matrix"))
-    return(.jd2r_matrix(.jcast(s,"demetra/math/matrices/Matrix")))
-  else if (.jinstanceof(s, "demetra/data/Parameter")){
+  else if (.jinstanceof(s, "jdplus/toolkit/base/api/math/matrices/Matrix"))
+    return(.jd2r_matrix(.jcast(s,"jdplus/toolkit/base/api/math/matrices/Matrix")))
+  else if (.jinstanceof(s, "jdplus/toolkit/base/api/data/Parameter")){
     val<-.jcall(s, "D", "getValue")
      return (c(val))
-  }  else if (.jinstanceof(s, "[Ldemetra/data/Parameter;")){
+  }  else if (.jinstanceof(s, "[Ljdplus/toolkit/base/api/data/Parameter;")){
     p<-.jcastToArray(s)
     len<-length(p)
     all<-array(0, dim=c(len))
@@ -129,7 +129,7 @@
     return (all)
   } else if (.jcall(.jcall(s, "Ljava/lang/Class;", "getClass"), "Z", "isArray"))
     return (.jevalArray(s, silent=TRUE))
-  else if (.jinstanceof(s, "demetra/stats/StatisticalTest")) {
+  else if (.jinstanceof(s, "jdplus/toolkit/base/api/stats/StatisticalTest")) {
     return (.jd2r_test(s))
   }
   else
@@ -139,7 +139,7 @@
 #' @export
 #' @rdname jd3_utilities
 .proc_dictionary<-function(name){
-  jmapping<-.jcall(name, "Ldemetra/information/InformationMapping;", "getMapping")
+  jmapping<-.jcall(name, "Ljdplus/toolkit/base/api/information/InformationMapping;", "getMapping")
   jmap<-.jnew("java/util/LinkedHashMap")
   .jcall(jmapping, "V", "fillDictionary", .jnull("java/lang/String"), .jcast(jmap, "java/util/Map"), TRUE )
   jkeys<-.jcall(jmap, "Ljava/util/Set;", "keySet")

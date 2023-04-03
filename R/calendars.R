@@ -243,7 +243,7 @@ special_day<-function(event, offset=0, weight=1, validity=NULL){
 
 .p2jd_calendar<-function(pcalendar){
   bytes<-pcalendar$serialize(NULL)
-  jcal<-.jcall("demetra/calendar/r/Calendars", "Ldemetra/timeseries/calendars/Calendar;",
+  jcal<-.jcall("jdplus/toolkit/base/r/calendar/Calendars", "Ljdplus/toolkit/base/api/timeseries/calendars/Calendar;",
                "calendarOf", bytes)
   return (jcal)
 }
@@ -282,7 +282,7 @@ td<-function(frequency, start, length, s, groups=c(1,2,3,4,5,6,0), contrasts=TRU
   }
   jdom<-.r2jd_tsdomain(frequency, start[1], start[2], length)
   igroups<-as.integer(groups)
-  jm<-.jcall("demetra/modelling/r/Variables", "Ldemetra/math/matrices/Matrix;",
+  jm<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/api/math/matrices/Matrix;",
              "td", jdom, igroups, contrasts)
   data <- .jd2r_matrix(jm)
   data <- .group_names(data, contrasts = contrasts)
@@ -324,7 +324,7 @@ holidays<-function(calendar, start, length, nonworking=c(6,7), type=c("Skip", "A
   type<-match.arg(type)
   pcal<-.r2p_calendar(calendar)
   jcal<-.p2jd_calendar(pcal)
-  jm<-.jcall("demetra/calendar/r/Calendars", "Ldemetra/math/matrices/Matrix;",
+  jm<-.jcall("jdplus/toolkit/base/r/calendar/Calendars", "Ljdplus/toolkit/base/api/math/matrices/Matrix;",
              "holidays", jcal, as.character(start), as.integer(length), .jarray(as.integer(nonworking)), type,  as.logical(single))
   res <- .jd2r_matrix(jm)
   rownames(res) <- as.character(seq(as.Date(start), length.out = nrow(res), by="days"))
@@ -343,7 +343,7 @@ holidays<-function(calendar, start, length, nonworking=c(6,7), type=c("Skip", "A
 long_term_mean <-function(calendar,frequency,groups=c(1,2,3,4,5,6,0), holiday=7){
   pcal<-.r2p_calendar(calendar)
   jcal<-.p2jd_calendar(pcal)
-  jm<-.jcall("demetra/calendar/r/Calendars", "Ldemetra/math/matrices/Matrix;",
+  jm<-.jcall("jdplus/toolkit/base/r/calendar/Calendars", "Ljdplus/toolkit/base/api/math/matrices/Matrix;",
              "longTermMean", jcal, as.integer(frequency), as.integer(groups), as.integer(holiday))
   res <- .jd2r_matrix(jm)
   return (.group_names(res, contrasts = FALSE))
@@ -359,7 +359,7 @@ long_term_mean <-function(calendar,frequency,groups=c(1,2,3,4,5,6,0), holiday=7)
 #' @examples
 #' easter_dates(2020, 2021)
 easter_dates<-function(year0, year1, julian = FALSE){
-  dates<-.jcall("demetra/calendar/r/Calendars", "[S", "easter", as.integer(year0), as.integer(year1), as.logical(julian))
+  dates<-.jcall("jdplus/toolkit/base/r/calendar/Calendars", "[S", "easter", as.integer(year0), as.integer(year1), as.logical(julian))
   return (sapply(dates, as.Date))
 }
 
@@ -375,7 +375,7 @@ stock_td<-function(frequency, start, length, s, w = 31){
     length = .length_ts(s)
   }
   jdom <- .r2jd_tsdomain(frequency, start[1], start[2], length)
-  jm<-.jcall("demetra/modelling/r/Variables", "Ldemetra/math/matrices/Matrix;", "stockTradingDays", jdom, as.integer(w))
+  jm<-.jcall("jdplust/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/api/math/matrices/Matrix;", "stockTradingDays", jdom, as.integer(w))
   data <- .jd2r_matrix(jm)
   colnames(data) <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
   return (ts(data, frequency = frequency, start= start))
@@ -392,33 +392,35 @@ stock_td<-function(frequency, start, length, s, w = 31){
 
 .p2r_calendar<-function(p){
   return (structure(
-    c(lapply(p$fixed_days, function(z) .p2r_fixedday(z)),
+    list(days=c(lapply(p$fixed_days, function(z) .p2r_fixedday(z)),
       lapply(p$fixed_week_days, function(z) .p2r_fixedweekday(z)),
       lapply(p$easter_related_days, function(z) .p2r_easterday(z)),
       lapply(p$prespecified_holidays, function(z) .p2r_specialday(z)),
-      lapply(p$single_dates, function(z) .p2r_singleday(z))
+      lapply(p$single_dates, function(z) .p2r_singleday(z)),
+      mean_correction=p$mean_correction)
   ), class=c('JD3_CALENDAR', 'JD3_CALENDARDEFINITION')))
 }
 
 .r2p_calendar<-function(r){
   p<-jd3.Calendar$new()
-  if (length(r)>0){
+  if (length(r$days)>0){
     #select fixed days
-    sel<-which(sapply(r,function(z) is(z, FIXEDDAY)))
-    p$fixed_days<-lapply(r[sel], function(z) .r2p_fixedday(z))
+    sel<-which(sapply(r$days,function(z) is(z, FIXEDDAY)))
+    p$fixed_days<-lapply(r$days[sel], function(z) .r2p_fixedday(z))
     #select fixed week days
-    sel<-which(sapply(r,function(z) is(z, FIXEDWEEKDAY)))
-    p$fixed_week_days<-lapply(r[sel], function(z) .r2p_fixedweekday(z))
+    sel<-which(sapply(r$days,function(z) is(z, FIXEDWEEKDAY)))
+    p$fixed_week_days<-lapply(r$days[sel], function(z) .r2p_fixedweekday(z))
     # select easter days
-    sel<-which(sapply(r,function(z) is(z, EASTERDAY)))
-    p$easter_related_days<-lapply(r[sel], function(z) .r2p_easterday(z))
+    sel<-which(sapply(r$days,function(z) is(z, EASTERDAY)))
+    p$easter_related_days<-lapply(r$days[sel], function(z) .r2p_easterday(z))
     # select special days
-    sel<-which(sapply(r,function(z) is(z, SPECIALDAY)))
-    p$prespecified_holidays<-lapply(r[sel], function(z) .r2p_specialday(z))
+    sel<-which(sapply(r$days,function(z) is(z, SPECIALDAY)))
+    p$prespecified_holidays<-lapply(r$days[sel], function(z) .r2p_specialday(z))
     # select single days
-    sel<-which(sapply(r,function(z) is(z, SINGLEDAY)))
-    p$single_dates<-lapply(r[sel], function(z) .r2p_singleday(z))
+    sel<-which(sapply(r$days,function(z) is(z, SINGLEDAY)))
+    p$single_dates<-lapply(r$days[sel], function(z) .r2p_singleday(z))
   }
+  p$mean_correction<-r$mean_correction
   return (p)
 }
 
@@ -524,9 +526,9 @@ weighted_calendar<-function(calendars, weights){
 #'     special_day('ASSUMPTION'),
 #'     special_day('ALLSAINTSDAY'),
 #'     special_day('ARMISTICE')))
-national_calendar<-function(days){
+national_calendar<-function(days, mean_correction=T){
   if (! is.list(days)) stop ('Days should be a list of holidays')
-  return (structure(days, class=c('JD3_CALENDAR', 'JD3_CALENDARDEFINITION')))
+  return (structure(list(days=days, mean_correction=mean_correction), class=c('JD3_CALENDAR', 'JD3_CALENDARDEFINITION')))
 }
 
 #' Calendar Specific Trading Days Variables
@@ -555,8 +557,7 @@ national_calendar<-function(days){
 #'     special_day('ALLSAINTSDAY'),
 #'     special_day('ARMISTICE')))
 #' calendar_td(BE, 12, c(1980,1), 240)
-calendar_td<-function(calendar,frequency, start, length, s, groups=c(1,2,3,4,5,6,0), holiday=7, contrasts=TRUE,
-              meanCorrection = contrasts){
+calendar_td<-function(calendar,frequency, start, length, s, groups=c(1,2,3,4,5,6,0), holiday=7, contrasts=TRUE){
   if(! is(calendar, 'JD3_CALENDAR')) stop('Invalid calendar')
   if (!missing(s) && is.ts(s)) {
     frequency = stats::frequency(s)
@@ -566,8 +567,8 @@ calendar_td<-function(calendar,frequency, start, length, s, groups=c(1,2,3,4,5,6
   jdom<-.r2jd_tsdomain(frequency, start[1], start[2], length)
   pcal<-.r2p_calendar(calendar)
   jcal<-.p2jd_calendar(pcal)
-  jm<-.jcall("demetra/modelling/r/Variables", "Ldemetra/math/matrices/Matrix;",
-             "htd", jcal, jdom, as.integer(groups), as.integer(holiday), contrasts, meanCorrection)
+  jm<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/api/math/matrices/Matrix;",
+             "htd", jcal, jdom, as.integer(groups), as.integer(holiday), contrasts)
   return <- .jd2r_matrix(jm)
   return <- .group_names(return, contrasts = contrasts)
   return (ts(return, start = start, frequency = frequency))

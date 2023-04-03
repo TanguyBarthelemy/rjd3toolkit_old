@@ -49,7 +49,7 @@ NULL
 td_f<-function(s, model=c("D1", "DY", "DYD1", "WN", "AIRLINE", "R011", "R100"), nyears=0){
   model<-match.arg(model)
   jts<-.r2jd_ts(s)
-  jtest<-.jcall("demetra/modelling/r/TradingDaysTests", "Ldemetra/stats/StatisticalTest;", "fTest",
+  jtest<-.jcall("jdplus/toolkit/base/r/modelling/TradingDaysTests", "Ljdplus/toolkit/base/api/stats/StatisticalTest;", "fTest",
                 jts, model, as.integer(nyears))
   return (.jd2r_test(jtest))
 }
@@ -65,6 +65,6 @@ td_f<-function(s, model=c("D1", "DY", "DYD1", "WN", "AIRLINE", "R011", "R100"), 
 #' @examples
 td_ch<-function(s, differencing){
   jts<-.r2jd_ts(s)
-  return (.jcall("demetra/modelling/r/TradingDaysTests", "[D", "chTest",
+  return (.jcall("jdplus/toolkit/base/r/modelling/TradingDaysTests", "[D", "chTest",
                 jts, .jarray(as.integer(differencing))))
 }

@@ -12,8 +12,7 @@ calendar_td(
   s,
   groups = c(1, 2, 3, 4, 5, 6, 0),
   holiday = 7,
-  contrasts = TRUE,
-  meanCorrection = contrasts
+  contrasts = TRUE
 )
 }
 \arguments{
