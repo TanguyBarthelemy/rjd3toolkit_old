@@ -537,7 +537,6 @@ national_calendar<-function(days, mean_correction=T){
 #' @param calendar The calendar.
 #' @param holiday Day for holidays (holidays are considered as that day).
 #' 1 for Monday... 7 for Sunday. Doesn't necessary belong to the 0-group.
-#' @param meanCorrection boolean indicating if the regressors are corrected for long-term term.
 #' By default the correction is done if \code{contrasts = TRUE}.
 #'
 #' @return The variables corresponding to each group, starting with the 0-group (\code{contrasts = FALSE})

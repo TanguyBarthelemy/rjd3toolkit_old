@@ -32,12 +32,10 @@ The other groups are identified by 1, 2,... n (<= 6). For instance, usual tradin
 week days by c(1,1,1,1,1,0,0), week days, Saturdays, Sundays by c(1,1,1,1,1,2,0) etc...}
 
 \item{holiday}{Day for holidays (holidays are considered as that day).
-1 for Monday... 7 for Sunday. Doesn't necessary belong to the 0-group.}
+1 for Monday... 7 for Sunday. Doesn't necessary belong to the 0-group.
+By default the correction is done if \code{contrasts = TRUE}.}
 
 \item{contrasts}{If true, the variables are defined by contrasts with the 0-group. Otherwise, raw number of days are provided}
-
-\item{meanCorrection}{boolean indicating if the regressors are corrected for long-term term.
-By default the correction is done if \code{contrasts = TRUE}.}
 }
 \value{
 The variables corresponding to each group, starting with the 0-group (\code{contrasts = FALSE})
