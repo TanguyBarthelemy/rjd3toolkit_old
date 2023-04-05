@@ -16,7 +16,7 @@ intervention_variable(
 )
 }
 \arguments{
-\item{frequency}{Annual frequency (divisor of 12).}
+\item{frequency}{Frequency of the series, number of periods per year (12,4,3,2..)}
 
 \item{start, length}{First date (array with the first year and the first period)
 (for instance \code{c(1980, 1)}) and number of periods of the output variables. Can also be provided with the \code{s} argument}
@@ -29,16 +29,16 @@ Can be characters or integers.}
 
 \item{delta}{regular differencing order.}
 
-\item{seasonaldelta}{segular differencing order.}
+\item{seasonaldelta}{seasonal differencing order.}
 }
 \description{
 Intervention variable
 }
 \details{
 Intervention variables are combinations of any possible sequence of ones and zeros
-(the sequence of ones being defined by  by the parameters \code{starts} and \code{ends})
+(the sequence of ones being defined by the parameters \code{starts} and \code{ends})
 and of \eqn{\frac{1}{(1-B)^d}} and \eqn{\frac{1}{(1-B^s)^D}} where \eqn{B} is the
-backwar operation, \eqn{s} is the frequency of the time series,
+backwards operator, \eqn{s} is the frequency of the time series,
 \eqn{d} and \eqn{D} are the parameters \code{delta} and \code{seasonaldelta}.
 
 For example, with \code{delta = 0} and \code{seasonaldelta = 0} we get temporary level shifts defined
@@ -46,8 +46,10 @@ by the parameters \code{starts} and \code{ends}. With \code{delta = 1} and \code
 the cumulative sum of temporary level shifts.
 }
 \examples{
-intervention_variable(12, c(2000, 1), 60,
+iv1<-intervention_variable(12, c(2000, 1), 60,
     starts = "2001-01-01", ends = "2001-12-01")
-intervention_variable(12, c(2000, 1), 60,
+plot(iv1)
+iv2<- intervention_variable(12, c(2000, 1), 60,
     starts = "2001-01-01", ends = "2001-12-01", delta = 1)
+plot (iv2)
 }

@@ -1,10 +1,10 @@
 #' @include protobuf.R jd2r.R
 NULL
 
-#' Trading Days Test
+#' Residual Trading Days Test
 #'
-#' @param nyears \code{integer} that corresponds to number of periods number of periods starting from the end of the series:
-#' in periods (positive value) or years (negative values).
+#' @param nyears \code{integer} that corresponds to the length of the sub series, starting from the end of the series, to be used for the test:
+#' in number of periods (positive value) or years (negative values).
 #' By default (\code{nyears = 0}), the entire sample is used.
 #' @param s a \code{ts} object that corresponds to the input time series to test.
 #' @param model the model to use for the residuals. See details.

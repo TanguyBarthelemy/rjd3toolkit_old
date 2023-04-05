@@ -2,7 +2,7 @@
 % Please edit documentation in R/calendars.R
 \name{fixed_week_day}
 \alias{fixed_week_day}
-\title{Fixed Week Day}
+\title{Set a Holiday on a Fixed Week Day}
 \usage{
 fixed_week_day(month, week, dayofweek, weight = 1, validity = NULL)
 }
@@ -18,11 +18,21 @@ fixed_week_day(month, week, dayofweek, weight = 1, validity = NULL)
 
 \item{validity}{validity period: either \code{NULL} (full sample) or a named list with \code{"start"} and/or "end" dates in the format \code{"YYYY-MM-DD"}.}
 }
+\value{
+returns an object of class \code{c("JD3_FIXEDWEEKDAY","JD3_HOLIDAY")}
+}
 \description{
-Fixed Week Day
+Allows to define a holiday falling on a fixed week day each year, like Labour Day in the
+USA which is always celebrated on the first Monday of September.
 }
 \examples{
-day <- fixed_week_day(7, 2, 3) # second Tuesday of July
+day <- fixed_week_day(9, 1, 1) # first Monday(1) of September.
 day
-
+}
+\references{
+More information on calendar correction in JDemetra+ online documentation:
+\url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
+}
+\seealso{
+\code{\link{national_calendar}}, \code{\link{fixed_day}},\code{\link{special_day}},\code{\link{easter_day}}
 }

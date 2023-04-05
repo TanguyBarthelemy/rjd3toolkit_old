@@ -4,7 +4,7 @@
 #' to a specification or to remove them (\code{remove_outlier()} and \code{remove_ramp()}).
 #'
 #' @param x the specification.
-#' @param type,date type and date of the outliers. Possible \code{type} are:
+#' @param type, date type and date of the outliers. Possible \code{type} are:
 #' \code{"AO"} = additive, \code{"LS"} = level shift, \code{"TC"} = transitory change and
 #' \code{"SO"} = seasonal outlier.
 #' @param start,end dates of the ramp regressor.

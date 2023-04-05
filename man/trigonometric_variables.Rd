@@ -7,7 +7,7 @@
 trigonometric_variables(frequency, start, length, s, seasonal_frequency = NULL)
 }
 \arguments{
-\item{frequency}{Annual frequency (divisor of 12).}
+\item{frequency}{Frequency of the series, number of periods per year (12,4,3,2..)}
 
 \item{start, length}{First date (array with the first year and the first period)
 (for instance \code{c(1980, 1)}) and number of periods of the output variables. Can also be provided with the \code{s} argument}
@@ -41,7 +41,7 @@ the columns \eqn{2i} and \eqn{2i-1} are equal to:
 }
 Take for example the case when the first date (\code{date}) is a January, \code{frequency = 12}
 (monthly time series), \code{length = 12} and \code{seasonal_frequency = NULL}.
-The first frequency, \eqn{\lambda_1 = 2\pi /12} represent the fundamental seasonal frequency and the
+The first frequency, \eqn{\lambda_1 = 2\pi /12} represents the fundamental seasonal frequency and the
 other frequencies (\eqn{\lambda_2 = 2\pi /12 \times 2}, ..., \eqn{\lambda_6 = 2\pi /12 \times 6})
 are the five harmonics. The output matrix will be equal to:
 \deqn{

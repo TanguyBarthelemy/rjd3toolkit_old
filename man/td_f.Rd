@@ -2,7 +2,7 @@
 % Please edit documentation in R/tests_td.R
 \name{td_f}
 \alias{td_f}
-\title{Trading Days Test}
+\title{Residual Trading Days Test}
 \usage{
 td_f(
   s,
@@ -15,12 +15,12 @@ td_f(
 
 \item{model}{the model to use for the residuals. See details.}
 
-\item{nyears}{\code{integer} that corresponds to number of periods number of periods starting from the end of the series:
-in periods (positive value) or years (negative values).
+\item{nyears}{\code{integer} that corresponds to the length of the sub series, starting from the end of the series, to be used for the test:
+in number of periods (positive value) or years (negative values).
 By default (\code{nyears = 0}), the entire sample is used.}
 }
 \description{
-Trading Days Test
+Residual Trading Days Test
 }
 \details{
 The function performs a residual seasonality test that is a joint F-Test on the coefficients of trading days regressors.

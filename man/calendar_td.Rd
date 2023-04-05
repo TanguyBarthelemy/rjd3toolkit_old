@@ -2,7 +2,7 @@
 % Please edit documentation in R/calendars.R
 \name{calendar_td}
 \alias{calendar_td}
-\title{Calendar Specific Trading Days Variables}
+\title{Trading day regressors with pre-defined holidays}
 \usage{
 calendar_td(
   calendar,
@@ -16,9 +16,9 @@ calendar_td(
 )
 }
 \arguments{
-\item{calendar}{The calendar.}
+\item{calendar}{The calendar containing the required holidays}
 
-\item{frequency}{Annual frequency (divisor of 12).}
+\item{frequency}{Frequency of the series, number of periods per year (12,4,3,2..)}
 
 \item{start, length}{First date (array with the first year and the first period)
 (for instance \code{c(1980, 1)}) and number of periods of the output variables. Can also be provided with the \code{s} argument}
@@ -31,18 +31,38 @@ belongs. The first item corresponds to Mondays and the last one to Sundays. The 
 The other groups are identified by 1, 2,... n (<= 6). For instance, usual trading days are defined by c(1,2,3,4,5,6,0),
 week days by c(1,1,1,1,1,0,0), week days, Saturdays, Sundays by c(1,1,1,1,1,2,0) etc...}
 
+<<<<<<< HEAD
+\item{holiday}{Day to aggregate holidays with. (holidays are considered as that day).
+1 for Monday... 7 for Sunday. Doesn't necessary belong to the 0-group.}
+
+\item{contrasts}{If true, the variables are defined by contrasts with the 0-group. Otherwise, raw number of days is provided.}
+
+\item{meanCorrection}{Boolean indicating if the regressors are corrected for long-term mean (e.g seasonally adjusted).
+By default the correction is done if \code{contrasts = TRUE}.}
+=======
 \item{holiday}{Day for holidays (holidays are considered as that day).
 1 for Monday... 7 for Sunday. Doesn't necessary belong to the 0-group.
 By default the correction is done if \code{contrasts = TRUE}.}
 
 \item{contrasts}{If true, the variables are defined by contrasts with the 0-group. Otherwise, raw number of days are provided}
+>>>>>>> 96430dbebe5e82789cf20c6636189fc082722f53
 }
 \value{
-The variables corresponding to each group, starting with the 0-group (\code{contrasts = FALSE})
+Time series (object of class \code{c("ts","mts","matrix")}) corresponding to each group, starting with the 0-group (\code{contrasts = FALSE})
 or the 1-group (\code{contrasts = TRUE}).
 }
 \description{
-Calendar Specific Trading Days Variables
+Allows to generate trading day regressors (as many as defined groups), taking into account
+7 or less different types of days, from Monday to Sunday, and specific holidays,which are to
+defined beforehand in a calendar using the functions \code{national_calendar},\code{weighted_calendar} or
+\code{Chained_calendar}.
+}
+\details{
+Aggregated values for monthly or quarterly are the numbers of days belonging to a given group, holidays
+are all summed together in of those groups.
+Contrasts are the differences between the number of days in a given group (1 to 6) and the number of days in
+the reference group (0).
+Regressors can be corrected for long-term mean.
 }
 \examples{
 BE <- national_calendar(list(
@@ -56,5 +76,12 @@ BE <- national_calendar(list(
     special_day('ASSUMPTION'),
     special_day('ALLSAINTSDAY'),
     special_day('ARMISTICE')))
-calendar_td(BE, 12, c(1980,1), 240)
+calendar_td(BE, 12, c(1980,1), 240, holiday=7, groups=c(1,1,1,2,2,3,0), contrasts = FALSE, meanCorrection = TRUE)
+}
+\references{
+More information on calendar correction in JDemetra+ online documentation:
+\url{https://jdemetra-new-documentation.netlify.app/}
+}
+\seealso{
+\code{\link{national_calendar}}, \code{\link{td}}
 }

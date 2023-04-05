@@ -7,7 +7,7 @@
 ramp_variable(frequency, start, length, s, range)
 }
 \arguments{
-\item{frequency}{Annual frequency (divisor of 12).}
+\item{frequency}{Frequency of the series, number of periods per year (12,4,3,2..)}
 
 \item{start, length}{First date (array with the first year and the first period)
 (for instance \code{c(1980, 1)}) and number of periods of the output variables. Can also be provided with the \code{s} argument}
@@ -16,7 +16,7 @@ ramp_variable(frequency, start, length, s, range)
 parameters \code{frequency}, \code{start} and \code{length} are ignored.}
 
 \item{range}{the range of the regressor. A vector of length 2 containing the datesin the format \code{"YYYY-MM-DD"}
-or the position in period compared to the first date.}
+or the position in the series, in number of periods from counting from the series start.}
 }
 \description{
 Ramp regressor
@@ -33,7 +33,8 @@ A ramp between two dates \eqn{t_0} and \eqn{t_1} is defined as:
 }
 \examples{
 # Ramp variable from January 2001 to September 2001
-ramp_variable(12, c(2000,1), length = 12*4, range = c(13, 21))
+rp <- ramp_variable(12, c(2000,1), length = 12*4, range = c(13, 21))
 # Or equivalently
-ramp_variable(12, c(2000,1), length = 12*4, range = c("2001-01-01", "2001-09-02"))
+rp<-ramp_variable(12, c(2000,1), length = 12*4, range = c("2001-01-01", "2001-09-02"))
+plot.ts(rp)
 }

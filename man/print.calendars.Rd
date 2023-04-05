@@ -28,5 +28,5 @@
 \item{...}{other unused parameters.}
 }
 \description{
-Prints functions for calendars
+Print functions for calendars
 }
