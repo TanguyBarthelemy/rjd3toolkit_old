@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package jd3;
 
-option java_package = "demetra.toolkit.io.protobuf";
+option java_package = "jdplus.toolkit.base.protobuf.toolkit";
 option java_outer_classname = "ToolkitProtos";
 
 enum SelectionType {
@@ -327,6 +327,7 @@ message Calendar{
 	repeated FixedWeekDay fixed_week_days = 3;
 	repeated PrespecifiedHoliday prespecified_holidays = 4;
 	repeated SingleDate single_dates = 5;
+        bool mean_correction = 10;
 }
 
 message WeightedCalendar{

@@ -28,7 +28,7 @@ easter_variable<-function(frequency, start, length, s, duration=6, endpos=-1,
     length = .length_ts(s)
   }
   jdom<-.r2jd_tsdomain(frequency, start[1], start[2], length)
-  data<-.jcall("demetra/modelling/r/Variables", "[D", "easter", jdom, as.integer(duration), as.integer(endpos), correction)
+  data<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "[D", "easter", jdom, as.integer(duration), as.integer(endpos), correction)
   return (ts(data, frequency = frequency, start= start))
 }
 
@@ -41,7 +41,7 @@ julianeaster_variable<-function(frequency, start, length, s, duration=6){
     length = .length_ts(s)
   }
   jdom<-.r2jd_tsdomain(frequency, start[1], start[2], length)
-  data<-.jcall("demetra/modelling/r/Variables", "[D", "julianEaster", jdom, as.integer(duration))
+  data<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "[D", "julianEaster", jdom, as.integer(duration))
   return (ts(data, frequency = frequency, start= start))
 }
 
@@ -65,7 +65,7 @@ lp_variable<-function(frequency, start, length, s, type=c("LeapYear", "LengthOfP
     length = .length_ts(s)
   }
   jdom<-.r2jd_tsdomain(frequency, start[1], start[2], length)
-  data<-.jcall("demetra/modelling/r/Variables", "[D", "leapYear", jdom, as.logical(lp))
+  data<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "[D", "leapYear", jdom, as.logical(lp))
   return (ts(data, frequency = frequency, start= start))
 }
 
@@ -113,9 +113,9 @@ ao_variable<-function(frequency, start, length, s, pos, date=NULL){
   }
   jdom<-.r2jd_tsdomain(frequency, start[1], start[2], length)
   if (is.null(date)){
-    data<-.jcall("demetra/modelling/r/Variables", "[D", "ao", jdom, as.integer(pos-1))
+    data<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "[D", "ao", jdom, as.integer(pos-1))
   }else{
-    data<-.jcall("demetra/modelling/r/Variables", "[D", "ao", jdom, as.character(date))
+    data<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "[D", "ao", jdom, as.character(date))
   }
   return (ts(data, frequency = frequency, start= start))
 }
@@ -129,9 +129,9 @@ tc_variable<-function(frequency, start, length, s, pos, date=NULL, rate=0.7){
   }
   jdom<-.r2jd_tsdomain(frequency, start[1], start[2], length)
   if (is.null(date)){
-    data<-.jcall("demetra/modelling/r/Variables", "[D", "tc", jdom, as.integer(pos-1), rate)
+    data<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "[D", "tc", jdom, as.integer(pos-1), rate)
   }else{
-    data<-.jcall("demetra/modelling/r/Variables", "[D", "tc", jdom, as.character(date), rate)
+    data<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "[D", "tc", jdom, as.character(date), rate)
   }
   return (ts(data, frequency = frequency, start= start))
 }
@@ -146,9 +146,9 @@ ls_variable<-function(frequency, start, length, s, pos, date=NULL, zeroended=TRU
   }
   jdom<-.r2jd_tsdomain(frequency, start[1], start[2], length)
   if (is.null(date)){
-    data<-.jcall("demetra/modelling/r/Variables", "[D", "ls", jdom, as.integer(pos-1), as.logical(zeroended))
+    data<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "[D", "ls", jdom, as.integer(pos-1), as.logical(zeroended))
   }else{
-    data<-.jcall("demetra/modelling/r/Variables", "[D", "ls", jdom, as.character(date), as.logical(zeroended))
+    data<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "[D", "ls", jdom, as.character(date), as.logical(zeroended))
   }
   return (ts(data, frequency = frequency, start= start))
 }
@@ -163,9 +163,9 @@ so_variable<-function(frequency, start, length, s, pos, date=NULL, zeroended=TRU
   }
   jdom<-.r2jd_tsdomain(frequency, start[1], start[2], length)
   if (is.null(date)){
-    data<-.jcall("demetra/modelling/r/Variables", "[D", "so", jdom, as.integer(pos-1), as.logical(zeroended))
+    data<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "[D", "so", jdom, as.integer(pos-1), as.logical(zeroended))
   }else{
-    data<-.jcall("demetra/modelling/r/Variables", "[D", "so", jdom, as.character(date),
+    data<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "[D", "so", jdom, as.character(date),
                  as.logical(zeroended))
   }
   return (ts(data, frequency = frequency, start= start))
@@ -204,11 +204,11 @@ ramp_variable<-function(frequency, start, length, s, range){
   jdom<-.r2jd_tsdomain(frequency, start[1], start[2], length)
   if (length(range) != 2) stop("Invalid range")
   if (is.character(range)){
-    data<-.jcall("demetra/modelling/r/Variables", "[D", "ramp", jdom,
+    data<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "[D", "ramp", jdom,
                  as.character(range[1]),
                  as.character(range[2]))
   }else{
-    data<-.jcall("demetra/modelling/r/Variables", "[D", "ramp", jdom,
+    data<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "[D", "ramp", jdom,
                  as.integer(range[1]-1),
                  as.integer(range[2]-1))
   }
@@ -252,13 +252,13 @@ intervention_variable<-function(frequency, start, length, s, starts, ends, delta
 
   jdom<-.r2jd_tsdomain(frequency, start[1], start[2], length)
   if (is.character(starts) && is.character(ends)){
-    data<-.jcall("demetra/modelling/r/Variables", "[D", "interventionVariable", jdom,
+    data<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "[D", "interventionVariable", jdom,
                  delta,
                  seasonaldelta,
                  .jarray(as.character(starts)),
                  .jarray(as.character(ends)))
   }else{
-    data<-.jcall("demetra/modelling/r/Variables", "[D", "interventionVariable", jdom,
+    data<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "[D", "interventionVariable", jdom,
                  delta,
                  seasonaldelta,
                  .jarray(as.integer(starts-1)),
@@ -289,7 +289,7 @@ periodic.dummies <-function(frequency, start, length, s){
     length = .length_ts(s)
   }
   jdom <- .r2jd_tsdomain(frequency, start[1], start[2], length)
-  jm<-.jcall("demetra/modelling/r/Variables", "Ldemetra/math/matrices/Matrix;", "periodicDummies", jdom)
+  jm<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/core/math/matrices/Matrix;", "periodicDummies", jdom)
   data <- .jd2r_matrix(jm)
   return (ts(data, frequency = frequency, start= start))
 }
@@ -302,7 +302,7 @@ periodic.contrasts <-function(frequency, start, length, s){
     length = .length_ts(s)
   }
   jdom <- .r2jd_tsdomain(frequency, start[1], start[2], length)
-  jm<-.jcall("demetra/modelling/r/Variables", "Ldemetra/math/matrices/Matrix;", "periodicContrasts", jdom)
+  jm<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/core/math/matrices/Matrix;", "periodicContrasts", jdom)
   data <- .jd2r_matrix(jm)
   return (ts(data, frequency = frequency, start= start))
 }
@@ -362,7 +362,7 @@ trigonometric_variables <- function(frequency, start, length, s,
 
   if(!is.null(seasonal_frequency))
     seasonal_frequency <- as.integer(seasonal_frequency)
-  jm<-.jcall("demetra/modelling/r/Variables", "Ldemetra/math/matrices/Matrix;", "trigonometricVariables",
+  jm<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/core/math/matrices/Matrix;", "trigonometricVariables",
              jdom, .jarray(seasonal_frequency))
   data <- .jd2r_matrix(jm)
 
@@ -392,7 +392,7 @@ trigonometric_variables <- function(frequency, start, length, s,
 # \end{pmatrix}
 # }
 # trigonometric_variables2 <- function(frequencies, length, start){
-#   r.Variables <- J("demetra/modelling/r/Variables")
+#   r.Variables <- J("jdplus/toolkit/base/r/modelling/Variables")
 #   data <- r.Variables$trigonometricVariables(.jarray(frequencies),
 #                                      as.integer(start),
 #                                      as.integer(length))

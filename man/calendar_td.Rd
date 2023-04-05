@@ -12,8 +12,7 @@ calendar_td(
   s,
   groups = c(1, 2, 3, 4, 5, 6, 0),
   holiday = 7,
-  contrasts = TRUE,
-  meanCorrection = contrasts
+  contrasts = TRUE
 )
 }
 \arguments{
@@ -32,6 +31,7 @@ belongs. The first item corresponds to Mondays and the last one to Sundays. The 
 The other groups are identified by 1, 2,... n (<= 6). For instance, usual trading days are defined by c(1,2,3,4,5,6,0),
 week days by c(1,1,1,1,1,0,0), week days, Saturdays, Sundays by c(1,1,1,1,1,2,0) etc...}
 
+<<<<<<< HEAD
 \item{holiday}{Day to aggregate holidays with. (holidays are considered as that day).
 1 for Monday... 7 for Sunday. Doesn't necessary belong to the 0-group.}
 
@@ -39,6 +39,13 @@ week days by c(1,1,1,1,1,0,0), week days, Saturdays, Sundays by c(1,1,1,1,1,2,0)
 
 \item{meanCorrection}{Boolean indicating if the regressors are corrected for long-term mean (e.g seasonally adjusted).
 By default the correction is done if \code{contrasts = TRUE}.}
+=======
+\item{holiday}{Day for holidays (holidays are considered as that day).
+1 for Monday... 7 for Sunday. Doesn't necessary belong to the 0-group.
+By default the correction is done if \code{contrasts = TRUE}.}
+
+\item{contrasts}{If true, the variables are defined by contrasts with the 0-group. Otherwise, raw number of days are provided}
+>>>>>>> 96430dbebe5e82789cf20c6636189fc082722f53
 }
 \value{
 Time series (object of class \code{c("ts","mts","matrix")}) corresponding to each group, starting with the 0-group (\code{contrasts = FALSE})

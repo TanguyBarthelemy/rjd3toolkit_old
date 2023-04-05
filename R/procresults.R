@@ -30,7 +30,7 @@ dictionary<-function(object){
   if (is.jnull(object$internal)){
     stop("No java object")
   }else{
-    if (.jinstanceof(object$internal, "demetra/information/Explorable")){
+    if (.jinstanceof(object$internal, "jdplus/toolkit/base/api/information/Explorable")){
       .proc_dictionary2(object$internal)
     }else{
       .proc_dictionary(.jclass(object$internal))

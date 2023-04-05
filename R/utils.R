@@ -34,7 +34,7 @@ parseDate<-function(s){
 #'
 #' @export
 reload_dictionaries<-function(){
-  .jcall("demetra/information/InformationExtractors", "V", "reloadExtractors")
+  .jcall("jdplus/toolkit/base/api/information/InformationExtractors", "V", "reloadExtractors")
 }
 
 

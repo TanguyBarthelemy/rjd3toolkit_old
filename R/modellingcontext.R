@@ -208,7 +208,7 @@ modelling_context<-function(calendars=NULL, variables=NULL){
 #' @rdname jd3_utilities
 .p2jd_context<-function(p){
   bytes<-p$serialize(NULL)
-  jcal <- .jcall("demetra/util/r/Modelling", "Ldemetra/timeseries/regression/ModellingContext;",
+  jcal <- .jcall("jdplus/toolkit/base/r/util/Modelling", "Ljdplus/toolkit/base/api/timeseries/regression/ModellingContext;",
                 "of",
                 bytes)
   return (jcal)
@@ -217,7 +217,7 @@ modelling_context<-function(calendars=NULL, variables=NULL){
 #' @export
 #' @rdname jd3_utilities
 .jd2p_context<-function(jd){
-  bytes<-.jcall("demetra/util/r/Modelling", "[B", "toBuffer", jd)
+  bytes<-.jcall("jdplus/toolkit/base/r/util/Modelling", "[B", "toBuffer", jd)
   p<-RProtoBuf::read(jd3.ModellingContext, bytes)
   return (p)
 }

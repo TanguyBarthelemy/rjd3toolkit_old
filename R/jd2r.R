@@ -22,14 +22,14 @@ NULL
   }
   freq<-frequency(s)
   start<-start(s)
-  .jcall("demetra/timeseries/r/TsUtility", "Ldemetra/timeseries/TsData;", "of",
+  .jcall("jdplus/toolkit/base/r/timeseries/TsUtility", "Ljdplus/toolkit/base/api/timeseries/TsData;", "of",
          as.integer(freq), as.integer(start[1]), as.integer(start[2]), as.double(s))
 }
 
 #' @export
 #' @rdname jd3_utilities
 .r2jd_tsdomain<-function(period, startYear, startPeriod, length){
-  .jcall("demetra/timeseries/r/TsUtility", "Ldemetra/timeseries/TsDomain;", "of",
+  .jcall("jdplus/toolkit/base/r/timeseries/TsUtility", "Ljdplus/toolkit/base/api/timeseries/TsDomain;", "of",
          as.integer(period), as.integer(startYear), as.integer(startPeriod), as.integer(length))
 }
 
@@ -39,11 +39,11 @@ NULL
   if (is.null(s)){
     return (NULL)
   }
-  jx<-.jcall(s, "Ldemetra/data/DoubleSeq;", "getValues")
+  jx<-.jcall(s, "Ljdplus/toolkit/base/api/data/DoubleSeq;", "getValues")
   x<-.jcall(jx, "[D", "toArray")
   if (is.null(x)) return (NULL)
   if (length(x) == 0) return (NULL)
-  pstart<-.jcall("demetra/timeseries/r/TsUtility", "[I", "startPeriod", s)
+  pstart<-.jcall("jdplus/toolkit/base/r/timeseries/TsUtility", "[I", "startPeriod", s)
   ts(x,start=pstart[2:3], frequency=pstart[1])
 }
 
@@ -63,12 +63,12 @@ NULL
 #' @rdname jd3_utilities
 .r2jd_matrix<-function(s){
   if (is.null(s))
-    return (.jnull("demetra/math/matrices/Matrix"))
+    return (.jnull("jdplus/toolkit/base/api/math/matrices/Matrix"))
   if (!is.matrix(s)){
     s<-matrix(s, nrow=length(s), ncol=1)
   }
   sdim<-dim(s)
-  return (.jcall("demetra/math/matrices/Matrix","Ldemetra/math/matrices/Matrix;", "of", as.double(s), as.integer(sdim[1]), as.integer(sdim[2])))
+  return (.jcall("jdplus/toolkit/base/api/math/matrices/Matrix","Ljdplus/toolkit/base/api/math/matrices/Matrix;", "of", as.double(s), as.integer(sdim[1]), as.integer(sdim[2])))
 }
 
 .j2r_ldt<-function(ldt){
@@ -102,7 +102,7 @@ NULL
   if (len==0)
     return (NULL)
   param_name <- deparse(substitute(jparams))
-  Type <- sapply(param, function(x) .jcall(.jcall(x, "Ldemetra/data/ParameterType;", "getType"), "S", "name"))
+  Type <- sapply(param, function(x) .jcall(.jcall(x, "Ljdplus/toolkit/base/api/data/ParameterType;", "getType"), "S", "name"))
   Value <- sapply(param, function(x) .jcall(x, "D", "getValue"))
   data_param <- data.frame(Type = Type, Value = Value)
   rownames(data_param) <- sprintf("%s(%i)",
@@ -114,9 +114,9 @@ NULL
 #' @export
 #' @rdname jd3_utilities
 .jdomain<-function(period, start, end){
-  if (period == 0)return (.jnull("demetra/timeseries/TsDomain"))
+  if (period == 0)return (.jnull("jdplus/toolkit/base/api/timeseries/TsDomain"))
   n<-period*(end[1]-start[1])+end[2]-start[2]
-  jdom<-.jcall("demetra/timeseries/r/TsUtility", "Ldemetra/timeseries/TsDomain;", "of"
+  jdom<-.jcall("jdplus/toolkit/base/r/timeseries/TsUtility", "Ljdplus/toolkit/base/api/timeseries/TsDomain;", "of"
                , as.integer(period), as.integer(start[1]), as.integer(start[2]), as.integer(n))
   return (jdom)
 }

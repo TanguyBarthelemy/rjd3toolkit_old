@@ -4,7 +4,7 @@
 \alias{national_calendar}
 \title{Creating a National Calendar}
 \usage{
-national_calendar(days)
+national_calendar(days, mean_correction = T)
 }
 \arguments{
 \item{days}{list of holidays to be taken into account in the calendar}
