@@ -10,7 +10,7 @@ NULL
 #' @param conversion Aggregation mode: sum (\code{"Sum"}),
 #' average (\code{"Average"}), first observation (\code{"First"}), last observation
 #' (\code{"Last"}), minimum (\code{"Min"}), maximum (\code{"Max"}).
-#' @param complete  boolean indicating if the observation for a given period in the
+#' @param complete  Boolean indicating if the observation for a given period in the
 #' new series is set missing if some data in the original series are missing.
 #'
 #' @return A new time series of frequency \code{nfreq}.

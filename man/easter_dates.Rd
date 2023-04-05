@@ -2,18 +2,31 @@
 % Please edit documentation in R/calendars.R
 \name{easter_dates}
 \alias{easter_dates}
-\title{Compute Easter days between two years}
+\title{Displaying Easter Sunday dates in given period}
 \usage{
 easter_dates(year0, year1, julian = FALSE)
 }
 \arguments{
-\item{year0, year1}{years.}
+\item{year0, year1}{starting year and ending year}
 
-\item{julian}{boolean indicating if julian calendar must be used.}
+\item{julian}{Boolean indicating if Julian calendar must be used.}
+}
+\value{
+a named numeric vector. Names are the dates in format "YYYY-MM-DD",
+values are number of days since January 1st 1970.
 }
 \description{
-Compute Easter days between two years
+Allows to display the date of Easter Sunday for each year, in the defined period. Dates are
+displayed in "YYYY-MM-DD" format and as a number of days since January 1st 1970.
 }
 \examples{
-easter_dates(2020, 2021)
+#Dates from 2018(included) to 2023 (included)
+easter_dates(2018, 2023)
+}
+\references{
+More information on calendar correction in JDemetra+ online documentation:
+\url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
+}
+\seealso{
+\code{\link{national_calendar}}, \code{\link{easter_day}}
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/calendars.R
 \name{td}
 \alias{td}
-\title{Usual trading days variables}
+\title{Trading day regressors without holidays}
 \usage{
 td(
   frequency,
@@ -14,7 +14,7 @@ td(
 )
 }
 \arguments{
-\item{frequency}{Annual frequency (divisor of 12).}
+\item{frequency}{Frequency of the series, number of periods per year (12,4,3,2..)}
 
 \item{start, length}{First date (array with the first year and the first period)
 (for instance \code{c(1980, 1)}) and number of periods of the output variables. Can also be provided with the \code{s} argument}
@@ -27,12 +27,34 @@ belongs. The first item corresponds to Mondays and the last one to Sundays. The 
 The other groups are identified by 1, 2,... n (<= 6). For instance, usual trading days are defined by c(1,2,3,4,5,6,0),
 week days by c(1,1,1,1,1,0,0), week days, Saturdays, Sundays by c(1,1,1,1,1,2,0) etc...}
 
-\item{contrasts}{If true, the variables are defined by contrasts with the 0-group. Otherwise, raw number of days are provided}
+\item{contrasts}{If true, the variables are defined by contrasts with the 0-group. Otherwise, raw number of days is provided.}
 }
 \value{
-The variables corresponding to each group, starting with the 0-group (\code{contrasts = FALSE})
+Time series (object of class \code{c("ts","mts","matrix")}) corresponding to each group, starting with the 0-group (\code{contrasts = FALSE})
 or the 1-group (\code{contrasts = TRUE}).
 }
 \description{
-Usual trading days variables
+Allows to generate trading day regressors (as many as defined groups), taking into account
+7 or less different types of days, from Monday to Sunday, but no specific holidays. Regressors are not
+corrected for long term mean.
+}
+\details{
+Aggregated values for monthly or quarterly are the numbers of days belonging to a given group.
+Contrasts are the differences between the number of days in a given group (1 to 6) and the number of days in
+the reference group (0).
+}
+\examples{
+# Monthly regressors for Trading Days: each type of day is different
+# contrasts to Sundays (6 series)
+regs_td<- td(12,c(2020,1),60, groups = c(1, 2, 3, 4, 5, 6, 0), contrasts = TRUE)
+# Quarterly regressors for Working Days: week days are similar
+# contrasts to week-end days (1 series)
+regs_wd<- td(4,c(2020,1),60, groups = c(1, 1, 1, 1, 1, 0, 0), contrasts = TRUE)
+}
+\references{
+More information on calendar correction in JDemetra+ online documentation:
+\url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
+}
+\seealso{
+\code{\link{calendar_td}}
 }

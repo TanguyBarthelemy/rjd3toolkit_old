@@ -20,7 +20,7 @@ aggregate(
 average (\code{"Average"}), first observation (\code{"First"}), last observation
 (\code{"Last"}), minimum (\code{"Min"}), maximum (\code{"Max"}).}
 
-\item{complete}{boolean indicating if the observation for a given period in the
+\item{complete}{Boolean indicating if the observation for a given period in the
 new series is set missing if some data in the original series are missing.}
 }
 \value{

@@ -17,7 +17,7 @@ set_benchmarking(
 \arguments{
 \item{x}{the specification.}
 
-\item{enabled}{boolean to enable the user to perform benchmarking.}
+\item{enabled}{Boolean to enable the user to perform benchmarking.}
 
 \item{target}{specifies the target variable for the benchmarking procedure, which can be the raw series (\code{"Original"}); or the series adjusted for calendar effects (\code{"CalendarAdjusted"}).}
 
@@ -25,7 +25,7 @@ set_benchmarking(
 
 \item{lambda}{a parameter in the function used for benchmarking that relates to the weights in the regression equation; it is typically equal to 0, 1/2 or 1.}
 
-\item{forecast}{boolean indicating if the forecasts of the seasonally adjusted series and of the target variable (\code{target}) are used in the benchmarking computation so the benchmarking constrain is applied also to the forecasting period.}
+\item{forecast}{Boolean indicating if the forecasts of the seasonally adjusted series and of the target variable (\code{target}) are used in the benchmarking computation so the benchmarking constrain is applied also to the forecasting period.}
 
 \item{bias}{TODO}
 }

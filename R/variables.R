@@ -1,13 +1,23 @@
 #' @include protobuf.R jd2r.R
 NULL
 
-#' Easter regressors
+#' Easter regressor
 #'
+#' @description
+#' Allows to generate a regressor taking into account the Easter effect in monthly or quarterly time series.
 #' @inheritParams td
-#' @param duration Duration (length in days) of the Easter effect.
-#' @param endpos Position of the end of the Easter effect, relatively to Easter.
-#' @param correction mean correction option.
-#'
+#' @param duration Duration (length in days) of the Easter effect. (value between 1 and 20, default =6)
+#' @param endpos Position of the end of the Easter effect, relatively to Easter:
+#' -1(default): before Easter Sunday, 0: on Easter Sunday, 1: on Easter Monday)
+#' @param correction mean correction option. Simple"(default), "PreComputed", "Theoretical" or "None".
+#' @return A time series (object of class \code{"ts"})
+#' @seealso \code{\link{calendar_td}}
+#' @references
+#' More information on calendar correction in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
+#' @examples
+#' #Monthly regressor, five-year long, duration 8 days, effect finishing on Easter Monday
+#' ee<-easter_variable(12, c(2020,1),length=5*12,duration=8, endpos=1)
 #' @export
 easter_variable<-function(frequency, start, length, s, duration=6, endpos=-1,
                           correction=c("Simple", "PreComputed", "Theoretical", "None")){
@@ -38,13 +48,13 @@ julianeaster_variable<-function(frequency, start, length, s, duration=6){
 #' Leap Year regressor
 #'
 #' @inheritParams td
-#' @param type the modelisation of the leap year effect: as a contrast variable (\code{type = "LeapYear"}, default)
+#' @param type the modelling of the leap year effect: as a contrast variable (\code{type = "LeapYear"}, default)
 #' or by a length-of-month (or length-of-quarter; \code{type = "LengthOfPeriod"}).
 #'
 #' @export
 #'
 #' @examples
-#' # Leap years occurs on 2000, 2004, 2008 and 2012
+#' # Leap years occur on 2000, 2004, 2008 and 2012
 #' lp_variable(4, start = c(2000, 1), length = 4*13)
 lp_variable<-function(frequency, start, length, s, type=c("LeapYear", "LengthOfPeriod")){
   type=match.arg(type)
@@ -59,26 +69,26 @@ lp_variable<-function(frequency, start, length, s, type=c("LeapYear", "LengthOfP
   return (ts(data, frequency = frequency, start= start))
 }
 
-#' Outliers regressors
+#' Generating Outlier regressors
 #'
 #' @inheritParams td
 #' @param pos,date the date of the outlier, defined by the position in period compared to the first date (\code{pos} parameter)
 #' or by a specific \code{date} defined in the format \code{"YYYY-MM-DD"}.
-#' @param rate the rate of the transitory change regressor (see details).
-#' @param zeroended boolean indicating if the regressor should end by 0 (\code{zeroended = TRUE}, default) or 1 (\code{zeroended = FALSE}).
+#' @param rate the decay rate of the transitory change regressor (see details).
+#' @param zeroended Boolean indicating if the regressor should end by 0 (\code{zeroended = TRUE}, default) or 1 (\code{zeroended = FALSE}), argument valid only for LS and SO.
 #'
 #' @details
 #' An additive outlier (AO, \code{ao_variable}) is defined as:
 #' \deqn{AO_t = \begin{cases}1 &\text{if } t=t_0 \newline
 #'  0 & \text{if }t\ne t_0\end{cases}}
 #'
-#' A level shift (LS, \code{ls_variable}) is defined as (if \code{zeroended = FALSE}):
+#' A level shift (LS, \code{ls_variable}) is defined as (if \code{zeroended = TRUE}):
 #' \deqn{LS_t = \begin{cases}-1 &\text{if } t < t_0 \newline
 #'  0 & \text{if }t\geq t_0 \end{cases}}
 #' A transitory change (TC, \code{tc_variable}) is defined as:
 #' \deqn{TC_t = \begin{cases} 0 &\text{if }t < t_0 \newline
 #' \alpha^{t-t_0} & t\geq t_0 \end{cases}}
-#' A seasonal outlier (SO, \code{so_variable}) is defined as (if \code{zeroended = FALSE}):
+#' A seasonal outlier (SO, \code{so_variable}) is defined as (if \code{zeroended = TRUE}):
 #' \deqn{SO_t = \begin{cases} 0 &\text{if }t\geq t_0 \newline
 #' -1 & \text{if }t < t_0 \text{ and $t$ same periode as }t_0\newline
 #'  -\frac{1}{s-1} & \text{otherwise }\end{cases}}
@@ -165,7 +175,7 @@ so_variable<-function(frequency, start, length, s, pos, date=NULL, zeroended=TRU
 #'
 #' @inheritParams outliers_variables
 #' @param range the range of the regressor. A vector of length 2 containing the datesin the format \code{"YYYY-MM-DD"}
-#' or the position in period compared to the first date.
+#' or the position in the series, in number of periods from counting from the series start.
 #'
 #' @details
 #' A ramp between two dates \eqn{t_0} and \eqn{t_1} is defined as:
@@ -181,9 +191,10 @@ so_variable<-function(frequency, start, length, s, pos, date=NULL, zeroended=TRU
 #'
 #' @examples
 #' # Ramp variable from January 2001 to September 2001
-#' ramp_variable(12, c(2000,1), length = 12*4, range = c(13, 21))
+#' rp <- ramp_variable(12, c(2000,1), length = 12*4, range = c(13, 21))
 #' # Or equivalently
-#' ramp_variable(12, c(2000,1), length = 12*4, range = c("2001-01-01", "2001-09-02"))
+#' rp<-ramp_variable(12, c(2000,1), length = 12*4, range = c("2001-01-01", "2001-09-02"))
+#' plot.ts(rp)
 ramp_variable<-function(frequency, start, length, s, range){
   if (!missing(s) && is.ts(s)) {
     frequency = stats::frequency(s)
@@ -210,12 +221,12 @@ ramp_variable<-function(frequency, start, length, s, range){
 #' @param starts,ends characters specifying sequences of starts/ends dates for the intervention variable.
 #' Can be characters or integers.
 #' @param delta regular differencing order.
-#' @param seasonaldelta segular differencing order.
+#' @param seasonaldelta seasonal differencing order.
 #' @details
 #' Intervention variables are combinations of any possible sequence of ones and zeros
-#' (the sequence of ones being defined by  by the parameters `starts` and `ends`)
+#' (the sequence of ones being defined by the parameters `starts` and `ends`)
 #' and of \eqn{\frac{1}{(1-B)^d}} and \eqn{\frac{1}{(1-B^s)^D}} where \eqn{B} is the
-#' backwar operation, \eqn{s} is the frequency of the time series,
+#' backwards operator, \eqn{s} is the frequency of the time series,
 #' \eqn{d} and \eqn{D} are the parameters `delta` and `seasonaldelta`.
 #'
 #' For example, with `delta = 0` and `seasonaldelta = 0` we get temporary level shifts defined
@@ -223,10 +234,13 @@ ramp_variable<-function(frequency, start, length, s, range){
 #' the cumulative sum of temporary level shifts.
 #'
 #' @examples
-#' intervention_variable(12, c(2000, 1), 60,
+#' iv1<-intervention_variable(12, c(2000, 1), 60,
 #'     starts = "2001-01-01", ends = "2001-12-01")
-#' intervention_variable(12, c(2000, 1), 60,
+#' plot(iv1)
+#' iv2<- intervention_variable(12, c(2000, 1), 60,
 #'     starts = "2001-01-01", ends = "2001-12-01", delta = 1)
+#' plot (iv2)
+
 #' @export
 intervention_variable<-function(frequency, start, length, s, starts, ends, delta=0, seasonaldelta=0){
   if (!missing(s) && is.ts(s)) {
@@ -255,7 +269,18 @@ intervention_variable<-function(frequency, start, length, s, starts, ends, delta
 
 #' Periodic dummies and contrasts
 #'
-#' @inheritParams outliers_variables
+#'@inheritParams outliers_variables
+#'@details
+#' The function periodic.dummies creates as many time series as types of periods in a year (4 or 12)
+#' with the value one only for one given type of period (ex Q1)
+#' The function periodic.contrasts is based on periodic.dummies but adds -1 to the period preeceding a 1.
+#'@examples
+#' # periodic dummies for a quarterly series
+#'p<-periodic.dummies(4, c(2000,1), 60)
+#'head(p)
+#' #periodic contrasts for a quarterly series
+#'q<-periodic.contrasts(4, c(2000,1), 60)
+#'q[1:9,]
 #'@export
 periodic.dummies <-function(frequency, start, length, s){
   if (!missing(s) && is.ts(s)) {
@@ -309,7 +334,7 @@ periodic.contrasts <-function(frequency, start, length, s){
 #' }
 #' Take for example the case when the first date (\code{date}) is a January, \code{frequency = 12}
 #' (monthly time series), \code{length = 12} and \code{seasonal_frequency = NULL}.
-#' The first frequency, \eqn{\lambda_1 = 2\pi /12} represent the fundamental seasonal frequency and the
+#' The first frequency, \eqn{\lambda_1 = 2\pi /12} represents the fundamental seasonal frequency and the
 #' other frequencies (\eqn{\lambda_2 = 2\pi /12 \times 2}, ..., \eqn{\lambda_6 = 2\pi /12 \times 6})
 #' are the five harmonics. The output matrix will be equal to:
 #' \deqn{

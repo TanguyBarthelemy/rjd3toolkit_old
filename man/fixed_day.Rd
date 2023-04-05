@@ -2,7 +2,7 @@
 % Please edit documentation in R/calendars.R
 \name{fixed_day}
 \alias{fixed_day}
-\title{Fixed Day}
+\title{Set a holiday on a Fixed Day}
 \usage{
 fixed_day(month, day, weight = 1, validity = NULL)
 }
@@ -13,14 +13,25 @@ fixed_day(month, day, weight = 1, validity = NULL)
 
 \item{validity}{validity period: either \code{NULL} (full sample) or a named list with \code{"start"} and/or "end" dates in the format \code{"YYYY-MM-DD"}.}
 }
+\value{
+returns an object of class \code{c("JD3_FIXEDDAY","JD3_HOLIDAY")}
+}
 \description{
-Fixed Day
+creates a holiday falling on a fixed day each year, with an optional weight and period of validity,
+like Christmas which is always celebrated on December 25th.
 }
 \examples{
 day <- fixed_day(7, 21, .9)
-day  # 21 July, with weight=0.9
+day  # July 21st, with weight=0.9, on the whole sample
 day <- fixed_day(12, 25, .5, validity = list(start = "2010-01-01"))
-day # 21 July, with weight=0.5 from Jan 2010
-day <- fixed_day(12, 25, .5, validity = list(end = "2010-01-01"))
-day # 21 July, with weight=0.9 until Jan 2010
+day # December 25th, with weight=0.5, from January 2010
+day <- fixed_day(12, 25, .5, validity = list(start="1968-02-01", end = "2010-01-01"))
+day # December 25th, with weight=0.9, from February 1968 until January 2010
+}
+\references{
+More information on calendar correction in JDemetra+ online documentation:
+\url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
+}
+\seealso{
+\code{\link{national_calendar}}, \code{\link{special_day}},\code{\link{easter_day}}
 }

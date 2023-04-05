@@ -3,7 +3,7 @@
 \name{easter_variable}
 \alias{easter_variable}
 \alias{julianeaster_variable}
-\title{Easter regressors}
+\title{Easter regressor}
 \usage{
 easter_variable(
   frequency,
@@ -18,7 +18,7 @@ easter_variable(
 julianeaster_variable(frequency, start, length, s, duration = 6)
 }
 \arguments{
-\item{frequency}{Annual frequency (divisor of 12).}
+\item{frequency}{Frequency of the series, number of periods per year (12,4,3,2..)}
 
 \item{start, length}{First date (array with the first year and the first period)
 (for instance \code{c(1980, 1)}) and number of periods of the output variables. Can also be provided with the \code{s} argument}
@@ -26,12 +26,27 @@ julianeaster_variable(frequency, start, length, s, duration = 6)
 \item{s}{time series used to get the dates for the trading days variables. If supplied the
 parameters \code{frequency}, \code{start} and \code{length} are ignored.}
 
-\item{duration}{Duration (length in days) of the Easter effect.}
+\item{duration}{Duration (length in days) of the Easter effect. (value between 1 and 20, default =6)}
 
-\item{endpos}{Position of the end of the Easter effect, relatively to Easter.}
+\item{endpos}{Position of the end of the Easter effect, relatively to Easter:
+-1(default): before Easter Sunday, 0: on Easter Sunday, 1: on Easter Monday)}
 
-\item{correction}{mean correction option.}
+\item{correction}{mean correction option. Simple"(default), "PreComputed", "Theoretical" or "None".}
+}
+\value{
+A time series (object of class \code{"ts"})
 }
 \description{
-Easter regressors
+Allows to generate a regressor taking into account the Easter effect in monthly or quarterly time series.
+}
+\examples{
+#Monthly regressor, five-year long, duration 8 days, effect finishing on Easter Monday
+ee<-easter_variable(12, c(2020,1),length=5*12,duration=8, endpos=1)
+}
+\references{
+More information on calendar correction in JDemetra+ online documentation:
+\url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
+}
+\seealso{
+\code{\link{calendar_td}}
 }

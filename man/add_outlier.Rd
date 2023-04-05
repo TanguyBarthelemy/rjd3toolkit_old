@@ -18,7 +18,7 @@ remove_ramp(x, start = NULL, end = NULL, name = NULL)
 \arguments{
 \item{x}{the specification.}
 
-\item{type, date}{type and date of the outliers. Possible \code{type} are:
+\item{type, }{date type and date of the outliers. Possible \code{type} are:
 \code{"AO"} = additive, \code{"LS"} = level shift, \code{"TC"} = transitory change and
 \code{"SO"} = seasonal outlier.}
 

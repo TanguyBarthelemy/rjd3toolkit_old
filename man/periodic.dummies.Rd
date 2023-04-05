@@ -10,7 +10,7 @@ periodic.dummies(frequency, start, length, s)
 periodic.contrasts(frequency, start, length, s)
 }
 \arguments{
-\item{frequency}{Annual frequency (divisor of 12).}
+\item{frequency}{Frequency of the series, number of periods per year (12,4,3,2..)}
 
 \item{start, length}{First date (array with the first year and the first period)
 (for instance \code{c(1980, 1)}) and number of periods of the output variables. Can also be provided with the \code{s} argument}
@@ -20,4 +20,17 @@ parameters \code{frequency}, \code{start} and \code{length} are ignored.}
 }
 \description{
 Periodic dummies and contrasts
+}
+\details{
+The function periodic.dummies creates as many time series as types of periods in a year (4 or 12)
+with the value one only for one given type of period (ex Q1)
+The function periodic.contrasts is based on periodic.dummies but adds -1 to the period preeceding a 1.
+}
+\examples{
+# periodic dummies for a quarterly series
+p<-periodic.dummies(4, c(2000,1), 60)
+head(p)
+#periodic contrasts for a quarterly series
+q<-periodic.contrasts(4, c(2000,1), 60)
+q[1:9,]
 }

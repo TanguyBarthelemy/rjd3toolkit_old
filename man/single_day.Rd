@@ -2,7 +2,7 @@
 % Please edit documentation in R/calendars.R
 \name{single_day}
 \alias{single_day}
-\title{Single Date}
+\title{Set a holiday on a Single Day}
 \usage{
 single_day(date, weight = 1)
 }
@@ -12,8 +12,15 @@ single_day(date, weight = 1)
 \item{weight}{weight associated to the holiday.}
 }
 \description{
-Single Date
+Allows to set a holiday as a once-occurring event.
 }
 \examples{
 single_day("1999-03-19")
+}
+\references{
+More information on calendar correction in JDemetra+ online documentation:
+\url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
+}
+\seealso{
+\code{\link{national_calendar}}, \code{\link{fixed_day}},\code{\link{special_day}},\code{\link{easter_day}}
 }

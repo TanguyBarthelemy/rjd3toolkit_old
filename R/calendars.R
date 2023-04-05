@@ -55,21 +55,29 @@ SINGLEDAY='JD3_SINGLEDAY'
   }
 }
 
-#' Fixed Day
+#' Set a holiday on a Fixed Day
+#'
+#' @description creates a holiday falling on a fixed day each year, with an optional weight and period of validity,
+#' like Christmas which is always celebrated on December 25th.
 #'
 #' @param month,day the month and the day of the fixed day to add.
 #' @param weight weight associated to the holiday.
 #' @param validity validity period: either `NULL` (full sample) or a named list with `"start"` and/or "end" dates in the format `"YYYY-MM-DD"`.
 #'
+#' @return returns an object of class \code{c("JD3_FIXEDDAY","JD3_HOLIDAY")}
 #' @export
 #'
 #' @examples
 #' day <- fixed_day(7, 21, .9)
-#' day  # 21 July, with weight=0.9
+#' day  # July 21st, with weight=0.9, on the whole sample
 #' day <- fixed_day(12, 25, .5, validity = list(start = "2010-01-01"))
-#' day # 21 July, with weight=0.5 from Jan 2010
-#' day <- fixed_day(12, 25, .5, validity = list(end = "2010-01-01"))
-#' day # 21 July, with weight=0.9 until Jan 2010
+#' day # December 25th, with weight=0.5, from January 2010
+#' day <- fixed_day(12, 25, .5, validity = list(start="1968-02-01", end = "2010-01-01"))
+#' day # December 25th, with weight=0.9, from February 1968 until January 2010
+#' @seealso \code{\link{national_calendar}}, \code{\link{special_day}},\code{\link{easter_day}}
+#' @references
+#' More information on calendar correction in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
 fixed_day<-function(month, day, weight=1, validity=NULL){
   return (structure(list(month=month, day=day, weight=weight, validity=validity), class=c(FIXEDDAY, HOLIDAY)))
 }
@@ -92,7 +100,11 @@ fixed_day<-function(month, day, weight=1, validity=NULL){
 }
 
 
-#' Fixed Week Day
+#' Set a Holiday on a Fixed Week Day
+#'
+#' @description
+#' Allows to define a holiday falling on a fixed week day each year, like Labour Day in the
+#' USA which is always celebrated on the first Monday of September.
 #'
 #' @inheritParams fixed_day
 #' @param dayofweek day of the week: from `1` (Monday) to `7` (Sunday).
@@ -100,12 +112,17 @@ fixed_day<-function(month, day, weight=1, validity=NULL){
 #' @param week position of the specified week day in the month: from `1` (first week of the month) to `5`. Should be always lower than 5.
 #' `-1` for the last `dayofweek` of the month.
 #' @param dayofweek day of the week: from `1` (Monday) to `7` (Sunday).
-#'
+#' @return returns an object of class \code{c("JD3_FIXEDWEEKDAY","JD3_HOLIDAY")}
+
 #' @export
 #'
 #' @examples
-#' day <- fixed_week_day(7, 2, 3) # second Tuesday of July
+#' day <- fixed_week_day(9, 1, 1) # first Monday(1) of September.
 #' day
+#' @seealso \code{\link{national_calendar}}, \code{\link{fixed_day}},\code{\link{special_day}},\code{\link{easter_day}}
+#' @references
+#' More information on calendar correction in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
 #'
 fixed_week_day<-function(month, week, dayofweek, weight=1, validity=NULL){
   return (structure(list(month=month, week=week, dayofweek=dayofweek, weight=weight, validity=validity), class=c(FIXEDWEEKDAY, HOLIDAY)))
@@ -128,15 +145,26 @@ fixed_week_day<-function(month, week, dayofweek, weight=1, validity=NULL){
   return (fd)
 }
 
-#' Easter Related Day
+#' Set a Holiday on an Easter related day
+#'
+#' @description
+#' Allows to define a holiday which date is related to Easter Sunday.
 #'
 #' @inheritParams fixed_day
-#' @param offset The position of the holiday in relation to the Easter Sunday, measured in days (can be positive or negative).
-#' @param julian boolean indicating if julian calendar must be used.
+#' @param offset The position of the holiday in relation to Easter Sunday, measured in days (can be positive or negative).
+#' @param julian Boolean indicating if Julian calendar must be used.
 #'
 #' @examples
 #' easter_day(1) #Easter Monday
 #' easter_day(-2) # Easter Good Friday
+#' # Corpus Christi 60 days after Easter
+#' # Sunday in Julian calendar with weight 0.5, from January 2000 to December 2020
+#' easter_day(offset=60,julian=TRUE,weight=0.5,
+#' validity = list(start="2000-01-01", end = "2020-12-01"))
+#' @seealso \code{\link{national_calendar}}, \code{\link{fixed_day}},\code{\link{special_day}},\code{\link{fixed_week_day}}
+#' @references
+#' More information on calendar correction in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
 #'
 #' @export
 easter_day<-function(offset, julian=FALSE, weight=1, validity=NULL){
@@ -160,14 +188,21 @@ easter_day<-function(offset, julian=FALSE, weight=1, validity=NULL){
 }
 
 
-#' Single Date
+#' Set a holiday on a Single Day
 #'
+#' @description
+#' Allows to set a holiday as a once-occurring event.
 #' @inheritParams fixed_day
 #' @param date the date of the holiday in the format `"YYYY-MM-DD"`.
 #'
 #'
 #' @examples
 #' single_day("1999-03-19")
+#' @seealso \code{\link{national_calendar}}, \code{\link{fixed_day}},\code{\link{special_day}},\code{\link{easter_day}}
+#' @references
+#' More information on calendar correction in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
+#'
 #' @export
 single_day<-function(date, weight=1){
   return (structure(list(date=date, weight=weight), class=c(SINGLEDAY, HOLIDAY)))
@@ -186,8 +221,10 @@ single_day<-function(date, weight=1){
 
 
 
-#' Pre-Defined Holiday
-#'
+#' List of Pre-Defined Holidays to choose from
+#' @description
+#' Allows to define a holiday choosing from a list of pre-specified events, equivalent
+#' to use `fixed_day` or `easter_day` functions.
 #' @inheritParams fixed_day
 #' @param offset The position of the holiday in relation to the selected pre-specified holiday measured in days (can be positive or negative).
 #' By default `offset = 0`.
@@ -196,31 +233,37 @@ single_day<-function(date, weight=1){
 #' @details Possible values :
 #'
 #' \tabular{ll}{
-#' NEWYEAR        \tab Fixed holiday, falls on January, 1.                                                  \cr
-#' SHROVEMONDAY   \tab Moving holiday, falls on Monday before Ash Wednesday (48 days before Easter Sunday). \cr
-#' SHROVETUESDAY  \tab Moving holiday, falls on Tuesday before Ash Wednesday (47 days before Easter Sunday).\cr
+#' NEWYEAR        \tab Fixed holiday, falls on January, 1st.                                                  \cr
+#' SHROVEMONDAY   \tab Moving holiday, falls on the Monday before Ash Wednesday (48 days before Easter Sunday). \cr
+#' SHROVETUESDAY  \tab Moving holiday, falls on the Tuesday before Ash Wednesday (47 days before Easter Sunday).\cr
 #' ASHWEDNESDAY   \tab Moving holiday, occurring 46 days before Easter Sunday.                              \cr
 #' MAUNDYTHURSDAY \tab Moving holiday, falls on the Thursday before Easter.                                 \cr
 #' GOODFRIDAY     \tab Moving holiday, falls on the Friday before Easter.                                   \cr
-#' EASTER         \tab Moving holiday, varies between March, 22 and April, 25.                              \cr
+#' EASTER         \tab Moving holiday, falls between March 22nd and April 25th.                              \cr
 #' EASTERMONDAY   \tab Moving holiday, falls on the day after Easter.                                       \cr
-#' ASCENSION      \tab Moving holiday, celebrated on Thursday, 39 days after Easter.                        \cr
+#' ASCENSION      \tab Moving holiday, celebrated on a Thursday, 39 days after Easter.                        \cr
 #' PENTECOST      \tab Moving holiday, celebrated 49 days after Easter Sunday.                              \cr
 #' WHITMONDAY     \tab Moving holiday, falling on the day after Pentecost.                                  \cr
 #' CORPUSCHRISTI  \tab Moving holiday, celebrated 60 days after Easter Sunday.                              \cr
 #' JULIANEASTER   \tab                                                                                      \cr
-#' MAYDAY         \tab Fixed holiday, falls on May, 1.                                                      \cr
-#' ASSUMPTION     \tab Fixed holiday, falls on August, 15.                                                  \cr
-#' HALLOWEEN      \tab Fixed holiday, falls on October, 31.                                                 \cr
-#' ALLSAINTSDAY    \tab Fixed holiday, falls on November, 1.                                                 \cr
-#' ARMISTICE      \tab Fixed holiday, falls on November, 11.                                                \cr
-#' CHRISTMAS      \tab Fixed holiday, falls on December, 25.
+#' MAYDAY         \tab Fixed holiday, falls on May, 1st.                                                      \cr
+#' ASSUMPTION     \tab Fixed holiday, falls on August, 15th.                                                  \cr
+#' HALLOWEEN      \tab Fixed holiday, falls on October, 31st.                                                 \cr
+#' ALLSAINTSDAY    \tab Fixed holiday, falls on November, 1st.                                                 \cr
+#' ARMISTICE      \tab Fixed holiday, falls on November, 11th.                                                \cr
+#' CHRISTMAS      \tab Fixed holiday, falls on December, 25th.
 #' }
-#'
-#'
 #' @export
 #' @examples
-#' special_day("EASTERMONDAY") # add Easter Monday
+#' # To add Easter Monday
+#' special_day("EASTERMONDAY")
+#' # To define a holiday for the day after Christmas, with validity and weight
+#' special_day("CHRISTMAS", offset = 1, weight = 0.8,
+#' validity = list(start="2000-01-01", end = "2020-12-01"))
+#' @seealso \code{\link{national_calendar}}, \code{\link{fixed_day}}, \code{\link{easter_day}}
+#' @references
+#' More information on calendar correction in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
 special_day<-function(event, offset=0, weight=1, validity=NULL){
   return (structure(list(event=event, offset=offset, weight=weight, validity=validity), class=c(SPECIALDAY, HOLIDAY)))
 }
@@ -251,14 +294,21 @@ special_day<-function(event, offset=0, weight=1, validity=NULL){
 .group_names <- function(x, contrasts = TRUE){
   if(!is.matrix(x))
     return(x)
-  col_names <- seq_len(ncol(x)) - !contrasts #if !constrast then it starts from 0
+  col_names <- seq_len(ncol(x)) - !contrasts #if !contrast then it starts from 0
   colnames(x) <- sprintf("group-%i", col_names)
   x
 }
 
-#' Usual trading days variables
-#'
-#' @param frequency Annual frequency (divisor of 12).
+#' Trading day regressors without holidays
+#' @description
+#' Allows to generate trading day regressors (as many as defined groups), taking into account
+#' 7 or less different types of days, from Monday to Sunday, but no specific holidays. Regressors are not
+#' corrected for long term mean.
+#' @details
+#' Aggregated values for monthly or quarterly are the numbers of days belonging to a given group.
+#' Contrasts are the differences between the number of days in a given group (1 to 6) and the number of days in
+#' the reference group (0).
+#' @param frequency Frequency of the series, number of periods per year (12,4,3,2..)
 #' @param start,length First date (array with the first year and the first period)
 #' (for instance `c(1980, 1)`) and number of periods of the output variables. Can also be provided with the `s` argument
 #' @param s time series used to get the dates for the trading days variables. If supplied the
@@ -267,13 +317,22 @@ special_day<-function(event, offset=0, weight=1, validity=NULL){
 #' belongs. The first item corresponds to Mondays and the last one to Sundays. The group used for contrasts (usually Sundays) is identified by 0.
 #' The other groups are identified by 1, 2,... n (<= 6). For instance, usual trading days are defined by c(1,2,3,4,5,6,0),
 #' week days by c(1,1,1,1,1,0,0), week days, Saturdays, Sundays by c(1,1,1,1,1,2,0) etc...
-#' @param contrasts If true, the variables are defined by contrasts with the 0-group. Otherwise, raw number of days are provided
+#' @param contrasts If true, the variables are defined by contrasts with the 0-group. Otherwise, raw number of days is provided.
 #'
-#' @return The variables corresponding to each group, starting with the 0-group (\code{contrasts = FALSE})
+#' @return Time series (object of class \code{c("ts","mts","matrix")}) corresponding to each group, starting with the 0-group (\code{contrasts = FALSE})
 #' or the 1-group (\code{contrasts = TRUE}).
+#' @seealso \code{\link{calendar_td}}
+#' @references
+#' More information on calendar correction in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
 #' @export
-#'
 #' @examples
+#' # Monthly regressors for Trading Days: each type of day is different
+#' # contrasts to Sundays (6 series)
+#' regs_td<- td(12,c(2020,1),60, groups = c(1, 2, 3, 4, 5, 6, 0), contrasts = TRUE)
+#' # Quarterly regressors for Working Days: week days are similar
+#' # contrasts to week-end days (1 series)
+#' regs_wd<- td(4,c(2020,1),60, groups = c(1, 1, 1, 1, 1, 0, 0), contrasts = TRUE)
 td<-function(frequency, start, length, s, groups=c(1,2,3,4,5,6,0), contrasts=TRUE){
   if (!missing(s) && is.ts(s)) {
     frequency = stats::frequency(s)
@@ -289,22 +348,32 @@ td<-function(frequency, start, length, s, groups=c(1,2,3,4,5,6,0), contrasts=TRU
   return (ts(data, start = start, frequency = frequency))
 }
 
-
-
-
-#' Gets the days corresponding to the holidays
+#' Daily calendar regressors corresponding to holidays
 #'
-#' @param calendar The calendar
-#' @param start First day of the calendar in the format \code{"YYYY-MM-DD"}.
-#' @param length Length of the calendar.
+#' @description
+#' Allows to generate daily regressors (dummy variables) corresponding to a each holiday of a pre-defined calendar.
+#'
+#' @details
+#' The pre-defined in a calendar has to be created with the functions \code{\link{national_calendar}} or \code{\link{weighted_calendar}} or
+#' \code{\link{composite_calendar}}. A many regressors  as defined holidays are generated, when the holiday occurs
+#' the value is 1 and 0 otherwise.
+#' This kind of non-aggregated regressors are used for calendar correction in daily data.
+#'
+#' @param calendar The calendar in which the holidays are defined.
+#' @param start  Starting date for the regressors, format \code{"YYYY-MM-DD"}.
+#' @param length Length of the regressors in days.
 #' @param nonworking Indexes of non working days (Monday=1, Sunday=7).
-#' @param type Adjustment type when a holiday falls a week-end: \code{"NextWorkingDay"},
-#' \code{"PreviousWorkingDay"},
-#' \code{"Skip"} (holidays corresponding to non working days are simply skipped in the matrix),
-#' \code{"All"} (holidays are always put in the matrix, even if they correspond to a non working day).
-#' @param single boolean indication if a single variable (`TRUE`) should be return or a matrix (`FALSE`, the default) containing the different holidays in separate columns.
-#' @returns A matrix where each column is associated to a holiday (in the order of creation of the holiday) and each row to a date.
-#'
+#' @param type Adjustment type when a holiday falls on a week-end:
+#' \code{"NextWorkingDay"}: the holiday is set to the next day,
+#' \code{"PreviousWorkingDay"}: the holiday is set to the previous day,
+#' \code{"Skip"}: holidays corresponding to non working days are simply skipped in the matrix,
+#' \code{"All"}: (holidays are always put in the matrix, even if they correspond to a non working day.
+#' @param single Boolean indication if a single variable (`TRUE`) should be return or a matrix (`FALSE`, the default) containing the different holidays in separate columns.
+#' @returns A matrix (class \code{"matrix"}) where each column is associated to a holiday (in the order of creation of the holiday) and each row to a date.
+#' @seealso \code{\link{calendar_td}}
+#' @references
+#' More information on calendar correction in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
 #' @examples
 #' BE <- national_calendar(list(
 #'   fixed_day(7,21),
@@ -317,7 +386,7 @@ td<-function(frequency, start, length, s, groups=c(1,2,3,4,5,6,0), contrasts=TRU
 #'   special_day('ASSUMPTION'),
 #'   special_day('ALLSAINTSDAY'),
 #'   special_day('ARMISTICE')))
-#' q<-holidays(BE, "2021-01-01", 365.25*10, type="NextWorkingDay")
+#' q<-holidays(BE, "2021-01-01", 366*10, type="All")
 #' plot(apply(q,1, max))
 #' @export
 holidays<-function(calendar, start, length, nonworking=c(6,7), type=c("Skip", "All", "NextWorkingDay", "PreviousWorkingDay"), single=FALSE){
@@ -332,14 +401,35 @@ holidays<-function(calendar, start, length, nonworking=c(6,7), type=c("Skip", "A
 
 }
 
-#' Long-term means of a calendar
+#' Displays Long-term means for a set of calendar regressors
 #'
+#' @description
+#' Given a pre-defined calendar and set of groups, the function displays the long-term means which
+#' would be used to seasonally adjust the corresponding regressors, as the final value using
+#' contrasts is "number of days in the group - long term mean".
+#' @details
+#' A long-term mean is a probability based computation of the average value for every period in every group.
+#' (see references). For monthly regressors there are 12 types of periods (January to December).
 #' @inheritParams calendar_td
 #'
-#' @return The long term means corresponding to each group/period, starting with the 0-group.
+#' @return returns an object of class \code{c("matrix","array")} with the long term means corresponding
+#' to each group/period, starting with the 0-group.
 #' @export
-#'
 #' @examples
+#' BE <- national_calendar(list(
+#' fixed_day(7,21),
+#' special_day('NEWYEAR'),
+#' special_day('CHRISTMAS'),
+#' special_day('MAYDAY'),
+#' special_day('EASTERMONDAY'),
+#' special_day('ASCENSION'),
+#' special_day('WHITMONDAY'),
+#' special_day('ASSUMPTION'),
+#' special_day('ALLSAINTSDAY'),
+#' special_day('ARMISTICE')))
+#' lt<-long_term_mean(BE,12,
+#'                   groups = c(1,1,1,1,1,0,0),
+#'                   holiday = 7)
 long_term_mean <-function(calendar,frequency,groups=c(1,2,3,4,5,6,0), holiday=7){
   pcal<-.r2p_calendar(calendar)
   jcal<-.p2jd_calendar(pcal)
@@ -349,15 +439,24 @@ long_term_mean <-function(calendar,frequency,groups=c(1,2,3,4,5,6,0), holiday=7)
   return (.group_names(res, contrasts = FALSE))
 }
 
-#' Compute Easter days between two years
-#'
-#' @param year0,year1 years.
+#' Displaying Easter Sunday dates in given period
+#' @description
+#' Allows to display the date of Easter Sunday for each year, in the defined period. Dates are
+#' displayed in "YYYY-MM-DD" format and as a number of days since January 1st 1970.
+#' @param year0,year1 starting year and ending year
 #' @inheritParams easter_day
 #'
 #' @export
-#'
+#' @return a named numeric vector. Names are the dates in format "YYYY-MM-DD",
+#' values are number of days since January 1st 1970.
+#' @seealso \code{\link{national_calendar}}, \code{\link{easter_day}}
+#' @references
+#' More information on calendar correction in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
+#
 #' @examples
-#' easter_dates(2020, 2021)
+#' #Dates from 2018(included) to 2023 (included)
+#' easter_dates(2018, 2023)
 easter_dates<-function(year0, year1, julian = FALSE){
   dates<-.jcall("demetra/calendar/r/Calendars", "[S", "easter", as.integer(year0), as.integer(year1), as.logical(julian))
   return (sapply(dates, as.Date))
@@ -366,7 +465,8 @@ easter_dates<-function(year0, year1, julian = FALSE){
 #' Stock Trading days
 #'
 #' @inheritParams td
-#' @param w indicates day of the month when inventories and other stock are reported (to denote the last day of the month enter 31).
+#' @param w indicates day of the month when inventories and other stocks are reported
+#' (to denote the last day of the month enter 31).
 #' @export
 stock_td<-function(frequency, start, length, s, w = 31){
   if (!missing(s) && is.ts(s)) {
@@ -422,17 +522,29 @@ stock_td<-function(frequency, start, length, s, w = 31){
   return (p)
 }
 
-#' Chained Calendar
+#' Creating a Chained Calendar
 #'
-#' A chained calendar is an option that can be used when major changes in the composition of the holidays take place.
-#' In such case two calendars that describe the situation before and after the change of regime can be defined.
+#'@description
+#'Allows to combine two calendars, one before and one after a given date.
+#'
+#'@details
+#' A chained calendar is an useful option when major changes in the composition of the holidays take place.
+#' In such a case two calendars describing the situation before and after the change of regime can be defined
+#' and bound together, one before the break and one after the break.
 #'
 #' @param calendar1,calendar2 calendars to chain.
 #' @param break_date the break date in the format `"YYYY-MM-DD"`.
+#' @return returns an object of class \code{c("JD3_CHAINEDCALENDAR","JD3_CALENDARDEFINITION")}
+#' @seealso \code{\link{national_calendar}}, \code{\link{weighted_calendar}}
+#' @references
+#' More information on calendar correction in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
+#' @examples
+#' Belgium <- national_calendar(list(special_day('NEWYEAR'),fixed_day(7,21)))
+#' France <- national_calendar(list(special_day('NEWYEAR'),fixed_day(7,14)))
+#' chained_cal<-chained_calendar(France, Belgium, "2000-01-01")
 #'
-#' @return The chained calendar.
 #' @export
-#'
 chained_calendar<-function(calendar1, calendar2, break_date){
   return (structure(list(
     calendar1=calendar1,
@@ -453,20 +565,29 @@ chained_calendar<-function(calendar1, calendar2, break_date){
   return (pc)
 }
 
-#' Composite Calendars
+#' Creating a Composite Calendar
+#'
+#' @description
+#' Allows to combine two or more calendars into one calendar, weighting all the holidays of each of them.
 #'
 #' @param calendars list of calendars.
-#' @param weights vector weights associated to each calendar.
+#' @param weights vector of weights associated to each calendar.
 #' @details
-#' Composite calendars are useful for series that includes data from more than one country/region.
+#' Composite calendars are useful for a series that including data from more than one country/region.
 #' They can be used, for example, to create the calendar for the European Union or to create the national calendar for a country,
 #' in which regional holidays are celebrated.
 #' For example, in Germany public holidays are determined by the federal states.
 #' Therefore, Epiphany is celebrated only in Baden-Wurttemberg, Bavaria and in Saxony-Anhalt, while from 1994 Day of Repentance and Prayer is celebrated only in Saxony.
-#' @return
+#' @return returns an object of class \code{c("JD3_WEIGHTEDCALENDAR","JD3_CALENDARDEFINITION")}
+#' @seealso \code{\link{national_calendar}}, \code{\link{chained_calendar}}
+#' @references
+#' More information on calendar correction in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
 #' @export
-#'
 #' @examples
+#' Belgium <- national_calendar(list(special_day('NEWYEAR'),fixed_day(7,21)))
+#' France <- national_calendar(list(special_day('NEWYEAR'),fixed_day(7,14)))
+#' composite_calendar<- weighted_calendar(list(France,Belgium), weights = c(1,2))
 weighted_calendar<-function(calendars, weights){
   # checkmate::assertNames(calendars)
   checkmate::assertNumeric(weights)
@@ -506,42 +627,70 @@ weighted_calendar<-function(calendars, weights){
 }
 
 
-#' Create National Calendar
+#' Creating a National Calendar
 #'
-#' @param days list of days of the calendars
+#' @description
+#'Will create a calendar as a list of days corresponding to the required holidays.
+#'The holidays have to be generated by one of these functions: `fixed_day()`,
+#'`fixed_week_day()`, `easter_day`, `special_day` or `single_day`.
 #'
-#' @export
 #'
+#' @param days list of holidays to be taken into account in the calendar
+#'
+#'
+#' @return returns an object of class \code{c("JD3_CALENDAR","JD3_CALENDARDEFINITION")}
 #' @examples
-#' BE <- national_calendar(list(
-#'     fixed_day(7,21),
-#'     special_day('NEWYEAR'),
-#'     special_day('CHRISTMAS'),
-#'     special_day('MAYDAY'),
-#'     special_day('EASTERMONDAY'),
-#'     special_day('ASCENSION'),
-#'     special_day('WHITMONDAY'),
-#'     special_day('ASSUMPTION'),
-#'     special_day('ALLSAINTSDAY'),
-#'     special_day('ARMISTICE')))
+#' #Fictional calendar using all possibilities to set the required holidays
+#' MyCalendar <- national_calendar(list(
+#'   fixed_day(7,21),
+#'   special_day('NEWYEAR'),
+#'   special_day('CHRISTMAS'),
+#'   fixed_week_day(7, 2, 3), # second Wednesday of July
+#'   special_day('MAYDAY'),
+#'   easter_day(1), # Easter Monday
+#'   easter_day(-2), # Good Friday
+#'   single_day("2001-09-11"), # appearing once
+#'   special_day('ASCENSION'),
+#'   easter_day(offset=60, julian=FALSE, weight=0.5,
+#'   validity = list(start="2000-01-01", end = "2020-12-01")),  # Corpus Christi
+#'   special_day('WHITMONDAY'),
+#'   special_day('ASSUMPTION'),
+#'   special_day('ALLSAINTSDAY'),
+#'   special_day('ARMISTICE')))
+#' @return returns an object of class \code{c("JD3_CALENDAR","JD3_CALENDARDEFINITION")}
+#' @seealso \code{\link{chained_calendar}}, \code{\link{composite_calendar}}
+#' @references
+#' More information on calendar correction in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/}
+#' @export
 national_calendar<-function(days){
   if (! is.list(days)) stop ('Days should be a list of holidays')
   return (structure(days, class=c('JD3_CALENDAR', 'JD3_CALENDARDEFINITION')))
 }
 
-#' Calendar Specific Trading Days Variables
+#' Trading day regressors with pre-defined holidays
 #'
+#' @description
+#' Allows to generate trading day regressors (as many as defined groups), taking into account
+#' 7 or less different types of days, from Monday to Sunday, and specific holidays,which are to
+#' defined beforehand in a calendar using the functions `national_calendar`,`weighted_calendar` or
+#' `Chained_calendar`.
+#' @details
+#' Aggregated values for monthly or quarterly are the numbers of days belonging to a given group, holidays
+#' are all summed together in of those groups.
+#' Contrasts are the differences between the number of days in a given group (1 to 6) and the number of days in
+#' the reference group (0).
+#' Regressors can be corrected for long-term mean.
 #' @inheritParams td
-#' @param calendar The calendar.
-#' @param holiday Day for holidays (holidays are considered as that day).
+#' @param calendar The calendar containing the required holidays
+#' @param holiday Day to aggregate holidays with. (holidays are considered as that day).
 #' 1 for Monday... 7 for Sunday. Doesn't necessary belong to the 0-group.
-#' @param meanCorrection boolean indicating if the regressors are corrected for long-term term.
+#' @param meanCorrection Boolean indicating if the regressors are corrected for long-term mean (e.g seasonally adjusted).
 #' By default the correction is done if \code{contrasts = TRUE}.
 #'
-#' @return The variables corresponding to each group, starting with the 0-group (\code{contrasts = FALSE})
+#' @return Time series (object of class \code{c("ts","mts","matrix")}) corresponding to each group, starting with the 0-group (\code{contrasts = FALSE})
 #' or the 1-group (\code{contrasts = TRUE}).
 #' @export
-#'
 #' @examples
 #' BE <- national_calendar(list(
 #'     fixed_day(7,21),
@@ -554,7 +703,11 @@ national_calendar<-function(days){
 #'     special_day('ASSUMPTION'),
 #'     special_day('ALLSAINTSDAY'),
 #'     special_day('ARMISTICE')))
-#' calendar_td(BE, 12, c(1980,1), 240)
+#' calendar_td(BE, 12, c(1980,1), 240, holiday=7, groups=c(1,1,1,2,2,3,0), contrasts = FALSE, meanCorrection = TRUE)
+#' @seealso \code{\link{national_calendar}}, \code{\link{td}}
+#' @references
+#' More information on calendar correction in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/}
 calendar_td<-function(calendar,frequency, start, length, s, groups=c(1,2,3,4,5,6,0), holiday=7, contrasts=TRUE,
               meanCorrection = contrasts){
   if(! is(calendar, 'JD3_CALENDAR')) stop('Invalid calendar')
@@ -573,10 +726,9 @@ calendar_td<-function(calendar,frequency, start, length, s, groups=c(1,2,3,4,5,6
   return (ts(return, start = start, frequency = frequency))
 }
 
-
 #' Calendars Print Methods
 #'
-#' Prints functions for calendars
+#' Print functions for calendars
 #'
 #' @param x The object.
 #' @param ... other unused parameters.
