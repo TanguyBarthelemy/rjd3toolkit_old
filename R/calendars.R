@@ -350,7 +350,7 @@ td<-function(frequency, start, length, s, groups=c(1,2,3,4,5,6,0), contrasts=TRU
 #' Daily calendar regressors corresponding to holidays
 #'
 #' @description
-#' Allows to generate daily regressors (dummy variables) corresponding to a each holiday of a pre-defined calendar.
+#' Allows to generate daily regressors (dummy variables) corresponding to each holiday of a pre-defined calendar.
 #'
 #' @details
 #' The pre-defined in a calendar has to be created with the functions \code{\link{national_calendar}} or \code{\link{weighted_calendar}} or
