@@ -318,7 +318,6 @@ special_day<-function(event, offset=0, weight=1, validity=NULL){
 #' The other groups are identified by 1, 2,... n (<= 6). For instance, usual trading days are defined by c(1,2,3,4,5,6,0),
 #' week days by c(1,1,1,1,1,0,0), week days, Saturdays, Sundays by c(1,1,1,1,1,2,0) etc...
 #' @param contrasts If true, the variables are defined by contrasts with the 0-group. Otherwise, raw number of days is provided.
-#'
 #' @return Time series (object of class \code{c("ts","mts","matrix")}) corresponding to each group, starting with the 0-group (\code{contrasts = FALSE})
 #' or the 1-group (\code{contrasts = TRUE}).
 #' @seealso \code{\link{calendar_td}}
@@ -368,7 +367,7 @@ td<-function(frequency, start, length, s, groups=c(1,2,3,4,5,6,0), contrasts=TRU
 #' \code{"PreviousWorkingDay"}: the holiday is set to the previous day,
 #' \code{"Skip"}: holidays corresponding to non working days are simply skipped in the matrix,
 #' \code{"All"}: (holidays are always put in the matrix, even if they correspond to a non working day.
-#' @param single Boolean indication if a single variable (`TRUE`) should be return or a matrix (`FALSE`, the default) containing the different holidays in separate columns.
+#' @param single Boolean indication if a single variable (`TRUE`) should be returned or a matrix (`FALSE`, the default) containing the different holidays in separate columns.
 #' @returns A matrix (class \code{"matrix"}) where each column is associated to a holiday (in the order of creation of the holiday) and each row to a date.
 #' @seealso \code{\link{calendar_td}}
 #' @references
@@ -401,7 +400,7 @@ holidays<-function(calendar, start, length, nonworking=c(6,7), type=c("Skip", "A
 
 }
 
-#' Displays Long-term means for a set of calendar regressors
+#' Display Long-term means for a set of calendar regressors
 #'
 #' @description
 #' Given a pre-defined calendar and set of groups, the function displays the long-term means which
@@ -439,7 +438,7 @@ long_term_mean <-function(calendar,frequency,groups=c(1,2,3,4,5,6,0), holiday=7)
   return (.group_names(res, contrasts = FALSE))
 }
 
-#' Displaying Easter Sunday dates in given period
+#' Display Easter Sunday dates in given period
 #' @description
 #' Allows to display the date of Easter Sunday for each year, in the defined period. Dates are
 #' displayed in "YYYY-MM-DD" format and as a number of days since January 1st 1970.
@@ -535,7 +534,7 @@ stock_td<-function(frequency, start, length, s, w = 31){
   return (p)
 }
 
-#' Creating a Chained Calendar
+#' Create a Chained Calendar
 #'
 #'@description
 #'Allows to combine two calendars, one before and one after a given date.
@@ -578,7 +577,7 @@ chained_calendar<-function(calendar1, calendar2, break_date){
   return (pc)
 }
 
-#' Creating a Composite Calendar
+#' Create a Composite Calendar
 #'
 #' @description
 #' Allows to combine two or more calendars into one calendar, weighting all the holidays of each of them.
@@ -640,7 +639,7 @@ weighted_calendar<-function(calendars, weights){
 }
 
 
-#' Creating a National Calendar
+#' Create a National Calendar
 #'
 #' @description
 #'Will create a calendar as a list of days corresponding to the required holidays.
@@ -693,14 +692,11 @@ national_calendar<-function(days, mean_correction=T){
 #' are all summed together in of those groups.
 #' Contrasts are the differences between the number of days in a given group (1 to 6) and the number of days in
 #' the reference group (0).
-#' Regressors can be corrected for long-term mean.
+#' Regressors are corrected for long-term mean if \code{contrasts = TRUE}.
 #' @inheritParams td
 #' @param calendar The calendar containing the required holidays
 #' @param holiday Day to aggregate holidays with. (holidays are considered as that day).
 #' 1 for Monday... 7 for Sunday. Doesn't necessary belong to the 0-group.
-#' @param meanCorrection Boolean indicating if the regressors are corrected for long-term mean (e.g seasonally adjusted).
-#' By default the correction is done if \code{contrasts = TRUE}.
-#'
 #' @return Time series (object of class \code{c("ts","mts","matrix")}) corresponding to each group, starting with the 0-group (\code{contrasts = FALSE})
 #' or the 1-group (\code{contrasts = TRUE}).
 #' @export

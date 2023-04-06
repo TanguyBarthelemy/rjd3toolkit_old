@@ -2,7 +2,7 @@
 % Please edit documentation in R/calendars.R
 \name{long_term_mean}
 \alias{long_term_mean}
-\title{Displays Long-term means for a set of calendar regressors}
+\title{Display Long-term means for a set of calendar regressors}
 \usage{
 long_term_mean(
   calendar,

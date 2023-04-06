@@ -36,9 +36,6 @@ week days by c(1,1,1,1,1,0,0), week days, Saturdays, Sundays by c(1,1,1,1,1,2,0)
 1 for Monday... 7 for Sunday. Doesn't necessary belong to the 0-group.}
 
 \item{contrasts}{If true, the variables are defined by contrasts with the 0-group. Otherwise, raw number of days is provided.}
-
-\item{meanCorrection}{Boolean indicating if the regressors are corrected for long-term mean (e.g seasonally adjusted).
-By default the correction is done if \code{contrasts = TRUE}.}
 }
 \value{
 Time series (object of class \code{c("ts","mts","matrix")}) corresponding to each group, starting with the 0-group (\code{contrasts = FALSE})
@@ -55,7 +52,7 @@ Aggregated values for monthly or quarterly are the numbers of days belonging to 
 are all summed together in of those groups.
 Contrasts are the differences between the number of days in a given group (1 to 6) and the number of days in
 the reference group (0).
-Regressors can be corrected for long-term mean.
+Regressors are corrected for long-term mean if \code{contrasts = TRUE}.
 }
 \examples{
 BE <- national_calendar(list(

@@ -2,7 +2,7 @@
 % Please edit documentation in R/calendars.R
 \name{national_calendar}
 \alias{national_calendar}
-\title{Creating a National Calendar}
+\title{Create a National Calendar}
 \usage{
 national_calendar(days, mean_correction = T)
 }

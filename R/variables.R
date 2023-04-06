@@ -295,7 +295,7 @@ periodic.dummies <-function(frequency, start, length, s){
     length = .length_ts(s)
   }
   jdom <- .r2jd_tsdomain(frequency, start[1], start[2], length)
-  jm<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/core/math/matrices/Matrix;", "periodicDummies", jdom)
+  jm<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/api/math/matrices/Matrix;", "periodicDummies", jdom)
   data <- .jd2r_matrix(jm)
   return (ts(data, frequency = frequency, start= start))
 }
@@ -308,7 +308,7 @@ periodic.contrasts <-function(frequency, start, length, s){
     length = .length_ts(s)
   }
   jdom <- .r2jd_tsdomain(frequency, start[1], start[2], length)
-  jm<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/core/math/matrices/Matrix;", "periodicContrasts", jdom)
+  jm<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/api/math/matrices/Matrix;", "periodicContrasts", jdom)
   data <- .jd2r_matrix(jm)
   return (ts(data, frequency = frequency, start= start))
 }
@@ -368,7 +368,7 @@ trigonometric_variables <- function(frequency, start, length, s,
 
   if(!is.null(seasonal_frequency))
     seasonal_frequency <- as.integer(seasonal_frequency)
-  jm<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/core/math/matrices/Matrix;", "trigonometricVariables",
+  jm<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/api/math/matrices/Matrix;", "trigonometricVariables",
              jdom, .jarray(seasonal_frequency))
   data <- .jd2r_matrix(jm)
 

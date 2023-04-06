@@ -2,7 +2,7 @@
 % Please edit documentation in R/calendars.R
 \name{chained_calendar}
 \alias{chained_calendar}
-\title{Creating a Chained Calendar}
+\title{Create a Chained Calendar}
 \usage{
 chained_calendar(calendar1, calendar2, break_date)
 }
