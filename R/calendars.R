@@ -462,11 +462,22 @@ easter_dates<-function(year0, year1, julian = FALSE){
   return (sapply(dates, as.Date))
 }
 
-#' Stock Trading days
+#' Trading day Regressor for Stock series
 #'
+#' @description
+#' Allows to generate a specific regressor for correcting trading days effects in Stock series.
 #' @inheritParams td
-#' @param w indicates day of the month when inventories and other stocks are reported
+#' @param w indicates day of the month when inventories and other stocks are reported.
 #' (to denote the last day of the month enter 31).
+#' @details
+#' The regressor will have the value -1 if the w-th day is a Sunday, 1 if it is a Monday as 0 otherwise.
+#' @return Time series (object of class \code{c("ts","mts","matrix")}).
+#' @seealso \code{\link{calendar_td}}
+#' @references
+#' More information on calendar correction in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
+#' @examples
+#' stock_td(12, c(2012,1), length=5*60, w = 31)
 #' @export
 stock_td<-function(frequency, start, length, s, w = 31){
   if (!missing(s) && is.ts(s)) {
@@ -642,7 +653,6 @@ weighted_calendar<-function(calendars, weights){
 #'
 #' @return returns an object of class \code{c("JD3_CALENDAR","JD3_CALENDARDEFINITION")}
 #' @examples
-<<<<<<< HEAD
 #' #Fictional calendar using all possibilities to set the required holidays
 #' MyCalendar <- national_calendar(list(
 #'   fixed_day(7,21),
@@ -666,21 +676,7 @@ weighted_calendar<-function(calendars, weights){
 #' More information on calendar correction in JDemetra+ online documentation:
 #' \url{https://jdemetra-new-documentation.netlify.app/}
 #' @export
-national_calendar<-function(days){
-=======
-#' BE <- national_calendar(list(
-#'     fixed_day(7,21),
-#'     special_day('NEWYEAR'),
-#'     special_day('CHRISTMAS'),
-#'     special_day('MAYDAY'),
-#'     special_day('EASTERMONDAY'),
-#'     special_day('ASCENSION'),
-#'     special_day('WHITMONDAY'),
-#'     special_day('ASSUMPTION'),
-#'     special_day('ALLSAINTSDAY'),
-#'     special_day('ARMISTICE')))
 national_calendar<-function(days, mean_correction=T){
->>>>>>> 96430dbebe5e82789cf20c6636189fc082722f53
   if (! is.list(days)) stop ('Days should be a list of holidays')
   return (structure(list(days=days, mean_correction=mean_correction), class=c('JD3_CALENDAR', 'JD3_CALENDARDEFINITION')))
 }
@@ -702,10 +698,7 @@ national_calendar<-function(days, mean_correction=T){
 #' @param calendar The calendar containing the required holidays
 #' @param holiday Day to aggregate holidays with. (holidays are considered as that day).
 #' 1 for Monday... 7 for Sunday. Doesn't necessary belong to the 0-group.
-<<<<<<< HEAD
 #' @param meanCorrection Boolean indicating if the regressors are corrected for long-term mean (e.g seasonally adjusted).
-=======
->>>>>>> 96430dbebe5e82789cf20c6636189fc082722f53
 #' By default the correction is done if \code{contrasts = TRUE}.
 #'
 #' @return Time series (object of class \code{c("ts","mts","matrix")}) corresponding to each group, starting with the 0-group (\code{contrasts = FALSE})
@@ -723,7 +716,6 @@ national_calendar<-function(days, mean_correction=T){
 #'     special_day('ASSUMPTION'),
 #'     special_day('ALLSAINTSDAY'),
 #'     special_day('ARMISTICE')))
-<<<<<<< HEAD
 #' calendar_td(BE, 12, c(1980,1), 240, holiday=7, groups=c(1,1,1,2,2,3,0), contrasts = FALSE, meanCorrection = TRUE)
 #' @seealso \code{\link{national_calendar}}, \code{\link{td}}
 #' @references
@@ -731,10 +723,6 @@ national_calendar<-function(days, mean_correction=T){
 #' \url{https://jdemetra-new-documentation.netlify.app/}
 calendar_td<-function(calendar,frequency, start, length, s, groups=c(1,2,3,4,5,6,0), holiday=7, contrasts=TRUE,
               meanCorrection = contrasts){
-=======
-#' calendar_td(BE, 12, c(1980,1), 240)
-calendar_td<-function(calendar,frequency, start, length, s, groups=c(1,2,3,4,5,6,0), holiday=7, contrasts=TRUE){
->>>>>>> 96430dbebe5e82789cf20c6636189fc082722f53
   if(! is(calendar, 'JD3_CALENDAR')) stop('Invalid calendar')
   if (!missing(s) && is.ts(s)) {
     frequency = stats::frequency(s)

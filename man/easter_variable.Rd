@@ -37,7 +37,7 @@ parameters \code{frequency}, \code{start} and \code{length} are ignored.}
 A time series (object of class \code{"ts"})
 }
 \description{
-Allows to generate a regressor taking into account the Easter effect in monthly or quarterly time series.
+Allows to generate a regressor taking into account the (Julian) Easter effect in monthly or quarterly time series.
 }
 \examples{
 #Monthly regressor, five-year long, duration 8 days, effect finishing on Easter Monday

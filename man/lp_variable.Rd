@@ -24,10 +24,21 @@ parameters \code{frequency}, \code{start} and \code{length} are ignored.}
 \item{type}{the modelling of the leap year effect: as a contrast variable (\code{type = "LeapYear"}, default)
 or by a length-of-month (or length-of-quarter; \code{type = "LengthOfPeriod"}).}
 }
+\value{
+Time series (object of class \code{"ts"})
+}
 \description{
-Leap Year regressor
+Allows to generate a regressor correcting for the leap year or length-of-period effect.
 }
 \examples{
-# Leap years occur on 2000, 2004, 2008 and 2012
+# Leap years occur in year 2000, 2004, 2008 and 2012
 lp_variable(4, start = c(2000, 1), length = 4*13)
+lper<-lp_variable(12,c(2000,1),length=10*12,type ="LengthOfPeriod")
+}
+\references{
+More information on calendar correction in JDemetra+ online documentation:
+\url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
+}
+\seealso{
+\code{\link{calendar_td}}
 }

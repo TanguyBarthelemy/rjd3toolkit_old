@@ -4,7 +4,7 @@ NULL
 #' Easter regressor
 #'
 #' @description
-#' Allows to generate a regressor taking into account the Easter effect in monthly or quarterly time series.
+#' Allows to generate a regressor taking into account the (Julian) Easter effect in monthly or quarterly time series.
 #' @inheritParams td
 #' @param duration Duration (length in days) of the Easter effect. (value between 1 and 20, default =6)
 #' @param endpos Position of the end of the Easter effect, relatively to Easter:
@@ -46,16 +46,23 @@ julianeaster_variable<-function(frequency, start, length, s, duration=6){
 }
 
 #' Leap Year regressor
-#'
+#' @description
+#' Allows to generate a regressor correcting for the leap year or length-of-period effect.
 #' @inheritParams td
 #' @param type the modelling of the leap year effect: as a contrast variable (\code{type = "LeapYear"}, default)
 #' or by a length-of-month (or length-of-quarter; \code{type = "LengthOfPeriod"}).
+#' @return Time series (object of class \code{"ts"})
+#' @seealso \code{\link{calendar_td}}
+#' @references
+#' More information on calendar correction in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
 #'
 #' @export
 #'
 #' @examples
-#' # Leap years occur on 2000, 2004, 2008 and 2012
+#' # Leap years occur in year 2000, 2004, 2008 and 2012
 #' lp_variable(4, start = c(2000, 1), length = 4*13)
+#' lper<-lp_variable(12,c(2000,1),length=10*12,type ="LengthOfPeriod")
 lp_variable<-function(frequency, start, length, s, type=c("LeapYear", "LengthOfPeriod")){
   type=match.arg(type)
   lp<-type == "LeapYear"
@@ -276,8 +283,7 @@ intervention_variable<-function(frequency, start, length, s, starts, ends, delta
 #' The function periodic.contrasts is based on periodic.dummies but adds -1 to the period preeceding a 1.
 #'@examples
 #' # periodic dummies for a quarterly series
-#'p<-periodic.dummies(4, c(2000,1), 60)
-#'head(p)
+#' p<-periodic.dummies(4, c(2000,1), 60)
 #' #periodic contrasts for a quarterly series
 #'q<-periodic.contrasts(4, c(2000,1), 60)
 #'q[1:9,]
