@@ -39,7 +39,7 @@ do_stationary<-function(data, period){
     period <- frequency(data)
   jst<-.jcall("jdplus/toolkit/base/r/modelling/Differencing", "Ljdplus/toolkit/base/core/modelling/StationaryTransformation;", "doStationary",
          as.numeric(data), as.integer(period))
-  q<-.jcall("jdplus/toolkit/core/r/modelling/Differencing", "[B", "toBuffer", jst)
+  q<-.jcall("jdplus/toolkit/base/r/modelling/Differencing", "[B", "toBuffer", jst)
   p<-RProtoBuf::read(modelling.StationaryTransformation, q)
   res <- .p2r_differencing(p)
   if (is.ts(data))
