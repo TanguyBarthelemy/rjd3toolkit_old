@@ -34,7 +34,7 @@ holidays(
 A matrix (class \code{"matrix"}) where each column is associated to a holiday (in the order of creation of the holiday) and each row to a date.
 }
 \description{
-Allows to generate daily regressors (dummy variables) corresponding to a each holiday of a pre-defined calendar.
+Allows to generate daily regressors (dummy variables) corresponding to each holiday of a pre-defined calendar.
 }
 \details{
 The pre-defined in a calendar has to be created with the functions \code{\link{national_calendar}} or \code{\link{weighted_calendar}} or
