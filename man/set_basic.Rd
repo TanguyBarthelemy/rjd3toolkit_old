@@ -2,7 +2,7 @@
 % Please edit documentation in R/spec_regarima.R
 \name{set_basic}
 \alias{set_basic}
-\title{Set Basic Specification}
+\title{Set estimation sub-span and quality check Specification}
 \usage{
 set_basic(
   x,
@@ -16,20 +16,42 @@ set_basic(
 )
 }
 \arguments{
-\item{x}{the specification.}
+\item{x}{the specification to customize, must be a "SPEC" class object (see details).}
 
-\item{type, d0, d1, n0, n1}{parameters to specifiy the span of to be used.
+\item{type, d0, d1, n0, n1}{parameters to specify the sub-span of to be used to estimated pre-processing effects.
 
-\code{d0} and \code{d1} characters in the format "YYYY-MM-DD" to specify first/last date of the span when \code{type} equals to \code{"From"}, \code{"To"} or \code{"Between"}.
+\code{d0} and \code{d1} characters in the format "YYYY-MM-DD" to specify first/last date
+of the span when \code{type} equals to \code{"From"}, \code{"To"} or \code{"Between"}.
 
-\code{n0} and \code{n1} numerics to specify the number of periods at the beginning/end of the series to be used for the span
+\code{n0} and \code{n1} numeric to specify the number of periods at the beginning/end of the series to be used for the span
 (\code{type} equals to \code{"From"}, \code{"To"}) or to exclude (\code{type} equals to \code{"Excluding"}).}
 
-\item{preliminary.check}{a boolean to check the quality of the input series and exclude highly problematic ones
+\item{preliminary.check}{a Boolean to check the quality of the input series and exclude highly problematic ones
 (e.g. the series with a number of identical observations and/or missing values above pre-specified threshold values).}
 
-\item{preprocessing}{(REGARIMA/X13 Specific) a boolean to enable/disable the pre-processing.}
+\item{preprocessing}{(REGARIMA/X13 Specific) a Boolean to enable/disable the pre-processing.}
 }
 \description{
-Set Basic Specification
+Function allowing to check if the series processed and to define a sub-span on which pre-processing
+effects will be estimated.
+}
+\details{
+\code{x} specification param must be a JD3_X13_SPEC" class object generated with \code{rjd3x13::spec_x13()}
+(or "JD3_REGARIMA_SPEC" generated with \code{rjd3x13::spec_regarima()} or "JD3_TRAMOSEATS_SPEC"
+generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" generated with
+\code{rjd3tramoseats::spec_tramo()}).
+Estimated pre-processing effects will be applied on the whole series. If a Seasonal adjustment process
+is performed it will also be done on the whole series.
+}
+\examples{
+init_spec <- rjd3x13::spec_x13("RSA5c")
+new_spec_2<-set_basic(init_spec,type = "Between",d0 = "2014-01-01",
+d1 = "2019-01-01", preliminary.check = TRUE, preprocessing = TRUE)
+}
+\references{
+More information in JDemetra+ online documentation:
+\url{https://jdemetra-new-documentation.netlify.app/}
+}
+\seealso{
+\code{\link{set_estimate}}, \code{\link{set_arima}}
 }

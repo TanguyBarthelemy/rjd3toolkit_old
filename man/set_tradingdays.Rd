@@ -2,7 +2,7 @@
 % Please edit documentation in R/spec_regarima.R
 \name{set_tradingdays}
 \alias{set_tradingdays}
-\title{Set Trading-Days Specification}
+\title{Set Calendar effects correction in Pre-Processing Specification}
 \usage{
 set_tradingdays(
   x,
@@ -22,15 +22,15 @@ set_tradingdays(
 )
 }
 \arguments{
-\item{x}{the specification.}
+\item{x}{the specification to customize, must be a "SPEC" class object (see details).}
 
 \item{option}{to specify the set of trading days regression variables:
-\code{"TradingDays"} = six day-of-the-week regression variables;
-\code{"WorkingDays"} = one working/non-working day contrast variable;
-\code{"TD3"} = weeks, Saturdays, Sundays;
-\code{"TD3c"} = weeks, Fridays+Saturdays, Sundays;
-\code{"TD4"} = weeks, Fridays, Saturdays, Sundays;
-\code{"None"} = no correction for trading days and working days effects;
+\code{"TradingDays"} = six contrast variables, each type of day (from Monday to Saturday) vs Sundays;
+\code{"WorkingDays"} = one working (week days)/non-working (week-ends) day contrast variable;
+\code{"TD3"} = two contrast variables: week-days vs Sundays and  Saturdays vs Sundays;
+\code{"TD3c"} = two contrast variables: week-days (Mondays to Thursdays) vs Sundays and  Fridays+Saturdays vs Sundays;
+\code{"TD4"} = three contrast variables: week-days (Mondays to Thursdays) vs Sundays, Fridays vs Sundays, Saturdays vs Sundays;
+\code{"None"} = no correction for trading days;
 \code{"UserDefined"} = userdefined trading days regressors.}
 
 \item{uservariable}{a vector of characters to specify the name of user-defined calendar regressors.
@@ -38,7 +38,7 @@ When specified, automatically set \code{option = "UserDefined"}.}
 
 \item{stocktd}{a numeric indicating the day of the month when inventories and other stock are reported
 (to denote the last day of the month, set the variable to 31).
-When specified, automatically set \code{option = "None"}.}
+When specified, automatically set \code{option = "None"}. See \code{stock_td} function for details.}
 
 \item{test}{defines the pre-tests for the significance of the trading day regression variables
 based on the AICC statistics: \code{"None"} = the trading day variables are not pre-tested and are included in the model;
@@ -56,23 +56,51 @@ after the test;
 if at least one t-statistic is greater than 2.6 or if two t-statistics are greater than 2.0 (in absolute terms);
 \code{"Joint_F"} = a joint F-test of significance of all the trading day variables. The trading day effect is significant if the F statistic is greater than 0.95.}
 
-\item{coef}{vector of coefficients for the tranding-days regressors.}
+\item{coef}{vector of coefficients for the trading-days regressors.}
 
 \item{coef.type, leapyear.coef.type}{vector defining if the coefficients are fixed or estimated.}
 
 \item{automatic}{defines whether the calendar effects should be added to the model manually (\code{"Unused"}) or automatically.
-During the automatic selection, the choice of the number of calendar variables can be based on the F-Test (\code{"FTest"}, TRAMO specific), the Wald Test (\code{"WaldTest"}), or by minimising AIC or BIC;
+During the automatic selection, the choice of the number of calendar variables can be based on the F-Test (\code{"FTest"}, TRAMO specific), the Wald Test (\code{"WaldTest"}), or by minimizing AIC or BIC;
 the model with higher F value is chosen, provided that it is higher than \code{pftd}).}
 
 \item{pftd}{(TRAMO SPECIFIC) \code{numeric}. The p-value used to assess the significance of the pre-tested calendar effects.}
 
-\item{autoadjust}{a logical indicating if the program corrects automatically for the leap year effect if the leap year regressors is significant. Only used when the data is log transformed.}
+\item{autoadjust}{a logical indicating if the program corrects automatically the raw series for
+the leap year effect if the leap year regressor is significant. Only used when the data is log transformed.}
 
 \item{leapyear}{a \code{character} to specify whether or not to include the leap-year effect in the model:
-\code{"LeapYear"} = leap year effect; \code{"LengthOfPeriod"} = length of period (REGARIMA/X-13 specific), \code{"None"} = no effect included.}
+\code{"LeapYear"} = leap year effect; \code{"LengthOfPeriod"} = length of period (REGARIMA/X-13 specific),
+\code{"None"} = no effect included. Default: a leap year effect regressor is included with any built-in set
+of trading day regressors.}
 
-\item{leapyear.coef}{coefficient of the leapyear regressor.}
+\item{leapyear.coef}{coefficient of the leap year regressor.}
 }
 \description{
-Set Trading-Days Specification
+Function allowing to select the trading-days regressors to be used for calendar correction in the
+pre-processing step of a seasonal adjustment procedure. The default is \code{"TradingDays"}, with easter specific effect enabled.
+(see \code{\link{set_easter}})
+
+All the built-in regressors are meant to correct for type
+of day effect but don't take into account any holiday. To do so user-defined regressors have to be build.
+}
+\details{
+\code{x} specification param must be a JD3_X13_SPEC" class object generated with \code{rjd3x13::spec_x13()}
+(or "JD3_REGARIMA_SPEC" generated with \code{rjd3x13::spec_regarima()} or "JD3_TRAMOSEATS_SPEC"
+generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" generated with
+\code{rjd3tramoseats::spec_tramo()}).
+}
+\examples{
+init_spec <- rjd3x13::spec_x13("RSA5c")
+new_spec<-set_tradingdays(init_spec,
+                         option = "TD4",
+                         test =  "None")
+sa<-rjd3x13::x13(y_raw,new_spec)
+}
+\references{
+More information on calendar correction in JDemetra+ online documentation:
+\url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
+}
+\seealso{
+\code{\link{national_calendar}}, \code{\link{calendar_td}}
 }

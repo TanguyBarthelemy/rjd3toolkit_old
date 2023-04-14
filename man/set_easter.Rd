@@ -2,7 +2,7 @@
 % Please edit documentation in R/spec_regarima.R
 \name{set_easter}
 \alias{set_easter}
-\title{Set Easter Specification}
+\title{Set Easter effect correction in Pre-Processing Specification}
 \usage{
 set_easter(
   x,
@@ -16,13 +16,15 @@ set_easter(
 )
 }
 \arguments{
-\item{x}{the specification.}
+\item{x}{the specification to customize, must be a "SPEC" class object (see details).}
 
-\item{enabled}{a logical indicating if the program considers the Easter effect in the model.}
+\item{enabled}{a logical indicating if the program considers the Easter effect in the pre-processing model.
+Default = TRUE.}
 
 \item{julian}{a logical indicating if the program uses the Julian Easter (expressed in Gregorian calendar).}
 
-\item{duration}{a numeric indicating the duration of the Easter effect (length in days, between 1 and 20).}
+\item{duration}{a numeric indicating the duration of the Easter effect (length in days, between 1 and 20).
+Default value = 8 in REGARIMA/X-13 and 6 in TRAMO.}
 
 \item{test}{defines the pre-tests for the significance of the Easter effect based on the t-statistic
 (the Easter effect is considered as significant if the t-statistic is greater than 1.96):
@@ -36,7 +38,7 @@ from the RegARIMA model after the test;
 
 \item{coef.type}{a character defining the easter regressor coefficient estimation procedure.
 Possible procedures are: \code{"Estimated"} = coefficient is estimated,
-\code{"Fixed"} = the coefficients is fixed.}
+\code{"Fixed"} = the coefficients is fixed. By default the coefficient is estimated.}
 
 \item{type}{(TRAMO specific) a \code{character} that specifies the presence and the length of the Easter effect:
 \code{"Unused"} = the Easter effect is not considered; \code{"Standard"} = influences the period of \code{n} days strictly before Easter Sunday;
@@ -44,5 +46,27 @@ Possible procedures are: \code{"Estimated"} = coefficient is estimated,
 \code{"IncludeEasterMonday"} = influences the entire period (\code{n}) up to and including Easter Monday.}
 }
 \description{
-Set Easter Specification
+Set Easter effect correction in Pre-Processing Specification
+}
+\details{
+\code{x} specification param must be a JD3_X13_SPEC" class object generated with \code{rjd3x13::spec_x13()}
+(or "JD3_REGARIMA_SPEC" generated with \code{rjd3x13::spec_regarima()} or "JD3_TRAMOSEATS_SPEC"
+generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" generated with
+\code{rjd3tramoseats::spec_tramo()}).
+}
+\examples{
+init_spec <- rjd3x13::spec_x13("RSA5c")
+new_spec<-set_easter(init_spec,
+                    enabled = TRUE,
+                    duration = 12,
+                   test = "None",
+                    type = "IncludeEasterMonday")
+sa<-rjd3x13::x13(y_raw,new_spec)
+}
+\references{
+More information on calendar correction in JDemetra+ online documentation:
+\url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
+}
+\seealso{
+\code{\link{easter_variable}}, \code{\link{easter_day}}
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/spec_regarima.R
 \name{set_outlier}
 \alias{set_outlier}
-\title{Set Outlier Specification}
+\title{Set Outlier Detection Parameters}
 \usage{
 set_outlier(
   x,
@@ -21,9 +21,9 @@ set_outlier(
 )
 }
 \arguments{
-\item{x}{the specification.}
+\item{x}{the specification to customize, must be a "SPEC" class object (see details).}
 
-\item{span.type, d0, d1, n0, n1}{parameters to specifiy the span of to be used.
+\item{span.type, d0, d1, n0, n1}{parameters to specify the sub-span on which outliers will be detected.
 
 \code{d0} and \code{d1} characters in the format "YYYY-MM-DD" to specify first/last date of the span when \code{type} equals to \code{"From"}, \code{"To"} or \code{"Between"}.
 
@@ -33,25 +33,50 @@ set_outlier(
 \item{outliers.type}{vector of characters of the outliers to be automatically detected. \code{"AO"} for additive outliers, \code{"TC"} for transitory changes
 \code{"LS"} for level shifts and \code{"SO"} for seasonal outliers.
 For example \code{outliers.type = c("AO", "LS")} to enable the detection of additive outliers and level shifts.
-If \code{outliers.type = NULL} or \code{outliers.type = character()}, automatic detection of outliers is disabled.}
+If \code{outliers.type = NULL} or \code{outliers.type = character()}, automatic detection of outliers is disabled.
+Default value = \code{outliers.type = c("AO", "LS", "TC")}}
 
-\item{critical.value}{\code{numeric}. The entered critical value for the outliers' detection procedure.
-If equal to 0 the critical value for the outliers' detection procedure is automatically determined
-by the number of observations in the outlier detection time span.}
+\item{critical.value}{\code{numeric}. Critical value for the outlier detection procedure.
+If equal to 0 the critical value is automatically determined
+by the number of observations in the outlier detection time span.(Default value = 4 REGARIMA/X13 and 3.5 in TRAMO)}
 
-\item{tc.rate}{the rate of decay for the transitory change outlier (by default to \code{0.7}).}
+\item{tc.rate}{the rate of decay for the transitory change outlier (Default = 0.7).}
 
 \item{method}{(REGARIMA/X13 Specific) determines how the program successively adds detected outliers to the model.
-At present, only the \code{"AddOne"} method is supported.}
+Currently, only the \code{"AddOne"} method is supported.}
 
-\item{maxiter}{(REGARIMA/X13 Specific) maximum number of iterations (by default to \code{30}).}
+\item{maxiter}{(REGARIMA/X13 Specific) maximum number of iterations (Default = 30).}
 
-\item{lsrun}{(REGARIMA/X13 Specific) number of successive level shifts to test for cancellation (by default to \code{0}).}
+\item{lsrun}{(REGARIMA/X13 Specific) number of successive level shifts to test for cancellation (Default = 0).}
 
-\item{eml.est}{(TRAMO Specific) \code{logical} for the exact likelihood estimation method. It controls the method applied for a parameter estimation
-in the intermediate steps of the automatic detection and correction of outliers. If \code{TRUE}, an exact likelihood estimation method is used.
+\item{eml.est}{(TRAMO Specific) \code{logical} for the exact likelihood estimation method. It controls the method applied
+for parameter estimation in the intermediate steps. If \code{TRUE}, an exact likelihood estimation method is used.
 When \code{FALSE}, the fast Hannan-Rissanen method is used.}
 }
 \description{
-Set Outlier Specification
+Function allowing to customize the automatic outlier detection process built in
+in the pre-processing step (regarima or tramo)
+}
+\details{
+\code{x} specification param must be a JD3_X13_SPEC" class object generated with \code{rjd3x13::spec_x13()}
+(or "JD3_REGARIMA_SPEC" generated with \code{rjd3x13::spec_regarima()} or "JD3_TRAMOSEATS_SPEC"
+generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" generated with
+\code{rjd3tramoseats::spec_tramo()}).
+
+If a Seasonal adjustment process is performed, each type of Outlier will be allocated to a pre-defined
+component after the decomposition: "AO" and "TC" to the irregular, "LS" to the trend and "SO" to seasonal component.
+}
+\examples{
+init_spec <- rjd3tramoseats::spec_tramoseats("rsafull")
+new_spec<-set_outlier(init_spec, type= "From", d0 = "2012-01-01",
+                     outliers.type = c("LS", "AO"),
+                     critical.value = 5,
+                     tc.rate =0.85)
+}
+\references{
+More information on outliers and other auxiliary variables in JDemetra+ online documentation:
+\url{https://jdemetra-new-documentation.netlify.app/}
+}
+\seealso{
+\code{\link{add_outlier}}, \code{\link{add_usrdefvar}}
 }

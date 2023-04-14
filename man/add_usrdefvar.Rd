@@ -2,7 +2,7 @@
 % Please edit documentation in R/spec_regarima.R
 \name{add_usrdefvar}
 \alias{add_usrdefvar}
-\title{Add User-Defined Variable}
+\title{Add a User-Defined Variable to Pre-Processing Specification.}
 \usage{
 add_usrdefvar(
   x,
@@ -15,7 +15,7 @@ add_usrdefvar(
 )
 }
 \arguments{
-\item{x}{the specification.}
+\item{x}{the specification to customize, must be a "SPEC" class object (see details).}
 
 \item{id}{the id of the variable in the format \code{"group_name.name"}.}
 
@@ -24,11 +24,37 @@ add_usrdefvar(
 \item{lag}{integer defining if the user-defined variable should be lagged.
 By default (\code{lag = 0}), the regressor \eqn{x_t} is not lagged. If \code{lag = 1}, then \eqn{x_{t-1}} is used.}
 
-\item{coef}{the coefficient.}
+\item{coef}{the coefficient, if needs to be fixed.}
 
-\item{regeffect}{assigned component of the user-defined variable.
-By default (\code{"Undefined"}), the variable is assigned to an additional component: the variable is used to improve the modelling, but it is not removed from the series for the decomposition.}
+\item{regeffect}{component to which the effect of the user-defined variable will be assigned.
+By default (\code{"Undefined"}), see details.}
 }
 \description{
-Add user-defined variable to a specification. To add user-defined calendar regressors, see \code{\link[=set_tradingdays]{set_tradingdays()}}.
+Function allowing to add any user-defined regressor to a specification and
+allocate its effect to a selected component, excepted to the calendar component.
+To add user-defined calendar regressors, see \code{\link[=set_tradingdays]{set_tradingdays()}}.
+}
+\details{
+\code{x} specification param must be a JD3_X13_SPEC" class object generated with \code{rjd3x13::spec_x13()}
+(or "JD3_REGARIMA_SPEC" generated with \code{rjd3x13::spec_regarima()} or "JD3_TRAMOSEATS_SPEC"
+generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" generated with
+\code{rjd3tramoseats::spec_tramo()}).
+Components to which the effect of the regressor can be allocated:
+\itemize{
+\item "Undefined" : the effect of the regressor is assigned to an additional component,
+the variable is used to improve the pre-processing step, but is not removed from the series
+for the decomposition.
+\item "Trend": after the decomposition the effect is allocated to the trend component, like a Level-Shift
+\item "Irregular": after the decomposition the effect is allocated to the irregular component, like an Additive-outlier.
+\item "Seasonal": after the decomposition the effect is allocated to the seasonal component, like a Seasonal-outlier
+\item "Series": after the decomposition the effect is allocated to the raw series: \eqn{yc_t=y_t+ effect}
+\item "SeasonallyAdjusted": after the decomposition the effect is allocated to the seasonally adjusted series: \eqn{sa_t=T+I effect}
+}
+}
+\references{
+More information on outliers and other auxiliary variables in JDemetra+ online documentation:
+\url{https://jdemetra-new-documentation.netlify.app/}
+}
+\seealso{
+\code{\link{set_tradingdays}}, \code{\link{intervention_variable}}
 }
