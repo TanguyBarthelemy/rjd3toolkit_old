@@ -61,7 +61,7 @@ new_spec<-set_easter(init_spec,
                     duration = 12,
                    test = "None",
                     type = "IncludeEasterMonday")
-sa<-rjd3x13::x13(y_raw,new_spec)
+sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
 }
 \references{
 More information on calendar correction in JDemetra+ online documentation:

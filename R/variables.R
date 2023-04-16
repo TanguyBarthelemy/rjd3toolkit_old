@@ -223,7 +223,10 @@ ramp_variable<-function(frequency, start, length, s, range){
 }
 
 #' Intervention variable
-#'
+#' @description
+#' Function allowing to create external regressors as sequences of zeros and ones. The generated variables
+#' will have to be added with \code{\link{add_defvar}} function will require a modelling context definition
+#' with \code{\link{modelling_context}} to be used in an estimation process.
 #' @inheritParams outliers_variables
 #' @param starts,ends characters specifying sequences of starts/ends dates for the intervention variable.
 #' Can be characters or integers.
@@ -238,7 +241,7 @@ ramp_variable<-function(frequency, start, length, s, range){
 #'
 #' For example, with `delta = 0` and `seasonaldelta = 0` we get temporary level shifts defined
 #' by the parameters `starts` and `ends`. With `delta = 1` and `seasonaldelta = 0` we get
-#' the cumulative sum of temporary level shifts.
+#' the cumulative sum of temporary level shifts, once differenced the regressor will become a classical level shift.
 #'
 #' @examples
 #' iv1<-intervention_variable(12, c(2000, 1), 60,
@@ -247,6 +250,20 @@ ramp_variable<-function(frequency, start, length, s, range){
 #' iv2<- intervention_variable(12, c(2000, 1), 60,
 #'     starts = "2001-01-01", ends = "2001-12-01", delta = 1)
 #' plot (iv2)
+#' # using one variable in a a seasonal adjustment process
+#' # regressors as a list of two groups reg1 and reg2
+#' vars<-list(reg1=list(x = iv1),reg2=list(x = iv2) )
+#' # creating the modelling context
+#' my_context<-modelling_context(variables=vars)
+#' # customize a default specification
+#' init_spec <- rjd3x13::spec_x13("RSA5c")
+#' new_spec<- add_usrdefvar(init_spec,id = "reg1.iv1", regeffect="Trend")
+#' # modelling context is needed for the estimation phase
+#' sa_x13<- rjd3x13::x13(ABS$X0.2.09.10.M, new_spec, context = my_context)
+#' @seealso \code{\link{modelling_context}}, \code{\link{add_usrdefvar}}
+#' @references
+#' More information on auxiliary variables in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/}
 
 #' @export
 intervention_variable<-function(frequency, start, length, s, starts, ends, delta=0, seasonaldelta=0){

@@ -475,8 +475,6 @@ easter_dates<-function(year0, year1, julian = FALSE){
 #' @references
 #' More information on calendar correction in JDemetra+ online documentation:
 #' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
-#' @examples
-#' stock_td(12, c(2012,1), length=5*60, w = 31)
 #' @export
 stock_td<-function(frequency, start, length, s, w = 31){
   if (!missing(s) && is.ts(s)) {
@@ -711,7 +709,8 @@ national_calendar<-function(days, mean_correction=T){
 #'     special_day('ASSUMPTION'),
 #'     special_day('ALLSAINTSDAY'),
 #'     special_day('ARMISTICE')))
-#' calendar_td(BE, 12, c(1980,1), 240, holiday=7, groups=c(1,1,1,2,2,3,0), contrasts = FALSE, meanCorrection = TRUE)
+#' calendar_td(BE, 12, c(1980,1), 240, holiday=7, groups=c(1,1,1,2,2,3,0),
+#' contrasts = FALSE, meanCorrection = TRUE)
 #' @seealso \code{\link{national_calendar}}, \code{\link{td}}
 #' @references
 #' More information on calendar correction in JDemetra+ online documentation:

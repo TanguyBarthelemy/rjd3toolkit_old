@@ -96,7 +96,10 @@ dynamic_ts<-function(moniker, data){
 }
 
 #' Create context
-#'
+#' @description
+#' Function allowing to include calendars and external regressors in a format that makes them usable
+#' in an estimation processes (seasonal adjustment or pre-processing). The regressors can be created with functions available in the package
+#' or come from any other source, provided they are "TS" class objects.
 #' @param calendars list of calendars.
 #' @param variables list of variables.
 #'
@@ -104,32 +107,25 @@ dynamic_ts<-function(moniker, data){
 #' @export
 #'
 #' @examples
-#' BE <- national_calendar(list(
-#'     fixed_day(7,21),
-#'     special_day('NEWYEAR'),
-#'     special_day('CHRISTMAS'),
-#'     special_day('MAYDAY'),
-#'     special_day('EASTERMONDAY'),
-#'     special_day('ASCENSION'),
-#'     special_day('WHITMONDAY'),
-#'     special_day('ASSUMPTION'),
-#'     special_day('ALLSAINTSDAY'),
-#'     special_day('ARMISTICE')))
-#' FR<-national_calendar(list(
-#'     fixed_day(5,8),
-#'     fixed_day(7,14),
-#'     special_day('NEWYEAR'),
-#'     special_day('CHRISTMAS'),
-#'     special_day('MAYDAY'),
-#'     special_day('EASTERMONDAY'),
-#'     special_day('ASCENSION'),
-#'     special_day('WHITMONDAY'),
-#'     special_day('ASSUMPTION'),
-#'     special_day('ALLSAINTSDAY'),
-#'     special_day('ARMISTICE')))
-#' #simple list of ts
-#' vars<-list(v1=ABS$X0.2.09.10.M, v2=ABS$X0.2.05.10.M)
-#' MC<-modelling_context(calendars=list(BE=BE, FR=FR), variables<-vars)
+#' # creating one or several external regressors (TS objects), which will
+#' # be gathered in one or several groups
+#' iv1<-intervention_variable(12, c(2000, 1), 60,
+#' starts = "2001-01-01", ends = "2001-12-01")
+#' iv2<- intervention_variable(12, c(2000, 1), 60,
+#' starts = "2001-01-01", ends = "2001-12-01", delta = 1)
+#' # regressors as a list of two groups reg1 and reg2
+#' vars<-list(reg1=list(x = iv1),reg2=list(x = iv2) )
+#' # creating the modelling context
+#' my_context<-modelling_context(variables=vars)
+#' # customize a default specification
+#' init_spec <- rjd3x13::spec_x13("RSA5c")
+#'  new_spec<- add_usrdefvar(init_spec,id = "reg1.iv1", regeffect="Trend")
+#' # modelling context is needed for the estimation phase
+#' sa_x13<- rjd3x13::x13(ABS$X0.2.09.10.M, new_spec, context = my_context)
+#' @seealso \code{\link{add_usrdefvar}}, \code{\link{intervention_variable}}
+#' @references
+#' More information on auxiliary variables in JDemetra+ online documentation:
+#' \url{https://jdemetra-new-documentation.netlify.app/}
 modelling_context<-function(calendars=NULL, variables=NULL){
   if (is.null(calendars))calendars<-list()
   if (is.null(variables))variables<-list()

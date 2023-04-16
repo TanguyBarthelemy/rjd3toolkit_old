@@ -32,7 +32,9 @@ By default (\code{"Undefined"}), see details.}
 \description{
 Function allowing to add any user-defined regressor to a specification and
 allocate its effect to a selected component, excepted to the calendar component.
-To add user-defined calendar regressors, see \code{\link[=set_tradingdays]{set_tradingdays()}}.
+To add user-defined calendar regressors, \code{\link{set_tradingdays}}. Once added to
+a specification, the external regressor(s) will also have to be added to a modelling context
+before being used in an estimation process. see \code{\link{modeeling_context}} and example.
 }
 \details{
 \code{x} specification param must be a JD3_X13_SPEC" class object generated with \code{rjd3x13::spec_x13()}
@@ -47,9 +49,28 @@ for the decomposition.
 \item "Trend": after the decomposition the effect is allocated to the trend component, like a Level-Shift
 \item "Irregular": after the decomposition the effect is allocated to the irregular component, like an Additive-outlier.
 \item "Seasonal": after the decomposition the effect is allocated to the seasonal component, like a Seasonal-outlier
-\item "Series": after the decomposition the effect is allocated to the raw series: \eqn{yc_t=y_t+ effect}
-\item "SeasonallyAdjusted": after the decomposition the effect is allocated to the seasonally adjusted series: \eqn{sa_t=T+I effect}
+\item "Series": after the decomposition the effect is allocated to
+the raw series: \eqn{yc_t=y_t+ effect}
+\item "SeasonallyAdjusted": after the decomposition the effect is allocated to
+the seasonally adjusted series: \eqn{sa_t=T+I+effect}
 }
+}
+\examples{
+# creating one or several external regressors (TS objects),
+# which will be gathered in one or several groups
+iv1<-intervention_variable(12, c(2000, 1), 60,
+starts = "2001-01-01", ends = "2001-12-01")
+iv2<- intervention_variable(12, c(2000, 1), 60,
+starts = "2001-01-01", ends = "2001-12-01", delta = 1)
+# regressors as a list of two groups reg1 and reg2
+vars<-list(reg1=list(x = iv1),reg2=list(x = iv2) )
+# creating the modelling context
+my_context<-modelling_context(variables=vars)
+# customize a default specification
+init_spec <- rjd3x13::spec_x13("RSA5c")
+ new_spec<- add_usrdefvar(init_spec,id = "reg1.iv1", regeffect="Trend")
+# modelling context is needed for the estimation phase
+sa_x13<- rjd3x13::x13(ABS$X0.2.09.10.M, new_spec, context = my_context)
 }
 \references{
 More information on outliers and other auxiliary variables in JDemetra+ online documentation:

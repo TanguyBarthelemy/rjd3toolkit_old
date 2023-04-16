@@ -47,7 +47,7 @@ init_spec <- rjd3x13::spec_x13("RSA5c")
 new_spec<- set_transform(init_spec,
                        fun = "Log",
                        outliers = TRUE)
-sa<-rjd3x13::x13(y_raw,new_spec)
+sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
 
 }
 \references{
@@ -55,5 +55,5 @@ More information in JDemetra+ online documentation:
 \url{https://jdemetra-new-documentation.netlify.app/}
 }
 \seealso{
-\code{\link{set_oulier}}, \code{\link{set_tradingdays}}
+\code{\link{set_outlier}}, \code{\link{set_tradingdays}}
 }

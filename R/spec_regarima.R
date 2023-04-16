@@ -389,7 +389,7 @@ set_estimate.default <- function(x,
 #' component after the decomposition: "AO" and "TC" to the irregular, "LS" to the trend and "SO" to seasonal component.
 #' @examples
 #' init_spec <- rjd3tramoseats::spec_tramoseats("rsafull")
-#' new_spec<-set_outlier(init_spec, type= "From", d0 = "2012-01-01",
+#' new_spec<-set_outlier(init_spec, span.type= "From", d0 = "2012-01-01",
 #'                      outliers.type = c("LS", "AO"),
 #'                      critical.value = 5,
 #'                      tc.rate =0.85)
@@ -895,7 +895,7 @@ set_arima.default <- function(x,
 #' new_spec<-set_tradingdays(init_spec,
 #'                          option = "TD4",
 #'                          test =  "None")
-#' sa<-rjd3x13::x13(y_raw,new_spec)
+#' sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
 #' @export
 set_tradingdays<- function(x,
                            option = c(NA, "TradingDays", "WorkingDays", "TD3", "TD3c", "TD4", "None", "UserDefined"),
@@ -1116,7 +1116,7 @@ set_tradingdays.default <- function(x,
 #'                     duration = 12,
 #'                    test = "None",
 #'                     type = "IncludeEasterMonday")
-#' sa<-rjd3x13::x13(y_raw,new_spec)
+#' sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
 #' @export
 set_easter<- function(x, enabled = NA,
                       julian = NA,
@@ -1226,7 +1226,7 @@ set_easter.default <- function(x, enabled = NA,
 #' (or "JD3_REGARIMA_SPEC" generated with \code{rjd3x13::spec_regarima()} or "JD3_TRAMOSEATS_SPEC"
 #' generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" generated with
 #' \code{rjd3tramoseats::spec_tramo()}).
-#' @seealso \code{\link{set_oulier}}, \code{\link{set_tradingdays}}
+#' @seealso \code{\link{set_outlier}}, \code{\link{set_tradingdays}}
 #' @references
 #' More information in JDemetra+ online documentation:
 #' \url{https://jdemetra-new-documentation.netlify.app/}
@@ -1235,7 +1235,7 @@ set_easter.default <- function(x, enabled = NA,
 #' new_spec<- set_transform(init_spec,
 #'                        fun = "Log",
 #'                        outliers = TRUE)
-#' sa<-rjd3x13::x13(y_raw,new_spec)
+#' sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
 #'
 #' @export
 set_transform<- function(x,
@@ -1297,7 +1297,9 @@ set_transform.default <- function(x,
 #'
 #' Function allowing to add any user-defined regressor to a specification and
 #' allocate its effect to a selected component, excepted to the calendar component.
-#' To add user-defined calendar regressors, see [set_tradingdays()].
+#' To add user-defined calendar regressors, \code{\link{set_tradingdays}}. Once added to
+#' a specification, the external regressor(s) will also have to be added to a modelling context
+#' before being used in an estimation process. see \code{\link{modeeling_context}} and example.
 #'
 #' @inheritParams set_basic
 #' @param id the id of the variable in the format `"group_name.name"`.
@@ -1319,9 +1321,26 @@ set_transform.default <- function(x,
 #' - "Trend": after the decomposition the effect is allocated to the trend component, like a Level-Shift
 #' - "Irregular": after the decomposition the effect is allocated to the irregular component, like an Additive-outlier.
 #' - "Seasonal": after the decomposition the effect is allocated to the seasonal component, like a Seasonal-outlier
-#' - "Series": after the decomposition the effect is allocated to the raw series: \eqn{yc_t=y_t+ effect}
-#' - "SeasonallyAdjusted": after the decomposition the effect is allocated to the seasonally adjusted series: \eqn{sa_t=T+I effect}
+#' - "Series": after the decomposition the effect is allocated to
+#' the raw series: \eqn{yc_t=y_t+ effect}
+#' - "SeasonallyAdjusted": after the decomposition the effect is allocated to
+#' the seasonally adjusted series: \eqn{sa_t=T+I+effect}
 #' @examples
+#' # creating one or several external regressors (TS objects),
+#' # which will be gathered in one or several groups
+#' iv1<-intervention_variable(12, c(2000, 1), 60,
+#' starts = "2001-01-01", ends = "2001-12-01")
+#' iv2<- intervention_variable(12, c(2000, 1), 60,
+#' starts = "2001-01-01", ends = "2001-12-01", delta = 1)
+#' # regressors as a list of two groups reg1 and reg2
+#' vars<-list(reg1=list(x = iv1),reg2=list(x = iv2) )
+#' # creating the modelling context
+#' my_context<-modelling_context(variables=vars)
+#' # customize a default specification
+#' init_spec <- rjd3x13::spec_x13("RSA5c")
+#'  new_spec<- add_usrdefvar(init_spec,id = "reg1.iv1", regeffect="Trend")
+#' # modelling context is needed for the estimation phase
+#' sa_x13<- rjd3x13::x13(ABS$X0.2.09.10.M, new_spec, context = my_context)
 
 #' @seealso \code{\link{set_tradingdays}}, \code{\link{intervention_variable}}
 #' @references
