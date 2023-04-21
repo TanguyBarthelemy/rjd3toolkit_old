@@ -475,7 +475,7 @@ stock_td<-function(frequency, start, length, s, w = 31){
     length = .length_ts(s)
   }
   jdom <- .r2jd_tsdomain(frequency, start[1], start[2], length)
-  jm<-.jcall("jdplust/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/api/math/matrices/Matrix;", "stockTradingDays", jdom, as.integer(w))
+  jm<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/api/math/matrices/Matrix;", "stockTradingDays", jdom, as.integer(w))
   data <- .jd2r_matrix(jm)
   colnames(data) <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
   return (ts(data, frequency = frequency, start= start))
