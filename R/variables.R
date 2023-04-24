@@ -257,7 +257,7 @@ ramp_variable<-function(frequency, start, length, s, range){
 #' my_context<-modelling_context(variables=vars)
 #' # customize a default specification
 #' # init_spec <- rjd3x13::spec_x13("RSA5c")
-#' new_spec<- add_usrdefvar(init_spec,id = "reg1.iv1", regeffect="Trend")
+#' # new_spec<- add_usrdefvar(init_spec,id = "reg1.iv1", regeffect="Trend")
 #' # modelling context is needed for the estimation phase
 #' # sa_x13<- rjd3x13::x13(ABS$X0.2.09.10.M, new_spec, context = my_context)
 #' @seealso \code{\link{modelling_context}}, \code{\link{add_usrdefvar}}

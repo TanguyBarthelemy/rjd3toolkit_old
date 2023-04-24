@@ -45,10 +45,10 @@ generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" gene
 \code{rjd3tramoseats::spec_tramo()}).
 }
 \examples{
-init_spec <- rjd3x13::spec_x13("RSA5c")
+# init_spec <- rjd3x13::spec_x13("RSA5c")
 # estimation on sub-span between two dates (date d1 is excluded)
-new_spec<-set_basic(init_spec,type = "Between",d0 = "2014-01-01",
-d1 = "2019-01-01", preliminary.check = TRUE, preprocessing = TRUE)
+# new_spec<-set_basic(init_spec,type = "Between",d0 = "2014-01-01",
+# d1 = "2019-01-01", preliminary.check = TRUE, preprocessing = TRUE)
 # Estimation on the first 60 observations
 # new_spec <-set_basic(init_spec,Type="First", n0 = 60,
 #                      preliminary.check = TRUE,

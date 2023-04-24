@@ -18,7 +18,7 @@ remove_ramp(x, start = NULL, end = NULL, name = NULL)
 \arguments{
 \item{x}{the specification to customize, must be a "SPEC" class object (see details).}
 
-\item{type, }{date type and date of the outliers. Possible \code{type} are:
+\item{type, date}{type and date of the outliers. Possible \code{type} are:
 \code{"AO"} = additive, \code{"LS"} = level shift, \code{"TC"} = transitory change and
 \code{"SO"} = seasonal outlier.}
 
@@ -42,10 +42,10 @@ If a Seasonal adjustment process is performed, each type of Outlier will be allo
 component after the decomposition: "AO" and "TC" to the irregular, "LS" and Ramps to the trend.
 }
 \examples{
-init_spec <- rjd3x13::spec_x13("RSA5c")
-new_spec<-rjd3toolkit::add_outlier(init_spec, type="AO", date="2012-01-01")
+# init_spec <- rjd3x13::spec_x13("RSA5c")
+# new_spec<-rjd3toolkit::add_outlier(init_spec, type="AO", date="2012-01-01")
 # ramp on year 2012
-new_spec<-rjd3toolkit::add_ramp(init_spec,start="2012-01-01",end="2012-12-01")
+# new_spec<-rjd3toolkit::add_ramp(init_spec,start="2012-01-01",end="2012-12-01")
 }
 \references{
 More information on outliers and other auxiliary variables in JDemetra+ online documentation:

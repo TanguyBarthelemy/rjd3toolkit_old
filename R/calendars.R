@@ -354,7 +354,7 @@ td<-function(frequency, start, length, s, groups=c(1,2,3,4,5,6,0), contrasts=TRU
 #'
 #' @details
 #' The pre-defined in a calendar has to be created with the functions \code{\link{national_calendar}} or \code{\link{weighted_calendar}} or
-#' \code{\link{composite_calendar}}. A many regressors  as defined holidays are generated, when the holiday occurs
+#' \code{\link{weighted_calendar}}. A many regressors  as defined holidays are generated, when the holiday occurs
 #' the value is 1 and 0 otherwise.
 #' This kind of non-aggregated regressors are used for calendar correction in daily data.
 #'
@@ -667,7 +667,7 @@ weighted_calendar<-function(calendars, weights){
 #'   special_day('ALLSAINTSDAY'),
 #'   special_day('ARMISTICE')))
 #' @return returns an object of class \code{c("JD3_CALENDAR","JD3_CALENDARDEFINITION")}
-#' @seealso \code{\link{chained_calendar}}, \code{\link{weighted _calendar}}
+#' @seealso \code{\link{chained_calendar}}, \code{\link{weighted_calendar}}
 #' @references
 #' More information on calendar correction in JDemetra+ online documentation:
 #' \url{https://jdemetra-new-documentation.netlify.app/}

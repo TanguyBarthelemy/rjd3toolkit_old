@@ -43,14 +43,14 @@ generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" gene
 \code{rjd3tramoseats::spec_tramo()}).
 }
 \examples{
-init_spec <- rjd3x13::spec_x13("RSA5c")
-new_spec<- set_benchmarking(init_spec,
-                           enabled = TRUE,
-                           target = "Normal",
-                           rho = 0.8,
-                           lambda = 0.5,
-                           forecast = FALSE,
-                           bias = "None")
+# init_spec <- rjd3x13::spec_x13("RSA5c")
+# new_spec<- set_benchmarking(init_spec,
+#                            enabled = TRUE,
+#                            target = "Normal",
+#                            rho = 0.8,
+#                            lambda = 0.5,
+#                            forecast = FALSE,
+#                            bias = "None")
 }
 \references{
 More information on benchmarking in JDemetra+ online documentation:

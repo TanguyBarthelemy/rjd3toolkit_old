@@ -12,8 +12,7 @@ calendar_td(
   s,
   groups = c(1, 2, 3, 4, 5, 6, 0),
   holiday = 7,
-  contrasts = TRUE,
-  meanCorrection = contrasts
+  contrasts = TRUE
 )
 }
 \arguments{
@@ -67,7 +66,7 @@ BE <- national_calendar(list(
     special_day('ALLSAINTSDAY'),
     special_day('ARMISTICE')))
 calendar_td(BE, 12, c(1980,1), 240, holiday=7, groups=c(1,1,1,2,2,3,0),
-contrasts = FALSE, meanCorrection = TRUE)
+contrasts = FALSE)
 }
 \references{
 More information on calendar correction in JDemetra+ online documentation:

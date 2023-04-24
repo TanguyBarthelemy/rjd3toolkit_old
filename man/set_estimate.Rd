@@ -53,9 +53,9 @@ generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" gene
 \code{rjd3tramoseats::spec_tramo()}).
 }
 \examples{
-init_spec <- rjd3tramoseats::spec_tramoseats("rsafull")
-new_spec<-set_estimate(init_spec, type= "From", d0 = "2012-01-01", tol = 0.0000002,
-exact.ml = FALSE, unit.root.limit = 0.98)
+# init_spec <- rjd3tramoseats::spec_tramoseats("rsafull")
+# new_spec<-set_estimate(init_spec, type= "From", d0 = "2012-01-01", tol = 0.0000002,
+# exact.ml = FALSE, unit.root.limit = 0.98)
 }
 \references{
 More in JDemetra+ online documentation:

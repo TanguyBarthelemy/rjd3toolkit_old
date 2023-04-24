@@ -41,5 +41,5 @@ More information on calendar correction in JDemetra+ online documentation:
 \url{https://jdemetra-new-documentation.netlify.app/}
 }
 \seealso{
-\code{\link{chained_calendar}}, \code{\link{composite_calendar}}
+\code{\link{chained_calendar}}, \code{\link{weighted_calendar}}
 }

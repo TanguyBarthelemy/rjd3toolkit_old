@@ -91,11 +91,11 @@ generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" gene
 \code{rjd3tramoseats::spec_tramo()}).
 }
 \examples{
-init_spec <- rjd3x13::spec_x13("RSA5c")
-new_spec<-set_tradingdays(init_spec,
-                         option = "TD4",
-                         test =  "None")
-sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
+# init_spec <- rjd3x13::spec_x13("RSA5c")
+# new_spec<-set_tradingdays(init_spec,
+#                          option = "TD4",
+#                          test =  "None")
+# sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
 }
 \references{
 More information on calendar correction in JDemetra+ online documentation:

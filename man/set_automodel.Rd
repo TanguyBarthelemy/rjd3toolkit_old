@@ -96,10 +96,10 @@ generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" gene
 \code{rjd3tramoseats::spec_tramo()}).
 }
 \examples{
-init_spec <- rjd3x13::spec_x13("RSA5c")
-new_spec<-set_automodel(init_spec,
-                       enabled = FALSE,
-                       acceptdefault = TRUE)
+# init_spec <- rjd3x13::spec_x13("RSA5c")
+# new_spec<-set_automodel(init_spec,
+#                        enabled = FALSE,
+#                        acceptdefault = TRUE)
 }
 \references{
 More information on reg-arima modelling in JDemetra+ online documentation:

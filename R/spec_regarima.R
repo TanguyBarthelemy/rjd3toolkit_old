@@ -409,11 +409,11 @@ set_estimate.default <- function(x,
 #' If a Seasonal adjustment process is performed, each type of Outlier will be allocated to a pre-defined
 #' component after the decomposition: "AO" and "TC" to the irregular, "LS" to the trend and "SO" to seasonal component.
 #' @examples
-#' init_spec <- rjd3tramoseats::spec_tramoseats("rsafull")
-#' new_spec<-set_outlier(init_spec, span.type= "From", d0 = "2012-01-01",
-#'                      outliers.type = c("LS", "AO"),
-#'                      critical.value = 5,
-#'                      tc.rate =0.85)
+#' # init_spec <- rjd3tramoseats::spec_tramoseats("rsafull")
+#' # new_spec<-set_outlier(init_spec, span.type= "From", d0 = "2012-01-01",
+#' #                      outliers.type = c("LS", "AO"),
+#' #                      critical.value = 5,
+#' #                      tc.rate =0.85)
 #' @seealso \code{\link{add_outlier}}, \code{\link{add_usrdefvar}}
 #' @references
 #' More information on outliers and other auxiliary variables in JDemetra+ online documentation:

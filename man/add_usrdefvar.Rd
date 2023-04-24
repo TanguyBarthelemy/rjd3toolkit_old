@@ -34,7 +34,7 @@ Function allowing to add any user-defined regressor to a specification and
 allocate its effect to a selected component, excepted to the calendar component.
 To add user-defined calendar regressors, \code{\link{set_tradingdays}}. Once added to
 a specification, the external regressor(s) will also have to be added to a modelling context
-before being used in an estimation process. see \code{\link{modeeling_context}} and example.
+before being used in an estimation process. see \code{\link{modelling_context}} and example.
 }
 \details{
 \code{x} specification param must be a JD3_X13_SPEC" class object generated with \code{rjd3x13::spec_x13()}
@@ -67,10 +67,10 @@ vars<-list(reg1=list(x = iv1),reg2=list(x = iv2) )
 # creating the modelling context
 my_context<-modelling_context(variables=vars)
 # customize a default specification
-init_spec <- rjd3x13::spec_x13("RSA5c")
- new_spec<- add_usrdefvar(init_spec,id = "reg1.iv1", regeffect="Trend")
+# init_spec <- rjd3x13::spec_x13("RSA5c")
+# new_spec<- add_usrdefvar(init_spec,id = "reg1.iv1", regeffect="Trend")
 # modelling context is needed for the estimation phase
-sa_x13<- rjd3x13::x13(ABS$X0.2.09.10.M, new_spec, context = my_context)
+# sa_x13<- rjd3x13::x13(ABS$X0.2.09.10.M, new_spec, context = my_context)
 }
 \references{
 More information on outliers and other auxiliary variables in JDemetra+ online documentation:
