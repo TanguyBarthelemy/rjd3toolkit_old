@@ -667,7 +667,7 @@ weighted_calendar<-function(calendars, weights){
 #'   special_day('ALLSAINTSDAY'),
 #'   special_day('ARMISTICE')))
 #' @return returns an object of class \code{c("JD3_CALENDAR","JD3_CALENDARDEFINITION")}
-#' @seealso \code{\link{chained_calendar}}, \code{\link{composite_calendar}}
+#' @seealso \code{\link{chained_calendar}}, \code{\link{weighted _calendar}}
 #' @references
 #' More information on calendar correction in JDemetra+ online documentation:
 #' \url{https://jdemetra-new-documentation.netlify.app/}
@@ -710,13 +710,12 @@ national_calendar<-function(days, mean_correction=T){
 #'     special_day('ALLSAINTSDAY'),
 #'     special_day('ARMISTICE')))
 #' calendar_td(BE, 12, c(1980,1), 240, holiday=7, groups=c(1,1,1,2,2,3,0),
-#' contrasts = FALSE, meanCorrection = TRUE)
+#' contrasts = FALSE)
 #' @seealso \code{\link{national_calendar}}, \code{\link{td}}
 #' @references
 #' More information on calendar correction in JDemetra+ online documentation:
 #' \url{https://jdemetra-new-documentation.netlify.app/}
-calendar_td<-function(calendar,frequency, start, length, s, groups=c(1,2,3,4,5,6,0), holiday=7, contrasts=TRUE,
-              meanCorrection = contrasts){
+calendar_td<-function(calendar,frequency, start, length, s, groups=c(1,2,3,4,5,6,0), holiday=7, contrasts=TRUE){
   if(! is(calendar, 'JD3_CALENDAR')) stop('Invalid calendar')
   if (!missing(s) && is.ts(s)) {
     frequency = stats::frequency(s)

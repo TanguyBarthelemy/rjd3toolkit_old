@@ -4,7 +4,7 @@
 #' to a specification or to remove them (\code{remove_outlier()} and \code{remove_ramp()}).
 #'
 #' @param x the specification to customize, must be a "SPEC" class object (see details).
-#' @param type, date type and date of the outliers. Possible \code{type} are:
+#' @param type,date type and date of the outliers. Possible \code{type} are:
 #' \code{"AO"} = additive, \code{"LS"} = level shift, \code{"TC"} = transitory change and
 #' \code{"SO"} = seasonal outlier.
 #' @param start,end dates of the ramp regressor.
@@ -19,10 +19,10 @@
 #' If a Seasonal adjustment process is performed, each type of Outlier will be allocated to a pre-defined
 #' component after the decomposition: "AO" and "TC" to the irregular, "LS" and Ramps to the trend.
 #' @examples
-#' init_spec <- rjd3x13::spec_x13("RSA5c")
-#' new_spec<-rjd3toolkit::add_outlier(init_spec, type="AO", date="2012-01-01")
+#' # init_spec <- rjd3x13::spec_x13("RSA5c")
+#' # new_spec<-rjd3toolkit::add_outlier(init_spec, type="AO", date="2012-01-01")
 #' # ramp on year 2012
-#' new_spec<-rjd3toolkit::add_ramp(init_spec,start="2012-01-01",end="2012-12-01")
+#' # new_spec<-rjd3toolkit::add_ramp(init_spec,start="2012-01-01",end="2012-12-01")
 #' @seealso \code{\link{add_usrdefvar}}, \code{\link{intervention_variable}}
 #' @references
 #' More information on outliers and other auxiliary variables in JDemetra+ online documentation:
@@ -234,10 +234,10 @@ remove_ramp.default <- function(x,
 #' generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" generated with
 #' \code{rjd3tramoseats::spec_tramo()}).
 #' @examples
-#' init_spec <- rjd3x13::spec_x13("RSA5c")
+#' # init_spec <- rjd3x13::spec_x13("RSA5c")
 #' # estimation on sub-span between two dates (date d1 is excluded)
-#' new_spec<-set_basic(init_spec,type = "Between",d0 = "2014-01-01",
-#' d1 = "2019-01-01", preliminary.check = TRUE, preprocessing = TRUE)
+#' # new_spec<-set_basic(init_spec,type = "Between",d0 = "2014-01-01",
+#' # d1 = "2019-01-01", preliminary.check = TRUE, preprocessing = TRUE)
 #' # Estimation on the first 60 observations
 #' # new_spec <-set_basic(init_spec,Type="First", n0 = 60,
 #' #                      preliminary.check = TRUE,
@@ -317,9 +317,9 @@ set_basic.default <- function(x,
 #' \code{rjd3tramoseats::spec_tramo()}).
 #'
 #' @examples
-#' init_spec <- rjd3tramoseats::spec_tramoseats("rsafull")
-#' new_spec<-set_estimate(init_spec, type= "From", d0 = "2012-01-01", tol = 0.0000002,
-#' exact.ml = FALSE, unit.root.limit = 0.98)
+#' # init_spec <- rjd3tramoseats::spec_tramoseats("rsafull")
+#' # new_spec<-set_estimate(init_spec, type= "From", d0 = "2012-01-01", tol = 0.0000002,
+#' # exact.ml = FALSE, unit.root.limit = 0.98)
 #' @seealso \code{\link{set_basic}}, \code{\link{set_arima}}
 #' @references
 #' More in JDemetra+ online documentation:
@@ -581,10 +581,10 @@ set_outlier.default <- function(x,
 #' generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" generated with
 #' \code{rjd3tramoseats::spec_tramo()}).
 #' @examples
-#' init_spec <- rjd3x13::spec_x13("RSA5c")
-#' new_spec<-set_automodel(init_spec,
-#'                        enabled = FALSE,
-#'                        acceptdefault = TRUE)
+#' # init_spec <- rjd3x13::spec_x13("RSA5c")
+#' # new_spec<-set_automodel(init_spec,
+#' #                        enabled = FALSE,
+#' #                        acceptdefault = TRUE)
 #' @seealso \code{\link{set_arima}}, \code{\link{set_transform}}
 #' @references
 #' More information on reg-arima modelling in JDemetra+ online documentation:
@@ -925,11 +925,11 @@ set_arima.default <- function(x,
 #' More information on calendar correction in JDemetra+ online documentation:
 #' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
 #' @examples
-#' init_spec <- rjd3x13::spec_x13("RSA5c")
-#' new_spec<-set_tradingdays(init_spec,
-#'                          option = "TD4",
-#'                          test =  "None")
-#' sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
+#' # init_spec <- rjd3x13::spec_x13("RSA5c")
+#' # new_spec<-set_tradingdays(init_spec,
+#' #                          option = "TD4",
+#' #                          test =  "None")
+#' # sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
 #' @export
 set_tradingdays<- function(x,
                            option = c(NA, "TradingDays", "WorkingDays", "TD3", "TD3c", "TD4", "None", "UserDefined"),
@@ -1144,13 +1144,13 @@ set_tradingdays.default <- function(x,
 #' More information on calendar correction in JDemetra+ online documentation:
 #' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
 #' @examples
-#' init_spec <- rjd3x13::spec_x13("RSA5c")
-#' new_spec<-set_easter(init_spec,
-#'                     enabled = TRUE,
-#'                     duration = 12,
-#'                    test = "None",
-#'                     type = "IncludeEasterMonday")
-#' sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
+#' # init_spec <- rjd3x13::spec_x13("RSA5c")
+#' # new_spec<-set_easter(init_spec,
+#' #                     enabled = TRUE,
+#' #                     duration = 12,
+#' #                    test = "None",
+#' #                    type = "IncludeEasterMonday")
+#' # sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
 #' @export
 set_easter<- function(x, enabled = NA,
                       julian = NA,
@@ -1265,11 +1265,11 @@ set_easter.default <- function(x, enabled = NA,
 #' More information in JDemetra+ online documentation:
 #' \url{https://jdemetra-new-documentation.netlify.app/}
 #' @examples
-#' init_spec <- rjd3x13::spec_x13("RSA5c")
-#' new_spec<- set_transform(init_spec,
-#'                        fun = "Log",
-#'                        outliers = TRUE)
-#' #sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
+#' # init_spec <- rjd3x13::spec_x13("RSA5c")
+#' # new_spec<- set_transform(init_spec,
+#' #                        fun = "Log",
+#' #                        outliers = TRUE)
+#' # sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
 #'
 #' @export
 set_transform<- function(x,
@@ -1333,7 +1333,7 @@ set_transform.default <- function(x,
 #' allocate its effect to a selected component, excepted to the calendar component.
 #' To add user-defined calendar regressors, \code{\link{set_tradingdays}}. Once added to
 #' a specification, the external regressor(s) will also have to be added to a modelling context
-#' before being used in an estimation process. see \code{\link{modeeling_context}} and example.
+#' before being used in an estimation process. see \code{\link{modelling_context}} and example.
 #'
 #' @inheritParams set_basic
 #' @param id the id of the variable in the format `"group_name.name"`.
@@ -1371,10 +1371,10 @@ set_transform.default <- function(x,
 #' # creating the modelling context
 #' my_context<-modelling_context(variables=vars)
 #' # customize a default specification
-#' init_spec <- rjd3x13::spec_x13("RSA5c")
-#'  new_spec<- add_usrdefvar(init_spec,id = "reg1.iv1", regeffect="Trend")
+#' # init_spec <- rjd3x13::spec_x13("RSA5c")
+#' # new_spec<- add_usrdefvar(init_spec,id = "reg1.iv1", regeffect="Trend")
 #' # modelling context is needed for the estimation phase
-#' sa_x13<- rjd3x13::x13(ABS$X0.2.09.10.M, new_spec, context = my_context)
+#' # sa_x13<- rjd3x13::x13(ABS$X0.2.09.10.M, new_spec, context = my_context)
 
 #' @seealso \code{\link{set_tradingdays}}, \code{\link{intervention_variable}}
 #' @references
