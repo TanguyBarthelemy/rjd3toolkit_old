@@ -47,7 +47,7 @@ init_spec <- rjd3x13::spec_x13("RSA5c")
 new_spec<- set_transform(init_spec,
                        fun = "Log",
                        outliers = TRUE)
-sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
+#sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
 
 }
 \references{

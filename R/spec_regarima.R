@@ -204,21 +204,25 @@ remove_ramp.default <- function(x,
   x
 }
 
-#' Set estimation sub-span and quality check Specification
+#' Set estimation sub-span and quality check specification
 #'
-#' Function allowing to check if the series processed and to define a sub-span on which pre-processing
-#' effects will be estimated.
+#' @description
+#' Function allowing to check if the series can be processed and to define a sub-span on which
+#' estimation will be performed
 #'
 #'
 #' @inheritParams add_outlier
 #'
-#' @param type,d0,d1,n0,n1 parameters to specify the sub-span of to be used to estimated pre-processing effects.
+#' @param type,d0,d1,n0,n1 parameters to specify the sub-span .
 #'
 #' \code{d0} and \code{d1} characters in the format "YYYY-MM-DD" to specify first/last date
 #' of the span when \code{type} equals to \code{"From"}, \code{"To"} or \code{"Between"}.
+#' Date corresponding to \code{d0} will be included in the sub-span
+#' Date corresponding to \code{d1} will be excluded from the sub span
 #'
-#' \code{n0} and \code{n1} numeric to specify the number of periods at the beginning/end of the series to be used for the span
-#' (\code{type} equals to \code{"From"}, \code{"To"}) or to exclude (\code{type} equals to \code{"Excluding"}).
+#' \code{n0} and \code{n1} numeric to specify the number of periods at the beginning/end of the series
+#' to be used for defining the sub-span
+#' (\code{type} equals to \code{"First"}, \code{"Last"}) or to exclude (\code{type} equals to \code{"Excluding"}).
 #'
 #' @param preliminary.check a Boolean to check the quality of the input series and exclude highly problematic ones
 #' (e.g. the series with a number of identical observations and/or missing values above pre-specified threshold values).
@@ -229,12 +233,23 @@ remove_ramp.default <- function(x,
 #' (or "JD3_REGARIMA_SPEC" generated with \code{rjd3x13::spec_regarima()} or "JD3_TRAMOSEATS_SPEC"
 #' generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" generated with
 #' \code{rjd3tramoseats::spec_tramo()}).
-#' Estimated pre-processing effects will be applied on the whole series. If a Seasonal adjustment process
-#' is performed it will also be done on the whole series.
 #' @examples
 #' init_spec <- rjd3x13::spec_x13("RSA5c")
-#' new_spec_2<-set_basic(init_spec,type = "Between",d0 = "2014-01-01",
+#' # estimation on sub-span between two dates (date d1 is excluded)
+#' new_spec<-set_basic(init_spec,type = "Between",d0 = "2014-01-01",
 #' d1 = "2019-01-01", preliminary.check = TRUE, preprocessing = TRUE)
+#' # Estimation on the first 60 observations
+#' # new_spec <-set_basic(init_spec,Type="First", n0 = 60,
+#' #                      preliminary.check = TRUE,
+#' #                      preprocessing= TRUE)
+#' # Estimation on the last 60 observations
+#' # new_spec <-set_basic(init_spec,Type="Last", n1 = 60,
+#' #                      preliminary.check = TRUE,
+#' #                      preprocessing= TRUE)
+#' # Estimation excluding 60 observations at the beginning and 36 at the end of the series
+#' # new_spec <-set_basic(init_spec,Type="Excluding", n0=60, n1=36,
+#' #                      preliminary.check = TRUE,
+#' #                      preprocessing= TRUE)
 #' @seealso \code{\link{set_estimate}}, \code{\link{set_arima}}
 #' @references
 #' More information in JDemetra+ online documentation:
@@ -275,7 +290,11 @@ set_basic.default <- function(x,
   x$basic <- basic
   x
 }
-#' Set Numeric Estimation Parameters
+#' Set Numeric Estimation Parameters and Modelling Span
+#'
+#' @description
+#' Function allowing to define numeric boundaries for estimation and to define a sub-span on which
+#' reg-arima (tramo) modelling will be performed (pre-processing step)
 #'
 #' @inheritParams set_basic
 #'
@@ -290,11 +309,13 @@ set_basic.default <- function(x,
 #' for identification of differencing orders. If the magnitude of an AR root for the final model is smaller than this number,
 #'  then a unit root is assumed, the order of the AR polynomial is reduced by one and the appropriate order of the differencing
 #'  (non-seasonal, seasonal) is increased.(Default value: 0.96)
-#'  @details
+#'
+#' @details
 #'  \code{x} specification param must be a JD3_X13_SPEC" class object generated with \code{rjd3x13::spec_x13()}
 #' (or "JD3_REGARIMA_SPEC" generated with \code{rjd3x13::spec_regarima()} or "JD3_TRAMOSEATS_SPEC"
 #' generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" generated with
 #' \code{rjd3tramoseats::spec_tramo()}).
+#'
 #' @examples
 #' init_spec <- rjd3tramoseats::spec_tramoseats("rsafull")
 #' new_spec<-set_estimate(init_spec, type= "From", d0 = "2012-01-01", tol = 0.0000002,
@@ -511,16 +532,16 @@ set_outlier.default <- function(x,
 #' @param cancel \code{numeric} cancellation limit. A limit for the AR and the MA roots to be assumed equal. This option is used in
 #' the automatic identification of the differencing order. If the difference in moduli of an AR and an MA root (when estimating ARIMA(1,0,1)(1,0,1) models
 #' in the second step of the automatic identification of the differencing polynomial) is smaller than cancellation limit, the two roots cancel out.
-#' Default = 0.05.
+#' Default = 0.1.
 #' @param ub1 \code{numeric}, the first unit root limit. It is the threshold value for the initial unit root test in the automatic differencing procedure.
 #' When one of the roots in the estimation of the ARIMA(2,0,0)(1,0,0) plus mean model, performed in the first step of the automatic model identification procedure,
 #' is larger than first unit root limit in modulus, it is set equal to unity.
-#' Default =  1.0416666666666667.
+#' Default =   1.030928.
 #' @param ub2 \code{numeric}, the second unit root limit. When one of the roots in the estimation of the ARIMA(1,0,1)(1,0,1) plus mean model,
 #' which is performed in the second step of the automatic model identification procedure, is larger than second unit root limit in modulus,
 #' it is checked if there is a common factor in the corresponding AR and MA polynomials of the ARMA model that can be cancelled (see \code{automdl.cancel}).
 #' If there is no cancellation, the AR root is set equal to unity (i.e. the differencing order changes).
-#' Default = 0.88.
+#' Default = 1.136364.
 #'
 #' @param reducecv \code{numeric}, ReduceCV. The percentage by which the outlier critical value will be reduced
 #' when an identified model is found to have a Ljung-Box statistic with an unacceptable confidence coefficient.
@@ -551,7 +572,7 @@ set_outlier.default <- function(x,
 #' @param fct (REGARIMA/X13 Specific) \code{numeric}. TODO.
 #' @param balanced (REGARIMA/X13 Specific) \code{logical} If \code{TRUE}, the automatic model identification procedure will have a preference
 #' for balanced models (i.e. models for which the order of the combined AR and differencing operators is equal to the order
-#' of the combined MA operators).
+#' of the combined MA operators). Default = \code{FALSE}
 #' @param amicompare (TRAMO Specific) \code{logical}. If `TRUE`, the program compares the model identified by the automatic procedure to the default model (\eqn{ARIMA(0,1,1)(0,1,1)})
 #' and the model with the best fit is selected. Criteria considered are residual diagnostics, the model structure and the number of outliers.
 #' @details
@@ -667,7 +688,8 @@ set_automodel.default <- function(x,
 }
 #' Set ARIMA Model Structure in Pre-Processing Specification
 #'
-#' Function allowing to customize the ARIMA model structure when the automatic modelling is disabled.
+#' Function allowing to customize the ARIMA model structure
+#' when the automatic modelling is disabled.(see example)
 #'
 #' @inheritParams set_basic
 #' @param mean to fix the coefficient of the mean. If \code{mean = 0}, the mean is disabled.
@@ -693,6 +715,18 @@ set_automodel.default <- function(x,
 #' generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" generated with
 #' \code{rjd3tramoseats::spec_tramo()}).
 #' @seealso \code{\link{set_automodel}}, \code{\link{set_transform}}
+#' @examples
+#' # create default spec
+#' # my_spec<-rjd3x13::spec_x13("rsa5c")
+#' # disable automatic arima modelling
+#' # my_spec<-set_automodel(my_spec, enabled = FALSE)
+#' # customize arima model
+#' # my_spec <-set_arima(my_spec,mean = 0.2,
+#' #                      mean.type = "Fixed",
+#' #                      p = 1, d = 2, q = 0,
+#' #                      bp = 1, bd = 1, bq = 0,
+#' #                      coef = c(0.6,0.7),
+#' #                      coef.type = c("Initial","Fixed"))
 #' @references
 #' More information on reg-arima modelling in JDemetra+ online documentation:
 #' \url{https://jdemetra-new-documentation.netlify.app/}
@@ -1235,7 +1269,7 @@ set_easter.default <- function(x, enabled = NA,
 #' new_spec<- set_transform(init_spec,
 #'                        fun = "Log",
 #'                        outliers = TRUE)
-#' sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
+#' #sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
 #'
 #' @export
 set_transform<- function(x,

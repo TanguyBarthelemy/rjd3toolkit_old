@@ -43,13 +43,27 @@ Possible procedures are: \code{"Undefined"} = no use of any user-defined input (
 \code{"Initial"} = the value defined by the user is used as the initial condition.}
 }
 \description{
-Function allowing to customize the ARIMA model structure when the automatic modelling is disabled.
+Function allowing to customize the ARIMA model structure
+when the automatic modelling is disabled.(see example)
 }
 \details{
 \code{x} specification param must be a JD3_X13_SPEC" class object generated with \code{rjd3x13::spec_x13()}
 (or "JD3_REGARIMA_SPEC" generated with \code{rjd3x13::spec_regarima()} or "JD3_TRAMOSEATS_SPEC"
 generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" generated with
 \code{rjd3tramoseats::spec_tramo()}).
+}
+\examples{
+# create default spec
+# my_spec<-rjd3x13::spec_x13("rsa5c")
+# disable automatic arima modelling
+# my_spec<-set_automodel(my_spec, enabled = FALSE)
+# customize arima model
+# my_spec <-set_arima(my_spec,mean = 0.2,
+#                      mean.type = "Fixed",
+#                      p = 1, d = 2, q = 0,
+#                      bp = 1, bd = 1, bq = 0,
+#                      coef = c(0.6,0.7),
+#                      coef.type = c("Initial","Fixed"))
 }
 \references{
 More information on reg-arima modelling in JDemetra+ online documentation:

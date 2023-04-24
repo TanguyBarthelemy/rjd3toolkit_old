@@ -35,18 +35,18 @@ Default = \code{FALSE}}
 \item{cancel}{\code{numeric} cancellation limit. A limit for the AR and the MA roots to be assumed equal. This option is used in
 the automatic identification of the differencing order. If the difference in moduli of an AR and an MA root (when estimating ARIMA(1,0,1)(1,0,1) models
 in the second step of the automatic identification of the differencing polynomial) is smaller than cancellation limit, the two roots cancel out.
-Default = 0.05.}
+Default = 0.1.}
 
 \item{ub1}{\code{numeric}, the first unit root limit. It is the threshold value for the initial unit root test in the automatic differencing procedure.
 When one of the roots in the estimation of the ARIMA(2,0,0)(1,0,0) plus mean model, performed in the first step of the automatic model identification procedure,
 is larger than first unit root limit in modulus, it is set equal to unity.
-Default =  1.0416666666666667.}
+Default =   1.030928.}
 
 \item{ub2}{\code{numeric}, the second unit root limit. When one of the roots in the estimation of the ARIMA(1,0,1)(1,0,1) plus mean model,
 which is performed in the second step of the automatic model identification procedure, is larger than second unit root limit in modulus,
 it is checked if there is a common factor in the corresponding AR and MA polynomials of the ARMA model that can be cancelled (see \code{automdl.cancel}).
 If there is no cancellation, the AR root is set equal to unity (i.e. the differencing order changes).
-Default = 0.88.}
+Default = 1.136364.}
 
 \item{reducecv}{\code{numeric}, ReduceCV. The percentage by which the outlier critical value will be reduced
 when an identified model is found to have a Ljung-Box statistic with an unacceptable confidence coefficient.
@@ -81,7 +81,7 @@ provided there are no AR or MA terms in either the seasonal or non-seasonal term
 
 \item{balanced}{(REGARIMA/X13 Specific) \code{logical} If \code{TRUE}, the automatic model identification procedure will have a preference
 for balanced models (i.e. models for which the order of the combined AR and differencing operators is equal to the order
-of the combined MA operators).}
+of the combined MA operators). Default = \code{FALSE}}
 
 \item{amicompare}{(TRAMO Specific) \code{logical}. If \code{TRUE}, the program compares the model identified by the automatic procedure to the default model (\eqn{ARIMA(0,1,1)(0,1,1)})
 and the model with the best fit is selected. Criteria considered are residual diagnostics, the model structure and the number of outliers.}
