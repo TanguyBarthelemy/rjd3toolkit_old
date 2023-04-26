@@ -33,7 +33,7 @@
 #' \url{https://jdemetra-new-documentation.netlify.app/}
 #' @export
 set_benchmarking <- function(x, enabled = NA,
-                             target = c(NA, "CalendarAdjusted", "Normal"),
+                             target = c(NA, "CalendarAdjusted", "Original"),
                              rho = NA,
                              lambda = NA,
                              forecast = NA,
@@ -42,13 +42,13 @@ set_benchmarking <- function(x, enabled = NA,
 }
 #' @export
 set_benchmarking.default <- function(x, enabled = NA,
-                                     target = c(NA, "CalendarAdjusted", "Normal"),
+                                     target = c(NA, "CalendarAdjusted", "Original"),
                                      rho = NA,
                                      lambda = NA,
                                      forecast = NA,
                                      bias = c(NA, "None")) {
   target <- match.arg(toupper(target[1]),
-                      c(NA, "CALENDARADJUSTED", "NORMAL"))
+                      c(NA, "CALENDARADJUSTED", "ORIGINAL"))
   bias <- match.arg(toupper(bias)[1],
                     c(NA, "NONE"))
   if (!is.na(enabled) && is.logical(enabled)) {
