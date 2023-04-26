@@ -7,7 +7,7 @@
 set_benchmarking(
   x,
   enabled = NA,
-  target = c(NA, "CalendarAdjusted", "Normal"),
+  target = c(NA, "CalendarAdjusted", "Original"),
   rho = NA,
   lambda = NA,
   forecast = NA,
