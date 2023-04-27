@@ -14,7 +14,7 @@ set_benchmarking <- function(x, enabled = NA,
                              lambda = NA,
                              forecast = NA,
                              bias = c(NA, "None")) {
-  UseMethod("set_benchmarking", x)
+    UseMethod("set_benchmarking", x)
 }
 #' @export
 set_benchmarking.default <- function(x, enabled = NA,
@@ -23,28 +23,30 @@ set_benchmarking.default <- function(x, enabled = NA,
                                      lambda = NA,
                                      forecast = NA,
                                      bias = c(NA, "None")) {
-  target <- match.arg(toupper(target[1]),
-                      c(NA, "CALENDARADJUSTED", "ORIGINAL"))
-  bias <- match.arg(toupper(bias)[1],
-                    c(NA, "NONE"))
-  if (!is.na(enabled) && is.logical(enabled)) {
-    x$enabled <- enabled
-  }
-  if (!is.na(target)) {
-    x$target <- sprintf("TARGET_%s", target)
-  }
-  if (!is.na(lambda)) {
-    x$lambda <- lambda
-  }
-  if (!is.na(rho)) {
-    x$rho <- rho
-  }
-  if (!is.na(bias)) {
-    x$bias <- sprintf("BIAS_%s", bias)
-  }
-  if (!is.na(forecast) && is.logical(forecast)) {
-    x$forecast <- forecast
-  }
-
-  x
+    target <- match.arg(toupper(target[1]),
+                        c(NA, "CALENDARADJUSTED", "ORIGINAL"))
+    bias <- match.arg(toupper(bias)[1],
+                      c(NA, "NONE"))
+    benchmarking <- x$benchmarking
+    if (!is.na(enabled) && is.logical(enabled)) {
+        benchmarking$enabled <- enabled
+    }
+    if (!is.na(target)) {
+        benchmarking$target <- sprintf("TARGET_%s", target)
+    }
+    if (!is.na(lambda)) {
+        benchmarking$lambda <- lambda
+    }
+    if (!is.na(rho)) {
+        benchmarking$rho <- rho
+    }
+    if (!is.na(bias)) {
+        benchmarking$bias <- sprintf("BIAS_%s", bias)
+    }
+    if (!is.na(forecast) && is.logical(forecast)) {
+        benchmarking$forecast <- forecast
+    }
+    x$benchmarking <- benchmarking
+    
+    x
 }
