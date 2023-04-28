@@ -788,6 +788,6 @@ print.JD3_SINGLEDDAY<-function(x, ...){
 #' @export
 #' @rdname print.calendars
 print.JD3_CALENDAR<-function(x, ...){
-  for (day in x) {print(day);cat('\n')}
+  for (day in x$days) {print(day);cat('\n')}
 }
 
