@@ -137,24 +137,26 @@ modelling_context<-function(calendars=NULL, variables=NULL){
   if (length(calendars)>0) if (length(calendars) != length(which(sapply(calendars,function(z) is(z, 'JD3_CALENDARDEFINITION'))))) stop("calendars should be a list of calendars")
   if (! is.list(variables)) stop("variables should be a list of vars")
   if (length(variables) != 0){
-    for (i in seq_along(variables)) {
-      if (! is.list(variables[[i]])){
-        if (is.matrix(variables[[i]])) {
-          # case of a simple mts dictionary
-          all_var <- lapply(1:ncol(variables[[i]]), function(j) {
-            variables[[i]][, j]
-          })
-          names(all_var) <- colnames(variables[[i]])
-          variables[[i]] <- all_var
-
-        } else {
-          # case of a simple ts dictionary
-          # Use 'r' as the name of the dictionary
-          variables[i] <- list(variables[i])
-          names(variables)[i] <- "r"
-        }
+    list_var <- sapply(variables, is.list)
+    mts_var <- sapply(variables, is.matrix)
+    ts_var <- (!list_var) & (!mts_var)
+    if (any(mts_var)) {
+      # case of a simple mts dictionary
+      for (i in which(mts_var)) {
+        all_var <- lapply(1:ncol(variables[[i]]), function(j) {
+          variables[[i]][, j]
+        })
+        names(all_var) <- colnames(variables[[i]])
+        variables[[i]] <- all_var
       }
     }
+    if (any (ts_var)) {
+      # case of a simple ts dictionary
+      # Use 'r' as the name of the dictionary
+      variables <- c(variables[!ts_var], list(r = variables[ts_var]))
+      # variables[which(ts_var)] <- NULL
+    }
+
   }
 
   return (list(calendars=calendars, variables=variables))
