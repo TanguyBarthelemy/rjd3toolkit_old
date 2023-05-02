@@ -154,9 +154,14 @@ modelling_context<-function(calendars=NULL, variables=NULL){
       # case of a simple ts dictionary
       # Use 'r' as the name of the dictionary
       variables <- c(variables[!ts_var], list(r = variables[ts_var]))
-      # variables[which(ts_var)] <- NULL
     }
-
+    if (sum(names(variables) == "r") >= 2){
+      # handle case with multiple r groups defined
+      combined_var <- do.call(c, variables[names(variables) == "r"])
+      names(combined_var) <- unlist(lapply(variables[names(variables) == "r"], names))
+      combined_var <- list(r = combined_var)
+      variables <- c(variables[names(variables) != "r"], combined_var)
+    }
   }
 
   return (list(calendars=calendars, variables=variables))
