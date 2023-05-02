@@ -34,7 +34,7 @@ to the RegARIMA model after the test;
 from the RegARIMA model after the test;
 \code{"None"} = the Easter effect variable is not pre-tested and is included in the model.}
 
-\item{coef}{to set the coefficient of the easter regressor.}
+\item{coef}{to set the coefficient of the easter regressor.(Test parameter has to be set to \code{"None"})}
 
 \item{coef.type}{a character defining the easter regressor coefficient estimation procedure.
 Possible procedures are: \code{"Estimated"} = coefficient is estimated,
