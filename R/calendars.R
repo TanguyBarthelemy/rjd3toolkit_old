@@ -295,7 +295,7 @@ special_day<-function(event, offset=0, weight=1, validity=NULL){
   if(!is.matrix(x))
     return(x)
   col_names <- seq_len(ncol(x)) - !contrasts #if !contrast then it starts from 0
-  colnames(x) <- sprintf("group-%i", col_names)
+  colnames(x) <- sprintf("group_%i", col_names)
   x
 }
 
