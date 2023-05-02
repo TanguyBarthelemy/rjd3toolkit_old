@@ -2,7 +2,7 @@
 % Please edit documentation in R/spec_regarima.R
 \name{set_transform}
 \alias{set_transform}
-\title{Set Transform Specification}
+\title{Set Log-level Transformation and Decomposition scheme in Pre-Processing Specification}
 \usage{
 set_transform(
   x,
@@ -14,7 +14,7 @@ set_transform(
 )
 }
 \arguments{
-\item{x}{the specification.}
+\item{x}{the specification to customize, must be a "SPEC" class object (see details).}
 
 \item{fun}{the transformation of the input series: \code{"None"} = no transformation of the series;
 \code{"Log"} = takes the log of the series; \code{"Auto"} = the program tests for the log-level specification.}
@@ -23,15 +23,37 @@ set_transform(
 \code{"None"} = no adjustment; \code{"LeapYear"} = leap year effect; \code{"LengthOfPeriod"} = length of period.
 Modifications of this variable are taken into account only when \code{function = "Log"}.}
 
-\item{outliers}{boolean indicating if a pre-correction for large outliers (AO and LS only) should be done to test the log-level specification (\code{fun = "Auto"}). By default to \code{FALSE}.}
+\item{outliers}{Boolean indicating if a pre-correction for large outliers (AO and LS only) should be done
+in the test for the log-level specification (\code{fun = "Auto"}). By default to \code{FALSE}.}
 
 \item{aicdiff}{(REGARIMA/X-13 specific)  a numeric defining the difference in AICC needed to accept no transformation when the automatic
-transformation selection is chosen (considered only when \code{fun = "Auto"}).}
+transformation selection is chosen (considered only when \code{fun = "Auto"}). Default= -2.}
 
 \item{fct}{(TRAMO specific) \code{numeric} controlling the bias in the log/level pre-test:
-\code{transform.fct}> 1 favours levels, \code{transform.fct}< 1 favours logs.
+\code{transform.fct}> 1 favors levels, \code{transform.fct}< 1 favors logs.
 Considered only when \code{fun = "Auto"}.}
 }
 \description{
-Set Transform Specification
+Set Log-level Transformation and Decomposition scheme in Pre-Processing Specification
+}
+\details{
+\code{x} specification param must be a JD3_X13_SPEC" class object generated with \code{rjd3x13::spec_x13()}
+(or "JD3_REGARIMA_SPEC" generated with \code{rjd3x13::spec_regarima()} or "JD3_TRAMOSEATS_SPEC"
+generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" generated with
+\code{rjd3tramoseats::spec_tramo()}).
+}
+\examples{
+# init_spec <- rjd3x13::spec_x13("RSA5c")
+# new_spec<- set_transform(init_spec,
+#                        fun = "Log",
+#                        outliers = TRUE)
+# sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
+
+}
+\references{
+More information in JDemetra+ online documentation:
+\url{https://jdemetra-new-documentation.netlify.app/}
+}
+\seealso{
+\code{\link{set_outlier}}, \code{\link{set_tradingdays}}
 }

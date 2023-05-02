@@ -2,7 +2,7 @@
 % Please edit documentation in R/calendars.R
 \name{easter_dates}
 \alias{easter_dates}
-\title{Displaying Easter Sunday dates in given period}
+\title{Display Easter Sunday dates in given period}
 \usage{
 easter_dates(year0, year1, julian = FALSE)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/calendars.R
 \name{weighted_calendar}
 \alias{weighted_calendar}
-\title{Creating a Composite Calendar}
+\title{Create a Composite Calendar}
 \usage{
 weighted_calendar(calendars, weights)
 }

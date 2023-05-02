@@ -51,7 +51,7 @@ Aggregated values for monthly or quarterly are the numbers of days belonging to 
 are all summed together in of those groups.
 Contrasts are the differences between the number of days in a given group (1 to 6) and the number of days in
 the reference group (0).
-Regressors can be corrected for long-term mean.
+Regressors are corrected for long-term mean if \code{contrasts = TRUE}.
 }
 \examples{
 BE <- national_calendar(list(
@@ -65,7 +65,8 @@ BE <- national_calendar(list(
     special_day('ASSUMPTION'),
     special_day('ALLSAINTSDAY'),
     special_day('ARMISTICE')))
-calendar_td(BE, 12, c(1980,1), 240, holiday=7, groups=c(1,1,1,2,2,3,0), contrasts = FALSE)
+calendar_td(BE, 12, c(1980,1), 240, holiday=7, groups=c(1,1,1,2,2,3,0),
+contrasts = FALSE)
 }
 \references{
 More information on calendar correction in JDemetra+ online documentation:
