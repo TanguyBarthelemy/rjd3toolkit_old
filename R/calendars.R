@@ -787,7 +787,7 @@ print.JD3_SPECIALDAY<-function(x, ...){
 
 #' @export
 #' @rdname print.calendars
-print.JD3_SINGLEDDAY<-function(x, ...){
+print.JD3_SINGLEDAY<-function(x, ...){
   cat('Single date: ', x$date,  sep='')
   .print_weight(x)
 }
