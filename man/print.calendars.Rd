@@ -6,7 +6,7 @@
 \alias{print.JD3_FIXEDWEEKDAY}
 \alias{print.JD3_EASTERDAY}
 \alias{print.JD3_SPECIALDAY}
-\alias{print.JD3_SINGLEDDAY}
+\alias{print.JD3_SINGLEDAY}
 \alias{print.JD3_CALENDAR}
 \title{Calendars Print Methods}
 \usage{
@@ -18,7 +18,7 @@
 
 \method{print}{JD3_SPECIALDAY}(x, ...)
 
-\method{print}{JD3_SINGLEDDAY}(x, ...)
+\method{print}{JD3_SINGLEDAY}(x, ...)
 
 \method{print}{JD3_CALENDAR}(x, ...)
 }
