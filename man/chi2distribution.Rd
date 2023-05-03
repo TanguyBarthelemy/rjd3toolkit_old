@@ -4,14 +4,14 @@
 \alias{density_chi2}
 \alias{cdf_chi2}
 \alias{chi2distribution}
-\alias{randoms_chi2}
+\alias{random_chi2}
 \title{The Chi-Squared Distribution}
 \usage{
 density_chi2(df, x)
 
 cdf_chi2(df, x)
 
-randoms_chi2(df, n)
+random_chi2(df, n)
 }
 \arguments{
 \item{df}{degrees of freedom.}

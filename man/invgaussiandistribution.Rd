@@ -4,14 +4,14 @@
 \alias{density_inverse_gaussian}
 \alias{cdf_inverse_gaussian}
 \alias{invgaussiandistribution}
-\alias{randoms_inverse_gaussian}
+\alias{random_inverse_gaussian}
 \title{The Inverse-Gaussian Distribution}
 \usage{
 density_inverse_gaussian(shape, scale, x)
 
 cdf_inverse_gaussian(shape, scale, x)
 
-randoms_inverse_gaussian(shape, scale, n)
+random_inverse_gaussian(shape, scale, n)
 }
 \arguments{
 \item{shape, scale}{shape and scale parameters.}
