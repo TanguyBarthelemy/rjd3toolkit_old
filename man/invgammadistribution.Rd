@@ -4,14 +4,14 @@
 \alias{density_inverse_gamma}
 \alias{cdf_inverse_gamma}
 \alias{invgammadistribution}
-\alias{randoms_inverse_gamma}
+\alias{random_inverse_gamma}
 \title{The Inverse-Gamma Distribution}
 \usage{
 density_inverse_gamma(shape, scale, x)
 
 cdf_inverse_gamma(shape, scale, x)
 
-randoms_inverse_gamma(shape, scale, n)
+random_inverse_gamma(shape, scale, n)
 }
 \arguments{
 \item{shape, scale}{shape and scale parameters.}

@@ -865,7 +865,7 @@ set_arima.default <- function(x,
 #' (see \code{\link{set_easter}})
 #'
 #' All the built-in regressors are meant to correct for type
-#' of day effect but don't take into account any holiday. To do so user-defined regressors have to be build.
+#' of day effect but don't take into account any holiday. To do so user-defined regressors have to be built.
 #'
 #' @inheritParams set_basic
 #' @param option to specify the set of trading days regression variables:
@@ -928,7 +928,11 @@ set_arima.default <- function(x,
 #' # init_spec <- rjd3x13::spec_x13("RSA5c")
 #' # new_spec<-set_tradingdays(init_spec,
 #' #                          option = "TD4",
-#' #                          test =  "None")
+#' #                          test =  "None",
+#' #                        coef=c(0.7,NA,0.5),
+#' #        coef.type=c("Fixed","Estimated","Fixed"),
+#' #        leapyear="LengthOfPeriod",
+#' #        leapyear.coef=0.6)
 #' # sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
 #' @export
 set_tradingdays<- function(x,
@@ -1126,7 +1130,7 @@ set_tradingdays.default <- function(x,
 #' \code{"Remove"} = the Easter effect variable belongs to the initial regression model but can be removed
 #' from the RegARIMA model after the test;
 #' \code{"None"} = the Easter effect variable is not pre-tested and is included in the model.
-#' @param coef to set the coefficient of the easter regressor.
+#' @param coef to set the coefficient of the easter regressor.(Test parameter has to be set to \code{"None"})
 #' @param coef.type a character defining the easter regressor coefficient estimation procedure.
 #' Possible procedures are: \code{"Estimated"} = coefficient is estimated,
 #' \code{"Fixed"} = the coefficients is fixed. By default the coefficient is estimated.

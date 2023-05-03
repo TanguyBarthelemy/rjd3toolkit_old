@@ -10,13 +10,13 @@
 #' @examples
 #' # T with 2 degrees of freedom.
 #' z <- density_t(2, .01 * seq(-100, 100, 1))
-#' # T with 2 degrees of freedom. 100 randoms
-#' z <- randoms_t(2, 100)
+#' # T with 2 degrees of freedom. 100 random
+#' z <- random_t(2, 100)
 #' @name studentdistribution
 #' @rdname studentdistribution
 #' @order 3
 #' @export
-randoms_t<-function(df, n){
+random_t<-function(df, n){
   .jcall("jdplus/toolkit/base/r/stats/Distributions", "[D", "randomsT", df, as.integer(n))
 }
 
@@ -44,7 +44,7 @@ cdf_t<-function(df, x){
 #' @rdname chi2distribution
 #' @order 3
 #' @export
-randoms_chi2<-function(df, n){
+random_chi2<-function(df, n){
   .jcall("jdplus/toolkit/base/r/stats/Distributions", "[D", "randomsChi2", df, as.integer(n))
 }
 
@@ -73,7 +73,7 @@ cdf_chi2<-function(df, x){
 #' @rdname gammadistribution
 #' @order 3
 #' @export
-randoms_gamma<-function(shape, scale, n){
+random_gamma<-function(shape, scale, n){
   .jcall("jdplus/toolkit/base/r/stats/Distributions", "[D", "randomsGamma", shape, scale, as.integer(n))
 }
 
@@ -101,7 +101,7 @@ cdf_gamma<-function(shape, scale, x){
 #' @rdname invgammadistribution
 #' @order 3
 #' @export
-randoms_inverse_gamma<-function(shape, scale, n){
+random_inverse_gamma<-function(shape, scale, n){
   .jcall("jdplus/toolkit/base/r/stats/Distributions", "[D", "randomsInverseGamma", shape, scale, as.integer(n))
 }
 
@@ -129,7 +129,7 @@ cdf_inverse_gamma<-function(shape, scale, x){
 #' @rdname invgaussiandistribution
 #' @order 3
 #' @export
-randoms_inverse_gaussian<-function(shape, scale, n){
+random_inverse_gaussian<-function(shape, scale, n){
   .jcall("jdplus/toolkit/base/r/stats/Distributions", "[D", "randomsInverseGaussian", shape, scale, as.integer(n))
 }
 

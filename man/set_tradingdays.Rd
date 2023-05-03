@@ -82,7 +82,7 @@ pre-processing step of a seasonal adjustment procedure. The default is \code{"Tr
 (see \code{\link{set_easter}})
 
 All the built-in regressors are meant to correct for type
-of day effect but don't take into account any holiday. To do so user-defined regressors have to be build.
+of day effect but don't take into account any holiday. To do so user-defined regressors have to be built.
 }
 \details{
 \code{x} specification param must be a JD3_X13_SPEC" class object generated with \code{rjd3x13::spec_x13()}
@@ -94,7 +94,11 @@ generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" gene
 # init_spec <- rjd3x13::spec_x13("RSA5c")
 # new_spec<-set_tradingdays(init_spec,
 #                          option = "TD4",
-#                          test =  "None")
+#                          test =  "None",
+#                        coef=c(0.7,NA,0.5),
+#        coef.type=c("Fixed","Estimated","Fixed"),
+#        leapyear="LengthOfPeriod",
+#        leapyear.coef=0.6)
 # sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
 }
 \references{

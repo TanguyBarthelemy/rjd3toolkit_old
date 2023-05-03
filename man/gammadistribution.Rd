@@ -4,14 +4,14 @@
 \alias{density_gamma}
 \alias{cdf_gamma}
 \alias{gammadistribution}
-\alias{randoms_gamma}
+\alias{random_gamma}
 \title{The Gamma Distribution}
 \usage{
 density_gamma(shape, scale, x)
 
 cdf_gamma(shape, scale, x)
 
-randoms_gamma(shape, scale, n)
+random_gamma(shape, scale, n)
 }
 \arguments{
 \item{shape, scale}{shape and scale parameters.}

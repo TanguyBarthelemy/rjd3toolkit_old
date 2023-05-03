@@ -4,14 +4,14 @@
 \alias{density_t}
 \alias{cdf_t}
 \alias{studentdistribution}
-\alias{randoms_t}
+\alias{random_t}
 \title{The Student Distribution}
 \usage{
 density_t(df, x)
 
 cdf_t(df, x)
 
-randoms_t(df, n)
+random_t(df, n)
 }
 \arguments{
 \item{df}{degrees of freedom.}
@@ -26,6 +26,6 @@ Density, (cumulative) distribution function and random generation for Student di
 \examples{
 # T with 2 degrees of freedom.
 z <- density_t(2, .01 * seq(-100, 100, 1))
-# T with 2 degrees of freedom. 100 randoms
-z <- randoms_t(2, 100)
+# T with 2 degrees of freedom. 100 random
+z <- random_t(2, 100)
 }
