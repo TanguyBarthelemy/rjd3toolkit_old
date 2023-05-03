@@ -453,7 +453,7 @@ set_outlier.default <- function(x,
                                 # TRAMO SPECIFIC
                                 eml.est = NA){
   outlier <- x$outlier
-  outlier$outlier <- set_span(outlier$span,
+  outlier$span <- set_span(outlier$span,
                               type = span.type,
                               d0 = d0, d1 = d1,
                               n0 = n0, n1 = n1)

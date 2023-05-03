@@ -631,8 +631,8 @@ weighted_calendar<-function(calendars, weights){
 .r2p_calendardef<-function(r){
   p<-jd3.CalendarDefinition$new()
   if (is(r, 'JD3_CALENDAR')){p$calendar<-.r2p_calendar(r)}
-  else if (is(r, 'JD3_CHAINEDCALENDAR')){p$weighted_calendar<-.r2p_chainedcalendar(r)}
-  else if (is(r, 'JD3_WEIGHTEDCALENDAR')){p$chained_calendar<-.r2p_wcalendar(r)}
+  else if (is(r, 'JD3_CHAINEDCALENDAR')){p$chained_calendar<-.r2p_chainedcalendar(r)}
+  else if (is(r, 'JD3_WEIGHTEDCALENDAR')){p$weighted_calendar<-.r2p_wcalendar(r)}
   return (p)
 }
 
@@ -787,7 +787,7 @@ print.JD3_SPECIALDAY<-function(x, ...){
 
 #' @export
 #' @rdname print.calendars
-print.JD3_SINGLEDDAY<-function(x, ...){
+print.JD3_SINGLEDAY<-function(x, ...){
   cat('Single date: ', x$date,  sep='')
   .print_weight(x)
 }
@@ -795,6 +795,6 @@ print.JD3_SINGLEDDAY<-function(x, ...){
 #' @export
 #' @rdname print.calendars
 print.JD3_CALENDAR<-function(x, ...){
-  for (day in x) {print(day);cat('\n')}
+  for (day in x$days) {print(day);cat('\n')}
 }
 
