@@ -17,9 +17,9 @@ add_usrdefvar(
 \arguments{
 \item{x}{the specification to customize, must be a "SPEC" class object (see details).}
 
-\item{id}{the id of the variable in the format \code{"group_name.name"}.}
+\item{id}{the name of the regressor in the format (\code{"group_name.name"} and \code{"r.name"} by default)}
 
-\item{name}{name the name of the variable (to format print). By default equals to \code{id}.}
+\item{name}{the name of the variable to be displayed when printing specification or results. By default equals to \code{id}.}
 
 \item{lag}{integer defining if the user-defined variable should be lagged.
 By default (\code{lag = 0}), the regressor \eqn{x_t} is not lagged. If \code{lag = 1}, then \eqn{x_{t-1}} is used.}
@@ -62,13 +62,20 @@ iv1<-intervention_variable(12, c(2000, 1), 60,
 starts = "2001-01-01", ends = "2001-12-01")
 iv2<- intervention_variable(12, c(2000, 1), 60,
 starts = "2001-01-01", ends = "2001-12-01", delta = 1)
-# regressors as a list of two groups reg1 and reg2
-vars<-list(reg1=list(x = iv1),reg2=list(x = iv2) )
+# configuration 1: regressors in the same default group (named "r")
+variables<-list("iv1"=iv1, "iv2"=iv2)
+# to use those regressors, input : id=r.iv1 and r.iv2 in add_usrdefvar function
+# configuration 2: group names are user-defined
+# here: regressors as a list of two groups (lists) reg1 and reg2
+vars<-list(reg1=list(iv1 = iv1),reg2=list(iv2 = iv2) )
+# to use those regressors, input : id=reg1.iv1 and reg2.iv2 in add_usrdefvar function
 # creating the modelling context
 my_context<-modelling_context(variables=vars)
 # customize a default specification
 # init_spec <- rjd3x13::spec_x13("RSA5c")
+# regressors have to be added one by one
 # new_spec<- add_usrdefvar(init_spec,id = "reg1.iv1", regeffect="Trend")
+# new spec<- add_usrdefvar(new_spec,id = "reg2.iv2", regeffect="Trend", coef=0.7)
 # modelling context is needed for the estimation phase
 # sa_x13<- rjd3x13::x13(ABS$X0.2.09.10.M, new_spec, context = my_context)
 }
