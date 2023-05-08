@@ -41,7 +41,7 @@ bowmanshenton(x)
 doornikhansen(x)
 jarquebera(x)
 
-x <- randoms_t(2, 100) # alternative
+x <- random_t(2, 100) # alternative
 bowmanshenton(x)
 doornikhansen(x)
 jarquebera(x)

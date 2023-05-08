@@ -23,5 +23,5 @@ Combined test on the presence of identifiable seasonality (see Ladiray and Quenn
 }
 \examples{
 seasonality_combined(ABS$X0.2.09.10.M, 12)
-seasonality_combined(randoms_t(2, 1000), 7)
+seasonality_combined(random_t(2, 1000), 7)
 }

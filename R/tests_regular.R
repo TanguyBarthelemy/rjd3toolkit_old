@@ -18,7 +18,7 @@ NULL
 #' \item{\code{distribution}} the statistical distribution used.
 #' }
 #' @examples
-#' udr_test = testofupdownruns(randoms_t(5, 1000))
+#' udr_test = testofupdownruns(random_t(5, 1000))
 #' udr_test # default print
 #' print(udr_test, details = TRUE) # with the distribution
 #'
@@ -63,7 +63,7 @@ print.JD3_TEST<-function(x, details=FALSE, ...){
 #' @return A \code{c("JD3_TEST", "JD3")} object (see [statisticaltest()] for details).
 #'
 #' @examples
-#' ljungbox(randoms_t(2, 100), lag = 24, k =1)
+#' ljungbox(random_t(2, 100), lag = 24, k =1)
 #' ljungbox(ABS$X0.2.09.10.M, lag = 24, k =1)
 #' @export
 ljungbox<-function(data, k=1, lag=1, nhp=0, sign=0, mean=T){
@@ -88,7 +88,7 @@ ljungbox<-function(data, k=1, lag=1, nhp=0, sign=0, mean=T){
 #' doornikhansen(x)
 #' jarquebera(x)
 #'
-#' x <- randoms_t(2, 100) # alternative
+#' x <- random_t(2, 100) # alternative
 #' bowmanshenton(x)
 #' doornikhansen(x)
 #' jarquebera(x)
@@ -129,7 +129,7 @@ jarquebera<-function(data, k=0, sample=T){
 #' @name runstests
 #'
 #' @examples
-#' x <- randoms_t(5, 1000)
+#' x <- random_t(5, 1000)
 #'# random values
 #' testofruns(x)
 #' testofupdownruns(x)
