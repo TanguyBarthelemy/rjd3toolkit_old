@@ -17,7 +17,7 @@ NULL
 #'
 #' @examples
 #' seasonality_qs(ABS$X0.2.09.10.M, 12)
-#' seasonality_qs(randoms_t(2, 1000), 7)
+#' seasonality_qs(random_t(2, 1000), 7)
 seasonality_qs<-function(data, period, nyears=0){
   if (is.ts(data) & missing(period))
     period <- frequency(data)
@@ -37,7 +37,7 @@ seasonality_qs<-function(data, period, nyears=0){
 #'
 #' @examples
 #' seasonality_kruskalwallis(ABS$X0.2.09.10.M, 12)
-#' seasonality_kruskalwallis(randoms_t(2, 1000), 7)
+#' seasonality_kruskalwallis(random_t(2, 1000), 7)
 seasonality_kruskalwallis<-function(data, period, nyears=0){
   if (is.ts(data) & missing(period))
     period <- frequency(data)
@@ -56,7 +56,7 @@ seasonality_kruskalwallis<-function(data, period, nyears=0){
 #'
 #' @examples
 #' seasonality_periodogram(ABS$X0.2.09.10.M, 12)
-#' seasonality_periodogram(randoms_t(2, 1000), 7)
+#' seasonality_periodogram(random_t(2, 1000), 7)
 seasonality_periodogram<-function(data, period, nyears=0){
   if (is.ts(data) & missing(period))
     period <- frequency(data)
@@ -92,7 +92,7 @@ seasonality_friedman<-function(data, period, nyears=0){
 #'
 #' @examples
 #' seasonality_f(ABS$X0.2.09.10.M, 12)
-#' seasonality_f(randoms_t(2, 1000), 7)
+#' seasonality_f(random_t(2, 1000), 7)
 seasonality_f<-function(data,
                         period,
                         model=c("AR", "D1", "WN"),
@@ -116,7 +116,7 @@ seasonality_f<-function(data,
 #'
 #' @examples
 #' seasonality_combined(ABS$X0.2.09.10.M, 12)
-#' seasonality_combined(randoms_t(2, 1000), 7)
+#' seasonality_combined(random_t(2, 1000), 7)
 seasonality_combined<-function(data, period, firstperiod=1, mul=TRUE){
   if (is.ts(data) & missing(period))
     period <- frequency(data)

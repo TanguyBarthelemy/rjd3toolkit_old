@@ -134,7 +134,7 @@ modelling_context<-function(calendars=NULL, variables=NULL){
   if (! is.list(variables)) stop("variables should be a list of vars")
   if (length(variables) != 0){
     list_var <- sapply(variables, is.list)
-    mts_var <- sapply(variables, is.matrix)
+    mts_var <- sapply(variables, is.mts)
     ts_var <- (!list_var) & (!mts_var)
     if (any(mts_var)) {
       # case of a simple mts dictionary

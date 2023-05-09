@@ -26,5 +26,5 @@ Tests on the sum of a periodogram at seasonal frequencies.
 }
 \examples{
 seasonality_periodogram(ABS$X0.2.09.10.M, 12)
-seasonality_periodogram(randoms_t(2, 1000), 7)
+seasonality_periodogram(random_t(2, 1000), 7)
 }

@@ -31,7 +31,7 @@ Functions to compute runs test around the mean or the median (\code{testofruns})
 
 }}
 \examples{
-x <- randoms_t(5, 1000)
+x <- random_t(5, 1000)
 # random values
 testofruns(x)
 testofupdownruns(x)

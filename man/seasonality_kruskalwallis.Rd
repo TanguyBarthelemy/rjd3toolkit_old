@@ -26,5 +26,5 @@ Non parametric test on the ranks.
 }
 \examples{
 seasonality_kruskalwallis(ABS$X0.2.09.10.M, 12)
-seasonality_kruskalwallis(randoms_t(2, 1000), 7)
+seasonality_kruskalwallis(random_t(2, 1000), 7)
 }

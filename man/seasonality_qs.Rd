@@ -23,5 +23,5 @@ QS (modified seasonal Ljung-Box) test.
 }
 \examples{
 seasonality_qs(ABS$X0.2.09.10.M, 12)
-seasonality_qs(randoms_t(2, 1000), 7)
+seasonality_qs(random_t(2, 1000), 7)
 }

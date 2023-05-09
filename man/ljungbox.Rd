@@ -27,6 +27,6 @@ A \code{c("JD3_TEST", "JD3")} object (see \code{\link[=statisticaltest]{statisti
 Compute Ljung-Box test to check the independence of a data.
 }
 \examples{
-ljungbox(randoms_t(2, 100), lag = 24, k =1)
+ljungbox(random_t(2, 100), lag = 24, k =1)
 ljungbox(ABS$X0.2.09.10.M, lag = 24, k =1)
 }
