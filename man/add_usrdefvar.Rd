@@ -6,8 +6,9 @@
 \usage{
 add_usrdefvar(
   x,
-  id,
-  name = NULL,
+  group,
+  name,
+  label = NULL,
   lag = 0,
   coef = NULL,
   regeffect = c("Undefined", "Trend", "Seasonal", "Irregular", "Series",
@@ -17,9 +18,10 @@ add_usrdefvar(
 \arguments{
 \item{x}{the specification to customize, must be a "SPEC" class object (see details).}
 
-\item{id}{the name of the regressor in the format (\code{"group_name.name"} and \code{"r.name"} by default)}
+\item{group, name}{the name of the regressor in the format \code{"group.name"}, by default \code{"r.name"} by default if \code{group} NULL
+\code{"group.name"} has to be the same as in \code{\link{modelling_context}} (see examples)}
 
-\item{name}{the name of the variable to be displayed when printing specification or results. By default equals to \code{id}.}
+\item{label}{the label of the variable to be displayed when printing specification or results. By default equals to \code{group.name}.}
 
 \item{lag}{integer defining if the user-defined variable should be lagged.
 By default (\code{lag = 0}), the regressor \eqn{x_t} is not lagged. If \code{lag = 1}, then \eqn{x_{t-1}} is used.}

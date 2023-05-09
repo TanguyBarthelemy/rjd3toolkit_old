@@ -34,7 +34,8 @@ set_tradingdays(
 \code{"UserDefined"} = userdefined trading days regressors.}
 
 \item{uservariable}{a vector of characters to specify the name of user-defined calendar regressors.
-When specified, automatically set \code{option = "UserDefined"}.}
+When specified, automatically set \code{option = "UserDefined"}. Names have to be the same as
+in \code{\link{modelling_context}}, see example.}
 
 \item{stocktd}{a numeric indicating the day of the month when inventories and other stock are reported
 (to denote the last day of the month, set the variable to 31).
@@ -91,6 +92,8 @@ generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" gene
 \code{rjd3tramoseats::spec_tramo()}).
 }
 \examples{
+# Pre-defined regressors
+# y_raw<-ABS$X0.2.09.10.M
 # init_spec <- rjd3x13::spec_x13("RSA5c")
 # new_spec<-set_tradingdays(init_spec,
 #                          option = "TD4",
@@ -99,12 +102,26 @@ generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" gene
 #        coef.type=c("Fixed","Estimated","Fixed"),
 #        leapyear="LengthOfPeriod",
 #        leapyear.coef=0.6)
-# sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
+# sa<-rjd3x13::x13(y_raw,new_spec)
+#
+# User-defined regressors
+# init_spec <- rjd3x13::spec_x13("RSA5c")
+# add regressors to context
+# variables<-list(Monday,Tuesday, Wednesday,
+# Thursday, Friday, Saturday)
+# my_context<-modelling_context(variables=variables)
+# create a new spec (here default group name: r)
+# new_spec<-set_tradingdays(init_spec,
+#                          option = "UserDefined",
+# uservariable=c("r.Monday","r.Tuesday","r.Wednesday","r.Thursday","r.Friday","r.Saturday"),
+# test = "None")
+# estimate with context
+# sa<-rjd3x13::x13(y_raw,new_spec, context=my_context)
 }
 \references{
 More information on calendar correction in JDemetra+ online documentation:
 \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
 }
 \seealso{
-\code{\link{national_calendar}}, \code{\link{calendar_td}}
+\code{\link{modelling_context}}, \code{\link{calendar_td}}
 }

@@ -877,7 +877,8 @@ set_arima.default <- function(x,
 #' \code{"None"} = no correction for trading days;
 #' \code{"UserDefined"} = userdefined trading days regressors.
 #' @param uservariable a vector of characters to specify the name of user-defined calendar regressors.
-#' When specified, automatically set \code{option = "UserDefined"}.
+#' When specified, automatically set \code{option = "UserDefined"}. Names have to be the same as
+#' in \code{\link{modelling_context}}, see example.
 #' @param stocktd  a numeric indicating the day of the month when inventories and other stock are reported
 #' (to denote the last day of the month, set the variable to 31).
 #' When specified, automatically set \code{option = "None"}. See \code{stock_td} function for details.
@@ -920,11 +921,13 @@ set_arima.default <- function(x,
 #' (or "JD3_REGARIMA_SPEC" generated with \code{rjd3x13::spec_regarima()} or "JD3_TRAMOSEATS_SPEC"
 #' generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" generated with
 #' \code{rjd3tramoseats::spec_tramo()}).
-#' @seealso \code{\link{national_calendar}}, \code{\link{calendar_td}}
+#' @seealso \code{\link{modelling_context}}, \code{\link{calendar_td}}
 #' @references
 #' More information on calendar correction in JDemetra+ online documentation:
 #' \url{https://jdemetra-new-documentation.netlify.app/a-calendar-correction}
 #' @examples
+#' # Pre-defined regressors
+#' # y_raw<-ABS$X0.2.09.10.M
 #' # init_spec <- rjd3x13::spec_x13("RSA5c")
 #' # new_spec<-set_tradingdays(init_spec,
 #' #                          option = "TD4",
@@ -933,7 +936,21 @@ set_arima.default <- function(x,
 #' #        coef.type=c("Fixed","Estimated","Fixed"),
 #' #        leapyear="LengthOfPeriod",
 #' #        leapyear.coef=0.6)
-#' # sa<-rjd3x13::x13(ABS$X0.2.09.10.M,new_spec)
+#' # sa<-rjd3x13::x13(y_raw,new_spec)
+#' #
+#' # User-defined regressors
+#' # init_spec <- rjd3x13::spec_x13("RSA5c")
+#' # add regressors to context
+#' # variables<-list(Monday,Tuesday, Wednesday,
+#' # Thursday, Friday, Saturday)
+#' # my_context<-modelling_context(variables=variables)
+#' # create a new spec (here default group name: r)
+#' # new_spec<-set_tradingdays(init_spec,
+#' #                          option = "UserDefined",
+#' # uservariable=c("r.Monday","r.Tuesday","r.Wednesday","r.Thursday","r.Friday","r.Saturday"),
+#' # test = "None")
+#' # estimate with context
+#' # sa<-rjd3x13::x13(y_raw,new_spec, context=my_context)
 #' @export
 set_tradingdays<- function(x,
                            option = c(NA, "TradingDays", "WorkingDays", "TD3", "TD3c", "TD4", "None", "UserDefined"),
@@ -1340,8 +1357,9 @@ set_transform.default <- function(x,
 #' before being used in an estimation process. see \code{\link{modelling_context}} and example.
 #'
 #' @inheritParams set_basic
-#' @param id the name of the regressor in the format (`"group_name.name"` and `"r.name"` by default)
-#' @param name the name of the variable to be displayed when printing specification or results. By default equals to `id`.
+#' @param group,name the name of the regressor in the format `"group.name"`, by default `"r.name"` by default if `group` NULL
+#' `"group.name"` has to be the same as in \code{\link{modelling_context}} (see examples)
+#' @param label the label of the variable to be displayed when printing specification or results. By default equals to `group.name`.
 #' @param lag integer defining if the user-defined variable should be lagged.
 #'  By default (`lag = 0`), the regressor \eqn{x_t} is not lagged. If `lag = 1`, then \eqn{x_{t-1}} is used.
 #' @param coef the coefficient, if needs to be fixed.
@@ -1393,8 +1411,9 @@ set_transform.default <- function(x,
 #' \url{https://jdemetra-new-documentation.netlify.app/}
 #' @export
 add_usrdefvar <- function(x,
-                         id,
-                         name = NULL,
+                         group,
+                         name,
+                         label = NULL,
                          lag = 0,
                          coef = NULL,
                          regeffect=c("Undefined", "Trend", "Seasonal", "Irregular", "Series", "SeasonallyAdjusted")) {
@@ -1402,22 +1421,23 @@ add_usrdefvar <- function(x,
 }
 #' @export
 add_usrdefvar.default <- function(x,
-                                  id,
-                                  name = NULL,
+                                  group,
+                                  name,
+                                  label=NULL,
                                   lag = 0,
                                   coef = NULL,
                                   regeffect=c("Undefined", "Trend", "Seasonal", "Irregular", "Series", "SeasonallyAdjusted")) {
   x$regression$users[[length(x$regression$users) + 1]] <-
-    .create_variable(id = id, name = name, lag = lag, coef = coef, regeffect = regeffect)
+    .create_variable(id =paste0(group,".",name), label = label, lag = lag, coef = coef, regeffect = regeffect)
   x
 }
 
-.create_variable<-function(id, name = NULL, lag = 0, coef = NULL, regeffect=c("Undefined", "Trend", "Seasonal", "Irregular", "Series", "SeasonallyAdjusted")){
+.create_variable<-function(id, label=NULL, lag = 0, coef = NULL, regeffect=c("Undefined", "Trend", "Seasonal", "Irregular", "Series", "SeasonallyAdjusted")){
   regeffect=match.arg(regeffect)
-  if (is.null(name)) {
-    name<-id
+  if (is.null(label)) {
+    label<-id
   }
-  res = list(id=id, name=name, lag=lag, coef = .fixed_parameter(coef), regeffect=regeffect)
+  res = list(id, label=label, lag=lag, coef = .fixed_parameter(coef), regeffect=regeffect)
   return (res)
 }
 
