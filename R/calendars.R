@@ -727,9 +727,9 @@ calendar_td<-function(calendar,frequency, start, length, s, groups=c(1,2,3,4,5,6
   jcal<-.p2jd_calendar(pcal)
   jm<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/api/math/matrices/Matrix;",
              "htd", jcal, jdom, as.integer(groups), as.integer(holiday), contrasts)
-  return <- .jd2r_matrix(jm)
-  return <- .group_names(return, contrasts = contrasts)
-  return (ts(return, start = start, frequency = frequency))
+  output <- .jd2r_matrix(jm)
+  output <- .group_names(output, contrasts = contrasts)
+  return (ts(output, start = start, frequency = frequency))
 }
 
 #' Calendars Print Methods
@@ -794,7 +794,42 @@ print.JD3_SINGLEDAY<-function(x, ...){
 
 #' @export
 #' @rdname print.calendars
-print.JD3_CALENDAR<-function(x, ...){
-  for (day in x$days) {print(day);cat('\n')}
+print.JD3_CALENDAR <- function(x, ...) {
+  cat("Holiday:\n")
+  for (day in x$day) {
+    cat("\t- ")
+    print(day)
+    cat('\n')
+  }
+  cat("\nMean correction: ", ifelse(x$mean_correction, "Yes", "No"), "\n", sep = "")
+
+  return(invisible(x))
+}
+
+#' @export
+print.JD3_CHAINEDCALENDAR <- function (x, ...)
+{
+  cat("First calendar before ", x$break_date, "\n", sep = "")
+  print(x$calendar1)
+
+  cat("\n")
+
+  cat("Second calendar after ", x$break_date, "\n", sep = "")
+  print(x$calendar2, enable_print_style = FALSE)
+
+  return(invisible(x))
+}
+
+#' @export
+print.JD3_WEIGHTEDCALENDAR <- function (x, ...)
+{
+  for (index_cal in seq_along(x$weights)) {
+    cat("Calendar n°", index_cal, "\n", sep = "")
+    cat("weight: ", x$weight[index_cal], "\n", sep = "")
+    print(x$calendars[[index_cal]])
+    cat("\n")
+  }
+
+  return(invisible(x))
 }
 
