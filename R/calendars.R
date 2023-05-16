@@ -727,9 +727,9 @@ calendar_td<-function(calendar,frequency, start, length, s, groups=c(1,2,3,4,5,6
   jcal<-.p2jd_calendar(pcal)
   jm<-.jcall("jdplus/toolkit/base/r/modelling/Variables", "Ljdplus/toolkit/base/api/math/matrices/Matrix;",
              "htd", jcal, jdom, as.integer(groups), as.integer(holiday), contrasts)
-  return <- .jd2r_matrix(jm)
-  return <- .group_names(return, contrasts = contrasts)
-  return (ts(return, start = start, frequency = frequency))
+  output <- .jd2r_matrix(jm)
+  output <- .group_names(output, contrasts = contrasts)
+  return (ts(output, start = start, frequency = frequency))
 }
 
 #' Calendars Print Methods
