@@ -52,8 +52,9 @@ print.JD3_TEST<-function(x, details=FALSE, ...){
 #' Compute Ljung-Box test to check the independence of a data.
 #'
 #' @param data data being tested.
-#' @param k,nhp number of degrees of freedom used and number of hyper parameters if the input time series is a series of residuals.
-#' @param lag number of lags used.
+#' @param k number of auto-correlations used in the test
+#' @param nhp number of hyper parameters (to correct the degree of freedom)
+#' @param lag number of lags used between two auto-correlations.
 #' @param sign if `sign = 1`, only positive auto-corrrelations are considered in the test.
 #' If `sign = -1`, only negative auto-correlations are considered.
 #' If `sign = 0`, all auto-correlations are integrated in the test.

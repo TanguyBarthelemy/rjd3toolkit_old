@@ -9,9 +9,11 @@ ljungbox(data, k = 1, lag = 1, nhp = 0, sign = 0, mean = T)
 \arguments{
 \item{data}{data being tested.}
 
-\item{k, nhp}{number of degrees of freedom used and number of hyper parameters if the input time series is a series of residuals.}
+\item{k}{number of auto-correlations used in the test}
 
-\item{lag}{number of lags used.}
+\item{lag}{number of lags used between two auto-correlations.}
+
+\item{nhp}{number of hyper parameters (to correct the degree of freedom)}
 
 \item{sign}{if \code{sign = 1}, only positive auto-corrrelations are considered in the test.
 If \code{sign = -1}, only negative auto-correlations are considered.
