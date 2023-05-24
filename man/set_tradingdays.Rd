@@ -8,6 +8,7 @@ set_tradingdays(
   x,
   option = c(NA, "TradingDays", "WorkingDays", "TD3", "TD3c", "TD4", "None",
     "UserDefined"),
+  calendar.name = NA,
   uservariable = NA,
   stocktd = NA,
   test = c(NA, "None", "Remove", "Add", "Separate_T", "Joint_F"),
@@ -32,6 +33,9 @@ set_tradingdays(
 \code{"TD4"} = three contrast variables: week-days (Mondays to Thursdays) vs Sundays, Fridays vs Sundays, Saturdays vs Sundays;
 \code{"None"} = no correction for trading days;
 \code{"UserDefined"} = userdefined trading days regressors.}
+
+\item{calendar.name}{name (string) of the user-defined calendar to be taken into account when generating
+built-in regressors set in 'option' (if not 'UserDefined).(see examples)}
 
 \item{uservariable}{a vector of characters to specify the name of user-defined calendar regressors.
 When specified, automatically set \code{option = "UserDefined"}. Names have to be the same as
@@ -103,7 +107,30 @@ generated with \code{rjd3tramoseats::spec_tramoseats()} or "JD3_TRAMO_SPEC" gene
 #        leapyear="LengthOfPeriod",
 #        leapyear.coef=0.6)
 # sa<-rjd3x13::x13(y_raw,new_spec)
-#
+
+# Pre-defined regressors based on user-defined calendar
+### create a calendar
+BE <- national_calendar(list(
+fixed_day(7,21),
+ special_day('NEWYEAR'),
+ special_day('CHRISTMAS'),
+ special_day('MAYDAY'),
+ special_day('EASTERMONDAY'),
+ special_day('ASCENSION'),
+ special_day('WHITMONDAY'),
+ special_day('ASSUMPTION'),
+ special_day('ALLSAINTSDAY'),
+ special_day('ARMISTICE')))
+## put into a context
+my_context<-modelling_context(calendars = list(cal=BE))
+## create a specification
+#init_spec <- rjd3x13::spec_x13("RSA5c")
+## modify the specification
+# new_spec<-set_tradingdays(init_spec,
+#                          option = "TradingDays", calendar.name="cal")
+## estimate with context
+# sa<-rjd3x13::x13(y_raw,new_spec, context=my_context)
+
 # User-defined regressors
 # init_spec <- rjd3x13::spec_x13("RSA5c")
 # add regressors to context

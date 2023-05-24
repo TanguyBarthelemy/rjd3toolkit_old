@@ -6,9 +6,9 @@
 \usage{
 add_usrdefvar(
   x,
-  group,
+  group = "r",
   name,
-  label = NULL,
+  label = paste0(group, ".", name),
   lag = 0,
   coef = NULL,
   regeffect = c("Undefined", "Trend", "Seasonal", "Irregular", "Series",

@@ -228,6 +228,7 @@ remove_ramp.default <- function(x,
 #' (e.g. the series with a number of identical observations and/or missing values above pre-specified threshold values).
 #'
 #' @param preprocessing (REGARIMA/X13 Specific) a Boolean to enable/disable the pre-processing.
+#' Option disabled for the moment.
 #' @details
 #' \code{x} specification param must be a JD3_X13_SPEC" class object generated with \code{rjd3x13::spec_x13()}
 #' (or "JD3_REGARIMA_SPEC" generated with \code{rjd3x13::spec_regarima()} or "JD3_TRAMOSEATS_SPEC"
@@ -285,7 +286,7 @@ set_basic.default <- function(x,
     basic$preprocessing <- preprocessing
   }
   if(!missing(preliminary.check) & !is.na(preliminary.check)){
-    basic$preliminaryCheck <- preliminary.check
+    # basic$preliminaryCheck <- preliminary.check
   }
   x$basic <- basic
   x
@@ -876,6 +877,8 @@ set_arima.default <- function(x,
 #' \code{"TD4"} = three contrast variables: week-days (Mondays to Thursdays) vs Sundays, Fridays vs Sundays, Saturdays vs Sundays;
 #' \code{"None"} = no correction for trading days;
 #' \code{"UserDefined"} = userdefined trading days regressors.
+#' @param calendar.name name (string) of the user-defined calendar to be taken into account when generating
+#' built-in regressors set in 'option' (if not 'UserDefined).(see examples)
 #' @param uservariable a vector of characters to specify the name of user-defined calendar regressors.
 #' When specified, automatically set \code{option = "UserDefined"}. Names have to be the same as
 #' in \code{\link{modelling_context}}, see example.
@@ -937,7 +940,30 @@ set_arima.default <- function(x,
 #' #        leapyear="LengthOfPeriod",
 #' #        leapyear.coef=0.6)
 #' # sa<-rjd3x13::x13(y_raw,new_spec)
-#' #
+#'
+#' # Pre-defined regressors based on user-defined calendar
+#' ### create a calendar
+#' BE <- national_calendar(list(
+#' fixed_day(7,21),
+#'  special_day('NEWYEAR'),
+#'  special_day('CHRISTMAS'),
+#'  special_day('MAYDAY'),
+#'  special_day('EASTERMONDAY'),
+#'  special_day('ASCENSION'),
+#'  special_day('WHITMONDAY'),
+#'  special_day('ASSUMPTION'),
+#'  special_day('ALLSAINTSDAY'),
+#'  special_day('ARMISTICE')))
+#' ## put into a context
+#' my_context<-modelling_context(calendars = list(cal=BE))
+#' ## create a specification
+#' #init_spec <- rjd3x13::spec_x13("RSA5c")
+#'## modify the specification
+#' # new_spec<-set_tradingdays(init_spec,
+#' #                          option = "TradingDays", calendar.name="cal")
+#' ## estimate with context
+#' # sa<-rjd3x13::x13(y_raw,new_spec, context=my_context)
+#'
 #' # User-defined regressors
 #' # init_spec <- rjd3x13::spec_x13("RSA5c")
 #' # add regressors to context
@@ -954,6 +980,7 @@ set_arima.default <- function(x,
 #' @export
 set_tradingdays<- function(x,
                            option = c(NA, "TradingDays", "WorkingDays", "TD3", "TD3c", "TD4", "None", "UserDefined"),
+                           calendar.name = NA,
                            uservariable = NA,
                            stocktd = NA,
                            test = c(NA, "None", "Remove", "Add", "Separate_T", "Joint_F"),
@@ -973,6 +1000,7 @@ set_tradingdays<- function(x,
 #' @export
 set_tradingdays.default <- function(x,
                                     option = c(NA, "TradingDays", "WorkingDays", "TD3", "TD3c", "TD4", "None", "UserDefined"),
+                                    calendar.name = NA,
                                     uservariable = NA,
                                     stocktd = NA,
                                     test = c(NA, "None", "Remove", "Add", "Separate_T", "Joint_F"),
@@ -990,10 +1018,10 @@ set_tradingdays.default <- function(x,
 
   is_tramo <- inherits(x, "JD3_TRAMO_SPEC")
 
-  if(!missing(option) & !any(is.na(option))){
+  if(!missing(option) && !any(is.na(option))){
     option <- match.arg(toupper(option)[1],
                         choices = c("TRADINGDAYS", "WORKINGDAYS", "NONE","USERDEFINED",
-                                    "TD3", "TD3C", "TD4"))
+                                    "TD3", "TD3C", "TD4", "HOLIDAYS"))
     td$td <- switch(option,
                     WORKINGDAYS = "TD2",
                     TRADINGDAYS = "TD7",
@@ -1002,10 +1030,15 @@ set_tradingdays.default <- function(x,
                     option)
     td$users <- character()
   }
+
+  if(!missing(calendar.name) && !any(is.na(calendar.name))){
+    td$holidays <- calendar.name
+  }
   if(!is.null(uservariable) &&
      !any(is.na(uservariable)) &&
      length(uservariable) > 0){
     td$td <- "TD_NONE"
+    td$holidays <- ""
 
     td$users <- uservariable
 
@@ -1017,6 +1050,7 @@ set_tradingdays.default <- function(x,
   if(!missing(stocktd) && !is.na(stocktd)){
     td$users <- character()
     td$td <- "TD_NONE"
+    td$holidays <- ""
     td$w <- stocktd
   }
   if(!missing(autoadjust) && !is.na(autoadjust)){
@@ -1411,9 +1445,9 @@ set_transform.default <- function(x,
 #' \url{https://jdemetra-new-documentation.netlify.app/}
 #' @export
 add_usrdefvar <- function(x,
-                         group,
+                         group="r",
                          name,
-                         label = NULL,
+                         label = paste0(group,".",name),
                          lag = 0,
                          coef = NULL,
                          regeffect=c("Undefined", "Trend", "Seasonal", "Irregular", "Series", "SeasonallyAdjusted")) {
@@ -1421,9 +1455,9 @@ add_usrdefvar <- function(x,
 }
 #' @export
 add_usrdefvar.default <- function(x,
-                                  group,
+                                  group="r",
                                   name,
-                                  label=NULL,
+                                  label=paste0(group,".",name),
                                   lag = 0,
                                   coef = NULL,
                                   regeffect=c("Undefined", "Trend", "Seasonal", "Irregular", "Series", "SeasonallyAdjusted")) {
@@ -1432,12 +1466,13 @@ add_usrdefvar.default <- function(x,
   x
 }
 
+# read in protofile
 .create_variable<-function(id, label=NULL, lag = 0, coef = NULL, regeffect=c("Undefined", "Trend", "Seasonal", "Irregular", "Series", "SeasonallyAdjusted")){
   regeffect=match.arg(regeffect)
   if (is.null(label)) {
     label<-id
   }
-  res = list(id, label=label, lag=lag, coef = .fixed_parameter(coef), regeffect=regeffect)
+  res = list(id = id, name=label, lag=lag, coef = .fixed_parameter(coef), regeffect=regeffect)
   return (res)
 }
 
