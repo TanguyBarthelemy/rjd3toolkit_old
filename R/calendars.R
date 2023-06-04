@@ -828,7 +828,7 @@ print.JD3_CHAINEDCALENDAR <- function (x, ...)
 print.JD3_WEIGHTEDCALENDAR <- function (x, ...)
 {
   for (index_cal in seq_along(x$weights)) {
-    cat("Calendar n°", index_cal, "\n", sep = "")
+    cat("Calendar n", index_cal, "\n", sep = "")
     cat("weight: ", x$weight[index_cal], "\n", sep = "")
     print(x$calendars[[index_cal]])
     cat("\n")
