@@ -284,6 +284,8 @@ special_day<-function(event, offset=0, weight=1, validity=NULL){
   return (pd)
 }
 
+#' @export
+#' @rdname jd3_utilities
 .p2jd_calendar<-function(pcalendar){
   bytes<-pcalendar$serialize(NULL)
   jcal<-.jcall("jdplus/toolkit/base/r/calendar/Calendars", "Ljdplus/toolkit/base/api/timeseries/calendars/Calendar;",
@@ -509,6 +511,8 @@ stock_td<-function(frequency, start, length, s, w = 31){
   ), class=c('JD3_CALENDAR', 'JD3_CALENDARDEFINITION')))
 }
 
+#' @export
+#' @rdname jd3_utilities
 .r2p_calendar<-function(r){
   p<-jd3.Calendar$new()
   if (length(r$days)>0){
