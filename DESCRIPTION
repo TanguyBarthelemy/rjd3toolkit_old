@@ -19,7 +19,7 @@ Imports:
   rJava (>= 1.0-6),
   checkmate,
   methods
-SystemRequirements: Java JRE 17 or higher
+SystemRequirements: Java (>= 17)
 License: EUPL
 URL: https://github.com/palatej/rjd3toolkit
 LazyData: TRUE
