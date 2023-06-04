@@ -767,7 +767,7 @@ DAYS=c('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sund
 #' @export
 #' @rdname print.calendars
 print.JD3_FIXEDWEEKDAY<-function(x, ...){
-  cat('Fixed week day: month=', x$month, ', day of the week=', DAYS[x$dayofweek], ', position=', x$position,  sep='')
+  cat('Fixed week day: month=', x$month, ', day of the week=', DAYS[x$dayofweek], ', week=', x$week,  sep='')
   .print_weight(x)
   .print_validityperiod(x)
 }
