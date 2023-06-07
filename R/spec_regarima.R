@@ -1428,7 +1428,7 @@ set_transform.default <- function(x,
 #' # configuration 2: group names are user-defined
 #' # here: regressors as a list of two groups (lists) reg1 and reg2
 #' vars<-list(reg1=list(iv1 = iv1),reg2=list(iv2 = iv2) )
-#' # to use those regressors, input : id=reg1.iv1 and reg2.iv2 in add_usrdefvar function
+#' # to use those regressors, input : name=reg1.iv1 and name=reg2.iv2 in add_usrdefvar function
 #' # creating the modelling context
 #' my_context<-modelling_context(variables=vars)
 #' # customize a default specification
