@@ -284,6 +284,8 @@ special_day<-function(event, offset=0, weight=1, validity=NULL){
   return (pd)
 }
 
+#' @export
+#' @rdname jd3_utilities
 .p2jd_calendar<-function(pcalendar){
   bytes<-pcalendar$serialize(NULL)
   jcal<-.jcall("jdplus/toolkit/base/r/calendar/Calendars", "Ljdplus/toolkit/base/api/timeseries/calendars/Calendar;",
@@ -509,6 +511,8 @@ stock_td<-function(frequency, start, length, s, w = 31){
   ), class=c('JD3_CALENDAR', 'JD3_CALENDARDEFINITION')))
 }
 
+#' @export
+#' @rdname jd3_utilities
 .r2p_calendar<-function(r){
   p<-jd3.Calendar$new()
   if (length(r$days)>0){
@@ -763,7 +767,7 @@ DAYS=c('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sund
 #' @export
 #' @rdname print.calendars
 print.JD3_FIXEDWEEKDAY<-function(x, ...){
-  cat('Fixed week day: month=', x$month, ', day of the week=', DAYS[x$dayofweek], ', position=', x$position,  sep='')
+  cat('Fixed week day: month=', x$month, ', day of the week=', DAYS[x$dayofweek], ', week=', x$week,  sep='')
   .print_weight(x)
   .print_validityperiod(x)
 }
@@ -824,7 +828,7 @@ print.JD3_CHAINEDCALENDAR <- function (x, ...)
 print.JD3_WEIGHTEDCALENDAR <- function (x, ...)
 {
   for (index_cal in seq_along(x$weights)) {
-    cat("Calendar n°", index_cal, "\n", sep = "")
+    cat("Calendar n", index_cal, "\n", sep = "")
     cat("weight: ", x$weight[index_cal], "\n", sep = "")
     print(x$calendars[[index_cal]])
     cat("\n")
