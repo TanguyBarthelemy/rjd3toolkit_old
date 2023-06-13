@@ -32,7 +32,8 @@ to be used for defining the sub-span
 \item{preliminary.check}{a Boolean to check the quality of the input series and exclude highly problematic ones
 (e.g. the series with a number of identical observations and/or missing values above pre-specified threshold values).}
 
-\item{preprocessing}{(REGARIMA/X13 Specific) a Boolean to enable/disable the pre-processing.}
+\item{preprocessing}{(REGARIMA/X13 Specific) a Boolean to enable/disable the pre-processing.
+Option disabled for the moment.}
 }
 \description{
 Function allowing to check if the series can be processed and to define a sub-span on which
